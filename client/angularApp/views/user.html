@@ -1,0 +1,11 @@
+<h1>User</h1>
+<p>{{user.name}}</p>
+<p>Registered: {{user.date_registered}}</p>
+
+<div ng-repeat="social in user.social_network">
+	{{social.name}} - {{social.username}}
+</div>
+
+<div ng-repeat="group in user.groups">
+	<a href="./#/groups/{{group._id}}">{{group.name}} - {{group.activity}}</a>
+</div>

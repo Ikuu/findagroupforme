@@ -1,0 +1,6 @@
+<h1>Group</h1>
+<p>{{group.name}}</p>
+
+<div ng-repeat="member in group.members">
+	<a href="./#/users/{{member._id}}">{{member.name}}</a>
+</div>
