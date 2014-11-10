@@ -23,15 +23,6 @@ var userSchema = mongoose.Schema({
 		name: String,
 		username: String
 	}],
-	twitter: {
-		id: Number,
-		username: String,
-		displayName: String,
-		photos: [{
-			value: String
-		}]
-	},
-	twitData: {},
 	home_location: [Number, Number],
 	current_location: [Number, Number],
 	groups: [{type: mongoose.Schema.Types.ObjectId, ref: 'Group'}]
