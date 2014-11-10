@@ -3,12 +3,20 @@ angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'mg
 	//$locationProvider.html5Mode(true);
 	$routeProvider
 		.when('/', {
-			templateUrl: '/angularApp/views/home.html',
-			controller: 'MainCtrl'
+			templateUrl: '/angularApp/views/home.html'
+			//controller: 'MainCtrl'
+		})
+		.when('/users',{
+			templateUrl: '/angularApp/views/users.html',
+			controller: 'UsersCtrl'
 		})
 		.when('/users/:id', {
 			templateUrl: '/angularApp/views/user.html',
 			controller: 'DetailCtrl'
+		})
+		.when('/groups', {
+			templateUrl: '/angularApp/views/groups.html',
+			controller: 'GroupsCtrl'
 		})
 		.when('/groups/:id', {
 			templateUrl: '/angularApp/views/group.html',

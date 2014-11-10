@@ -1,6 +1,18 @@
-<h1>Group</h1>
-<p>{{group.name}}</p>
+<div class="container">
+	<h2>Name: {{group.name}}</h2>
+	<p>
+		Activity: {{group.activity}}</br>
+		Date Created: {{group.date_created}}
+	</p>
+	<p>
+		<button class="btn btn-info">Edit</button>
+		<button class="btn btn-danger">Delete</button>
+	</p>
+	<h3>Users</h3>
+	<div ng-repeat="member in group.members">
+		<a href="./#/users/{{member._id}}">{{member.name}}</a>
+	</div>
 
-<div ng-repeat="member in group.members">
-	<a href="./#/users/{{member._id}}">{{member.name}}</a>
+	<h3>Events</h3>
+	<p><i>None at the moment.</i></p>
 </div>
