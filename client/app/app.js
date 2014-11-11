@@ -22,7 +22,13 @@ angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'mg
 			templateUrl: '/app/views/group.html',
 			controller: 'GroupCtrl'
 		})
+		.when('/404',{
+			templateUrl: '/app/views/404.html'
+		})
+		.when('/signup',{
+			templateUrl: '/app/views/login.html'
+		})
 		.otherwise({
-			redirectTo: '/'
+			redirectTo: '/404'
 		});
 	}]);
