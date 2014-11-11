@@ -9,6 +9,7 @@
 		<button class="btn btn-danger">Delete</button>
 	</p>
 	<h3>Users</h3>
+	<li ng-show="!group.members.length">No Members!</li>
 	<div ng-repeat="member in group.members">
 		<a href="./#/users/{{member._id}}">{{member.name}}</a>
 	</div>
