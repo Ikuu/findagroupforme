@@ -4,11 +4,13 @@ Location-based group and activity finder.
 
 Install
 -----------
-Requires MongoDB to be installed.
 ```sh
 git clone http://github.com/Ikuu/findagroupforme
 npm install
+Fill in server/config/auth.js Social Network details
 ```
+
+Requires MongoDB to be installed.
 
 Tech
 -----------
