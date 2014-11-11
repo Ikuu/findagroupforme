@@ -5,6 +5,7 @@ var User = require('../models/user');
 var LocalStrategy = require('passport-local').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 module.exports = function(passport){
 	passport.serializeUser(function(user, done){
@@ -98,4 +99,33 @@ module.exports = function(passport){
 	}));
 
 	// Google+
-};
+	passport.use(new GoogleStrategy({
+		clientID: configAuth.googleAuth.clientID,
+		clientSecret: configAuth.googleAuth.clientSecret,
+		callbackURL: configAuth.googleAuth.callbackURL
+	},
+	function(accessToken, refreshToken, profile, done){
+  		process.nextTick(function(){
+  			User.findOne({'facebook.id': profile.id}, function(err, user){
+  				if (err) return handleError(err);
+  				if (user){
+  					return done(null, user);
+  				}
+  				else{
+  					var newUser = new User();
+	
+  					newUser.google.id = profile.id;
+					newUser.google.token = accessToken;
+					newUser.google.name = profile.displayName;
+					newUser.twitData = profile;
+					
+					newUser.save(function(err){
+						if (err) handleErr(err);
+					});
+	
+					return done(null, newUser);
+				}		
+			});
+		});
+	}));
+}

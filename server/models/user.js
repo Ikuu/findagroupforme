@@ -37,6 +37,12 @@ var userSchema = mongoose.Schema({
 		email: String,
 		token: String
 	},
+	google: {
+		id: Number,
+		name: String,
+		email: String,
+		token: String
+	},
 	twitData: {},
 	home_location: [Number, Number],
 	current_location: [Number, Number],

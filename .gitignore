@@ -74,4 +74,3 @@ $RECYCLE.BIN/
 *.msp
 
 # Config file
-server/config/auth.js
