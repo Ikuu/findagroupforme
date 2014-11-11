@@ -13,7 +13,7 @@ module.exports = function(grunt) {
 				banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' + '<%= grunt.template.today("yyyy-mm-dd") %> */',
 			},
 			dist: {
-				src: ['./client/scipts/**/*.js'],
+				src: ['./client/app/**/*.js'],
 				dest: './client/dist/<%= pkg.name %>.js',
 			}
 		},

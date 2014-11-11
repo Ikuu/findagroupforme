@@ -29,7 +29,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client')));
 
 // Passport Tutorial stuff, change.
-app.use(session({ secret: 'SECRET' }));
+app.use(session({secret: '<mysecret>', saveUninitialized: true, resave: true}));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 require('./routes/auth.js')(app, passport);

@@ -1,82 +1,72 @@
-// config/passport.js
-
-// load all the things we need
-var TwitterStrategy  = require('passport-twitter').Strategy;
-
-// load up the user model
-var User       = require('../models/user');
-
-// load the auth variables
 var configAuth = require('./auth');
+var User = require('../models/user');
 
-module.exports = function(passport) {
+// Strategies
+var TwitterStrategy = require('passport-twitter').Strategy;
+var LocalStrategy = require('passport-local').Strategy;
 
-    // used to serialize the user for the session
-    passport.serializeUser(function(user, done) {
-        done(null, user.id);
-    });
+module.exports = function(passport){
+	passport.serializeUser(function(user, done){
+		done(null, user.id);
+	});
 
-    // used to deserialize the user
-    passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
-            done(err, user);
-        });
-    });
-    
-    // code for login (use('local-login', new LocalStategy))
-    // code for signup (use('local-signup', new LocalStategy))
-    // code for facebook (use('facebook', new FacebookStrategy))
+	passport.deserializeUser(function(id, done){
+		User.findById(id, function(err, user){
+			done(err, user);
+		});
+	});
 
-    // =========================================================================
-    // TWITTER =================================================================
-    // =========================================================================
-    passport.use(new TwitterStrategy({
+	// Probably want to split these up.
+	// Local
+	passport.use(new LocalStrategy(
+		function(username, password, done){
+			User.findOne({username: username}, function(err, user){
+				if (err) return handleError(err);
+				if (!user){
+					return done (null, false, {message: 'incorrect username.'});
+				}
+				if (user.password != password){
+					return done (null, false, {message: 'incorrect password'});
+				}
+				return done(null, user);
+			});
+		}
+	));
 
-        consumerKey     : configAuth.twitterAuth.consumerKey,
-        consumerSecret  : configAuth.twitterAuth.consumerSecret,
-        callbackURL     : configAuth.twitterAuth.callbackURL
+	// Twitter
+	passport.use(new TwitterStrategy({
+		consumerKey : configAuth.twitterAuth.consumerKey,
+		consumerSecret : configAuth.twitterAuth.consumerSecret,
+		callbackURL : configAuth.twitterAuth.callbackURL
+	}, function(token, tokenSecret, profile, done){
+		process.nextTick(function(){
+			User.findOne({'twitter.id': profile.id}, function(err, user) {
+				if (err) return done(err);
+				if (user){
+					console.log("User already exists!");
+					return done(null, user); // user found, return that user
+				}
+				else{
+					var newUser = new User();
 
-    },
-    function(token, tokenSecret, profile, done) {
+					newUser.username = profile.username;
+					newUser.twitter.id = profile.id;
+					newUser.twitter.token = token;
+					newUser.twitter.username = profile.username;
+					newUser.twitter.displayName = profile.displayName;
+					newUser.twitData = profile._json;
 
-        // make the code asynchronous
-    // User.findOne won't fire until we have all our data back from Twitter
-        process.nextTick(function() {
+					newUser.save(function(err){
+						if (err)
+							throw err;
+						return done(null, newUser);
+					});
+				}
+			});
+		});
+	}));
 
-            User.findOne({ 'twitter.id' : profile.id }, function(err, user) {
+	// Facebook
 
-                // if there is an error, stop everything and return that
-                // ie an error connecting to the database
-                if (err)
-                    return done(err);
-
-                // if the user is found then log them in
-                if (user) {
-                    return done(null, user); // user found, return that user
-                } else {
-                    // if there is no user, create them
-                    var newUser                 = new User();
-
-                    newUser.username = profile.username;
-
-                    // set all of the user data that we need
-                    newUser.twitter.id          = profile.id;
-                    newUser.twitter.token       = token;
-                    newUser.twitter.username    = profile.username;
-                    newUser.twitter.displayName = profile.displayName;
-                    newUser.twitData			= profile._json;
-
-                    // save our user into the database
-                    newUser.save(function(err) {
-                        if (err)
-                            throw err;
-                        return done(null, newUser);
-                    });
-                }
-            });
-
-    });
-
-    }));
-
+	// Google+
 };

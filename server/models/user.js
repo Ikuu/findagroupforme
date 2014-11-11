@@ -15,7 +15,7 @@ var userSchema = mongoose.Schema({
 		country: String
 	},
 	email: String,
-	password: String,
+	password: { type: String, select: false },
 	date_of_birth: Date,
 	date_registered: {type: Date, default: Date.now},
 	activities: [String],
