@@ -1,6 +1,6 @@
 module.exports = {
 	'twitterAuth': {
-		'consumerKey'       : '',
+		'consumerKey'       : 's',
 		'consumerSecret'    : '',
 		'callbackURL'       : 'http://127.0.0.1:3000/auth/twitter/callback'
 	},
