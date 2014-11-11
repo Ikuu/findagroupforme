@@ -31,6 +31,12 @@ var userSchema = mongoose.Schema({
 			value: String
 		}]
 	},
+	facebook: {
+		id: Number,
+		name: String,
+		email: String,
+		token: String
+	},
 	twitData: {},
 	home_location: [Number, Number],
 	current_location: [Number, Number],
