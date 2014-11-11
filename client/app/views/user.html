@@ -10,6 +10,7 @@
 	<p><button class="btn btn-primary">Edit</button></p>
 	
 	<h2>Groups</h2>
+	<li ng-show="!users.groups.length">No Groups at the moment.</li>
 	<div ng-repeat="group in user.groups">
 		<a href="./#/groups/{{group._id}}">{{group.name}}</a>
 	</div>
