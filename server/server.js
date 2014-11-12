@@ -19,7 +19,8 @@ app.use('/api/users/', user);
 require('./config/passport')(passport); // pass passport for configuration
 
 // move this to another file
-mongoose.connect('mongodb://192.168.1.64/honoursTest');
+//mongoose.connect('mongodb://192.168.1.64/honoursTest');
+mongoose.connect('mongodb://localhost/honoursTest');
 
 app.set('port', process.env.PORT || 3000);
 app.use(logger('dev'));

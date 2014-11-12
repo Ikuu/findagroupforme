@@ -5,8 +5,8 @@
 		Date Created: {{group.date_created}}
 	</p>
 	<p>
-		<button class="btn btn-info">Edit</button>
-		<button class="btn btn-danger">Delete</button>
+		<button ng-click="editButton()" class="btn btn-info">Edit</button>
+		<button ng-click="deleteButton()" class="btn btn-danger">Delete</button>
 	</p>
 	<h3>Users</h3>
 	<li ng-show="!group.members.length">No Members at the moment.</li>

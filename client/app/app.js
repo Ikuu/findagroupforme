@@ -4,7 +4,6 @@ angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'mg
 	$routeProvider
 		.when('/', {
 			templateUrl: '/app/views/home.html'
-			//controller: 'MainCtrl'
 		})
 		.when('/users',{
 			templateUrl: '/app/views/users.html',
@@ -27,6 +26,9 @@ angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'mg
 		})
 		.when('/signup',{
 			templateUrl: '/app/views/login.html'
+		})
+		.when('/about', {
+			templateUrl: '/app/views/about.html'
 		})
 		.otherwise({
 			redirectTo: '/404'
