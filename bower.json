@@ -1,0 +1,27 @@
+{
+  "name": "findagroupforme",
+  "version": "0.0.0",
+  "homepage": "https://github.com/Ikuu/findagroupforme",
+  "authors": [
+    "Alexander Andrew Anderson"
+  ],
+  "description": "Location based group finder.",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "bootstrap": "~3.3.1",
+    "angular": "~1.3.2",
+    "angular-messages": "~1.3.2",
+    "angular-cookies": "~1.3.2",
+    "angular-resource": "~1.3.2",
+    "angular-route": "~1.3.2",
+  }
+}
