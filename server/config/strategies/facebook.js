@@ -21,7 +21,6 @@ module.exports = function(){
 					newUser.facebook.id = profile.id;
 					newUser.facebook.token = accessToken;
 					newUser.facebook.name = profile.displayName;
-					newUser.twitData = profile;
 
 					newUser.save(function(err){
 						if (err) handleErr(err);

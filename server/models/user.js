@@ -19,10 +19,6 @@ var userSchema = mongoose.Schema({
 	date_of_birth: Date,
 	date_registered: {type: Date, default: Date.now},
 	activities: [String],
-	social_network: [{
-		name: String,
-		username: String
-	}],
 	twitter: {
 		id: Number,
 		username: String,
@@ -43,7 +39,6 @@ var userSchema = mongoose.Schema({
 		email: String,
 		token: String
 	},
-	twitData: {},
 	home_location: [Number, Number],
 	current_location: [Number, Number],
 	groups: [{type: mongoose.Schema.Types.ObjectId, ref: 'Group'}]

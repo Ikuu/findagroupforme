@@ -24,7 +24,6 @@ module.exports = function(){
 					newUser.twitter.token = token;
 					newUser.twitter.username = profile.username;
 					newUser.twitter.displayName = profile.displayName;
-					newUser.twitData = profile._json;
 
 					newUser.save(function(err){
 						if (err)

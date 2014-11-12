@@ -21,7 +21,6 @@ module.exports = function(){
   					newUser.google.id = profile.id;
 					newUser.google.token = accessToken;
 					newUser.google.name = profile.displayName;
-					newUser.twitData = profile;
 					
 					newUser.save(function(err){
 						if (err) handleErr(err);
