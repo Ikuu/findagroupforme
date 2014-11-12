@@ -72,7 +72,3 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
-
-# Config file
-server/config/auth.js
-server/config/auth.js
