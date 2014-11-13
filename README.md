@@ -17,8 +17,8 @@ Tech
 This project makes use of a number of open source projects:
 
 * [Mongoose] - Elegant mongodb object modeling for node.js
-* [AngularJS] - Superheroic JavaScript MVW framework
 * [Express] - Fast node.js network app framework
+* [AngularJS] - Superheroic JavaScript MVW framework
 * [node.js] - Evented I/O for the backend
 
 [node.js]:http://nodejs.org
