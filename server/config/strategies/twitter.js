@@ -5,9 +5,9 @@ var configAuth = require('../auth');
 
 module.exports = function(){
 	passport.use(new TwitterStrategy({
-		consumerKey : configAuth.twitterAuth.consumerKey,
-		consumerSecret : configAuth.twitterAuth.consumerSecret,
-		callbackURL : configAuth.twitterAuth.callbackURL
+		consumerKey: configAuth.twitterAuth.consumerKey,
+		consumerSecret: configAuth.twitterAuth.consumerSecret,
+		callbackURL: configAuth.twitterAuth.callbackURL
 	}, function(token, tokenSecret, profile, done){
 		process.nextTick(function(){
 			User.findOne({'twitter.id': profile.id}, function(err, user){

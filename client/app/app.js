@@ -36,6 +36,10 @@ angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute'])
 			templateUrl: '/app/views/group/group.edit.html',
 			controller: 'GroupEditCtrl'
 		})
+		.when('/group/create', {
+			templateUrl: '/app/views/group/group.create.html',
+			controller: 'GroupCreateCtrl'
+		})
 		.otherwise({
 			redirectTo: '/404'
 		});

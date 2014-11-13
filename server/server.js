@@ -1,20 +1,26 @@
-// Need to clean this code up.
-
 // Modules
 var express = require('express');
+var mongoose = require('mongoose');
 var path = require('path');
+var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
-var mongoose = require('mongoose');
-var session = require('express-session')
+var session = require('express-session');
 
 var group = require('./routes/group');
 var user = require('./routes/user');
 
 // Application
 var app = express();
+
+app.set('port', process.env.PORT || 3000);
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, '../client')));
 
 app.use('/api/groups/', group);
 app.use('/api/users/', user);
@@ -24,13 +30,6 @@ require('./config/passport')(passport); // pass passport for configuration
 // move this to another file
 mongoose.connect('mongodb://192.168.1.64/honoursTest');
 //mongoose.connect('mongodb://localhost/honoursTest');
-
-app.set('port', process.env.PORT || 3000);
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '../client')));
 
 // Passport Tutorial stuff, change.
 app.use(session({secret: '<mysecret>', saveUninitialized: true, resave: true}));

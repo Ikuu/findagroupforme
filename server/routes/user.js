@@ -6,7 +6,7 @@ var userGroup = require('../controllers/user/user.group');
 
 router.get('/', user.index);
 router.get('/:user_id', user.findById);
-router.post('/:user_id', user.add);
+router.post('/', user.add);
 router.put('/:user_id', user.update);
 router.delete('/:user_id', user.delete)
 

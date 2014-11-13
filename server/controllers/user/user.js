@@ -17,7 +17,7 @@ exports.findById = function(req, res){
 
 exports.add = function(req, res){
 	var newUser = new User(req.body);
-	User.create(user, function(err, user){
+	User.create(newUser, function(err, user){
 		if (err) return handleError(err);
 		res.send(user);
 	});

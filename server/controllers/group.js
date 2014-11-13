@@ -17,9 +17,13 @@ exports.findById = function(req, res){
 
 exports.add = function(req, res){
 	var newGroup = new Group(req.body);
+
 	Group.create(newGroup, function(err, group){
 		if (err) return handleError(err);
-		res.send({'group': newGroup});
+		res.send({
+			_id: newGroup._id,
+			message: "Received."
+		});
 	});
 }
 
