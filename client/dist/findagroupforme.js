@@ -76,7 +76,7 @@ angular.module('MyApp')
 			});
 		};
 	}]);
-angular.module('MyApp', ['ngCookies'])
+angular.module('MyApp')
 .controller('GroupCtrl', ['$scope', '$cookies', '$location', '$routeParams', 'Group',
 	function($scope, $cookies, $location, $routeParams, Group){
 		Group.get({ _id: $routeParams.id }, function(group) {
@@ -84,7 +84,7 @@ angular.module('MyApp', ['ngCookies'])
 		});
 
 		$scope.editButton = function(){
-			//console.log($cookies["connect.sess"]);
+			console.log($cookies);
 			console.log("/groups/"+$routeParams.id+"/edit");
 			$location.path("/groups/"+$routeParams.id+"/edit");
 		};
@@ -118,7 +118,5 @@ angular.module('MyApp').factory('Group', ['$resource', function($resource) {
 	});
 }]);
 angular.module('MyApp').factory('User', ['$resource', function($resource) {
-	return $resource('/api/users/:_id', {}, {
-		update: { method: 'POST'}
-	});
+	return $resource('/api/users/:_id');
 }]);

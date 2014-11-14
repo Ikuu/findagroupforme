@@ -1,9 +1,5 @@
 module.exports = function(app, passport) {
-	app.post('/auth/login', passport.authenticate('local', {
-									successRedirect: '/',
-									failureRedirect: '/login'
-								})
-	);
+	app.post('/auth/local', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/auth' }));
 
 	// Twitter Routes
 	app.get('/auth/twitter', passport.authenticate('twitter'));
@@ -26,5 +22,4 @@ module.exports = function(app, passport) {
 		successRedirect : '/#/users',
 		failureRedirect : '/'
 	}));
-
 };
