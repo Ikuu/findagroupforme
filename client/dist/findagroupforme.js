@@ -84,7 +84,7 @@ angular.module('MyApp')
 		});
 
 		$scope.editButton = function(){
-			console.log($cookies);
+			console.log($cookies["testCookie"]);
 			console.log("/groups/"+$routeParams.id+"/edit");
 			$location.path("/groups/"+$routeParams.id+"/edit");
 		};

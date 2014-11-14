@@ -32,7 +32,7 @@ mongoose.connect('mongodb://192.168.1.64/honoursTest');
 //mongoose.connect('mongodb://localhost/honoursTest');
 
 // Passport Tutorial stuff, change.
-app.use(session({secret: '<mysecret>', saveUninitialized: true, resave: true}));
+app.use(session({secret: '<mysecret>', cookie: { maxAge: 60000 }}));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 require('./routes/auth.js')(app, passport);
