@@ -1,15 +1,21 @@
-angular.module('MyApp')
-.controller('GroupCtrl', ['$scope', '$rootScope', '$routeParams', 'Group',
-	function($scope, $rootScope, $routeParams, Group){
+angular.module('MyApp', ['ngCookies'])
+.controller('GroupCtrl', ['$scope', '$cookies', '$location', '$routeParams', 'Group',
+	function($scope, $cookies, $location, $routeParams, Group){
 		Group.get({ _id: $routeParams.id }, function(group) {
 			$scope.group = group;
 		});
 
 		$scope.editButton = function(){
-			alert("Edit Button not implemented.");
+			//console.log($cookies["connect.sess"]);
+			console.log("/groups/"+$routeParams.id+"/edit");
+			$location.path("/groups/"+$routeParams.id+"/edit");
 		};
 
 		$scope.deleteButton = function(){
-			alert("Delete Button not implemented.");
+			console.log("button clicked");
+			Group.remove({_id: $routeParams.id}).$promise.then(function(response){
+				alert("Group has been deleted!");
+				$location.path('/');
+			});
 		};
 	}]);

@@ -1,4 +1,4 @@
-/*! findagroupforme - v0.0.0 - 2014-11-13 */angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute'])
+/*! findagroupforme - v0.0.0 - 2014-11-14 */angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute'])
 .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
 	//$locationProvider.html5Mode(true);
 	$routeProvider
@@ -50,7 +50,8 @@ angular.module('MyApp')
 		$scope.createGroup = function(){
 			Group.save({
 				name: $scope.name,
-				activity: $scope.activity
+				activity: $scope.activity,
+				venue_location: [$scope.locationLat, $scope.locationLong]
 			}).$promise.then(function(response){
 				alert("Group has been added!");
 				$location.path('/groups/' + response._id);
@@ -64,23 +65,36 @@ angular.module('MyApp')
 			$scope.group = group;
 		});
 
-		$scope.editButton = function(){
-			alert("Edit Button not implemented.");
+		$scope.editGroup = function(){
+			Group.update({
+				_id: $routeParams.id,
+				name: $scope.group.name,
+				activity: $scope.group.activity,
+				venue_location: [$scope.group.venue_location[0], $scope.group.venue_location[1]],
+				date_created: $scope.group.date_created
+			}).$promise.then(function(response){
+			});
 		};
 	}]);
-angular.module('MyApp')
-.controller('GroupCtrl', ['$scope', '$rootScope', '$routeParams', 'Group',
-	function($scope, $rootScope, $routeParams, Group) {
+angular.module('MyApp', ['ngCookies'])
+.controller('GroupCtrl', ['$scope', '$cookies', '$location', '$routeParams', 'Group',
+	function($scope, $cookies, $location, $routeParams, Group){
 		Group.get({ _id: $routeParams.id }, function(group) {
 			$scope.group = group;
 		});
 
 		$scope.editButton = function(){
-			alert("Edit Button not implemented.");
+			//console.log($cookies["connect.sess"]);
+			console.log("/groups/"+$routeParams.id+"/edit");
+			$location.path("/groups/"+$routeParams.id+"/edit");
 		};
 
 		$scope.deleteButton = function(){
-			alert("Delete Button not implemented.");
+			console.log("button clicked");
+			Group.remove({_id: $routeParams.id}).$promise.then(function(response){
+				alert("Group has been deleted!");
+				$location.path('/');
+			});
 		};
 	}]);
 angular.module('MyApp')
@@ -99,8 +113,12 @@ angular.module('MyApp')
     $scope.users = User.query();
   }]);
 angular.module('MyApp').factory('Group', ['$resource', function($resource) {
-	return $resource('/api/groups/:_id');
+	return $resource('/api/groups/:_id', {}, {
+		update: {method: 'PUT', params: {_id: '@_id'}}
+	});
 }]);
 angular.module('MyApp').factory('User', ['$resource', function($resource) {
-	return $resource('/api/users/:_id');
+	return $resource('/api/users/:_id', {}, {
+		update: { method: 'POST'}
+	});
 }]);

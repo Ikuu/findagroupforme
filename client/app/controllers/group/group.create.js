@@ -4,7 +4,8 @@ angular.module('MyApp')
 		$scope.createGroup = function(){
 			Group.save({
 				name: $scope.name,
-				activity: $scope.activity
+				activity: $scope.activity,
+				venue_location: [$scope.locationLat, $scope.locationLong]
 			}).$promise.then(function(response){
 				alert("Group has been added!");
 				$location.path('/groups/' + response._id);

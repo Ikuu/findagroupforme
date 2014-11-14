@@ -16,6 +16,7 @@ exports.findById = function(req, res){
 }
 
 exports.add = function(req, res){
+	console.log(req.body);
 	var newGroup = new Group(req.body);
 
 	Group.create(newGroup, function(err, group){
@@ -28,7 +29,15 @@ exports.add = function(req, res){
 }
 
 exports.update = function(req, res){
-	res.send("To be implemented.");
+	var updatedGroup = new Group(req.body);
+	var update = {
+		"name": updatedGroup.name,
+		"activity": updatedGroup.activity,
+		"venue_location": updatedGroup.venue_location
+	};
+	Group.findByIdAndUpdate(updatedGroup._id, update, function(err){
+		res.send("Updated");
+	});
 }
 
 exports.delete = function(req, res){
