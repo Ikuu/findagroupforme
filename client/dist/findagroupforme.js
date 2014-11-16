@@ -1,9 +1,10 @@
-/*! findagroupforme - v0.0.0 - 2014-11-14 */angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute'])
+/*! findagroupforme - v0.0.0 - 2014-11-16 */angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute'])
 .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
 	//$locationProvider.html5Mode(true);
 	$routeProvider
 		.when('/', {
-			templateUrl: '/app/views/home.html'
+			templateUrl: '/app/views/home.html',
+			controller: 'HomeCtrl'
 		})
 		.when('/404',{
 			templateUrl: '/app/views/404.html'
@@ -77,20 +78,18 @@ angular.module('MyApp')
 		};
 	}]);
 angular.module('MyApp')
-.controller('GroupCtrl', ['$scope', '$cookies', '$location', '$routeParams', 'Group',
-	function($scope, $cookies, $location, $routeParams, Group){
+.controller('GroupCtrl', ['$scope', '$cookieStore', '$location', '$routeParams', 'Group',
+	function($scope, $cookieStore, $location, $routeParams, Group){
 		Group.get({ _id: $routeParams.id }, function(group) {
 			$scope.group = group;
 		});
 
 		$scope.editButton = function(){
-			console.log($cookies["testCookie"]);
 			console.log("/groups/"+$routeParams.id+"/edit");
 			$location.path("/groups/"+$routeParams.id+"/edit");
 		};
 
 		$scope.deleteButton = function(){
-			console.log("button clicked");
 			Group.remove({_id: $routeParams.id}).$promise.then(function(response){
 				alert("Group has been deleted!");
 				$location.path('/');
@@ -102,12 +101,16 @@ angular.module('MyApp')
     $scope.groups = Group.query();
   }]);
 angular.module('MyApp')
-  .controller('UserCtrl', ['$scope', '$rootScope', '$routeParams', 'User',
-    function($scope, $rootScope, $routeParams, User) {
-      User.get({ _id: $routeParams.id }, function(user) {
-        $scope.user = user;
-      });
-    }]);
+	.controller('HomeCtrl', ['$scope', '$cookieStore', function($scope, $cookieStore){
+		$scope.auth = $cookieStore.get('userid');
+	}]);
+angular.module('MyApp')
+  .controller('UserCtrl', ['$scope', '$rootScope', '$routeParams', 'User', 
+	function($scope, $rootScope, $routeParams, User) {
+		User.get({ _id: $routeParams.id }, function(user) {
+			$scope.user = user;
+		});
+	}]);
 angular.module('MyApp')
   .controller('UsersCtrl', ['$scope', 'User', function($scope, User) {
     $scope.users = User.query();

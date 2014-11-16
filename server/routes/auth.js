@@ -23,11 +23,18 @@ module.exports = function(app, passport) {
 		failureRedirect : '/'
 	}));
 
+	// Set Cookie
 	app.get('/login', function(req, res){
-		console.log(req.user);
-		res.cookie('testCookie', {
-			name: req.user.username
-		});
+		res.cookie('userid', JSON.stringify({
+			'userid': req.user._id,
+			'username': req.user.username
+        }), { maxAge: 2592000000 });  // Expires in one month
 		res.redirect('/');
 	});
+
+	// Delete Cookie
+	app.get('/logout', function(req, res){
+		res.clearCookie('userid');
+		res.redirect('/signedout');
+	})
 };

@@ -3,7 +3,8 @@ angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute'])
 	//$locationProvider.html5Mode(true);
 	$routeProvider
 		.when('/', {
-			templateUrl: '/app/views/home.html'
+			templateUrl: '/app/views/home.html',
+			controller: 'HomeCtrl'
 		})
 		.when('/404',{
 			templateUrl: '/app/views/404.html'
