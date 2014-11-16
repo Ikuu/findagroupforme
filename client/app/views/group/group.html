@@ -1,8 +1,14 @@
+<ui-gmap-google-map center='map.center' zoom='map.zoom'>
+	<ui-gmap-marker idKey='marker.id' coords='marker.coords'>
+	</ui-gmap-marker>
+</ui-gmap-google-map>
+
 <div class="container">
 	<h2>Name: {{group.name}}</h2>
 	<p>
 		Activity: {{group.activity}}</br>
-		Date Created: {{group.date_created}}
+		Date Created: {{group.date_created}}</br>
+		Description: !ADD DESCRIPTION!
 	</p>
 	<p>
 		<button ng-click="editButton()" class="btn btn-info">Edit</button>
@@ -16,13 +22,4 @@
 
 	<h3>Events</h3>
 	<li ng-show="!group.events.length">None at the moment.</li>
-
-	<h3>Map</h3>
-	<ui-gmap-google-map center='map.center' zoom='map.zoom'>
-		<ui-gmap-marker
-    	    idKey='marker.id'
-    	    coords='marker.coords'
-    	    >
-    	</ui-gmap-marker>
-	</ui-gmap-google-map>
 </div>
