@@ -1,4 +1,4 @@
-/*! findagroupforme - v0.0.0 - 2014-11-16 */angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute'])
+/*! findagroupforme - v0.0.0 - 2014-11-16 */angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'google-maps'.ns()])
 .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
 	//$locationProvider.html5Mode(true);
 	$routeProvider
@@ -78,10 +78,26 @@ angular.module('MyApp')
 		};
 	}]);
 angular.module('MyApp')
-.controller('GroupCtrl', ['$scope', '$cookieStore', '$location', '$routeParams', 'Group',
-	function($scope, $cookieStore, $location, $routeParams, Group){
+.controller('GroupCtrl', ['$scope', '$location', '$routeParams', 'Group',
+	function($scope, $location, $routeParams, Group){
 		Group.get({ _id: $routeParams.id }, function(group) {
 			$scope.group = group;
+
+			$scope.map = {
+				center:{
+					latitude: group.venue_location[0],
+					longitude: group.venue_location[1]
+				},
+				zoom: 15
+			};
+
+			$scope.marker = {
+				id: 0,
+				coords: {
+					latitude: group.venue_location[0],
+					longitude: group.venue_location[1]
+				}
+			}
 		});
 
 		$scope.editButton = function(){

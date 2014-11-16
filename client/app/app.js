@@ -1,4 +1,4 @@
-angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute'])
+angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'google-maps'.ns()])
 .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
 	//$locationProvider.html5Mode(true);
 	$routeProvider
