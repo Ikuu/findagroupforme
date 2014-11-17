@@ -18,18 +18,13 @@ var db = require('./config/db')
 // Application
 var app = express();
 
+mongoose.connect(db.url);
 app.set('port', process.env.PORT || 3000);
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client')));
-
-// move this to another file
-mongoose.connect(db.url);
-//mongoose.connect('mongodb://localhost/honoursTest');
-
-// Passport Tutorial stuff, change.
 app.use(session({
 	secret: '<mysecret>',
 	store: new MongoStore({
@@ -38,9 +33,9 @@ app.use(session({
 	resave: true,
 	saveUninitialized: true
 }));
-require('./config/passport.js')(passport); // pass passport for configuration
+require('./config/passport.js')(passport);
 app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
+app.use(passport.session());
 
 // Routes
 app.use('/api/groups/', group);
