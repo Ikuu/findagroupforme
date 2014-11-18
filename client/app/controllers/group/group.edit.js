@@ -11,7 +11,8 @@ angular.module('MyApp')
 				name: $scope.group.name,
 				activity: $scope.group.activity,
 				venue_location: [$scope.group.venue_location[0], $scope.group.venue_location[1]],
-				date_created: $scope.group.date_created
+				date_created: $scope.group.date_created,
+				members: $scope.group.members
 			}).$promise.then(function(response){
 			});
 		};

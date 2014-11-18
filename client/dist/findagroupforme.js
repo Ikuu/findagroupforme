@@ -1,4 +1,4 @@
-/*! findagroupforme - v0.0.0 - 2014-11-16 */angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'google-maps'.ns()])
+/*! findagroupforme - v0.0.0 - 2014-11-18 */angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'google-maps'.ns()])
 .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
 	//$locationProvider.html5Mode(true);
 	$routeProvider
@@ -72,7 +72,8 @@ angular.module('MyApp')
 				name: $scope.group.name,
 				activity: $scope.group.activity,
 				venue_location: [$scope.group.venue_location[0], $scope.group.venue_location[1]],
-				date_created: $scope.group.date_created
+				date_created: $scope.group.date_created,
+				members: $scope.group.members
 			}).$promise.then(function(response){
 			});
 		};
