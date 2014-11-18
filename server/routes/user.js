@@ -1,16 +1,16 @@
 var express = require('express');
 var router = express.Router();
 
-var user = require('../controllers/user/user');
-var userGroup = require('../controllers/user/user.group');
+var UserController = require('../controllers/user/user');
+var UserGroupController = require('../controllers/user/user.group');
 
-router.get('/', user.index);
-router.get('/:user_id', user.findById);
-router.post('/', user.add);
-router.put('/:user_id', user.update);
-router.delete('/:user_id', user.delete)
+router.get('/', UserController.index);
+router.get('/:user_id', UserController.findById);
+router.post('/', UserController.add);
+router.put('/:user_id', UserController.update);
+router.delete('/:user_id', UserController.delete)
 
-router.get('/group/:group_id', userGroup.joinGroup);
-router.delete('/group/:group_id', userGroup.removeGroup);
+router.get('/group/:group_id', UserGroupController.joinGroup);
+router.delete('/group/:group_id', UserGroupController.removeGroup);
 
 module.exports = router;
