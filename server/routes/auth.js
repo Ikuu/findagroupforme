@@ -31,7 +31,6 @@ module.exports = function(app, passport) {
 
 	// Debug function, prints session
 	app.get('/log', function(req, res){
-		console.log(req.isAuthenticated());
 		res.send(req.session);
 	});
 

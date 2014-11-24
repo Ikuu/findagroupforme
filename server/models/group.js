@@ -33,12 +33,10 @@ var groupSchema = mongoose.Schema({
 });
 
 groupSchema.pre('save', function (next) {
-	console.log("Updated!");
 	next();
 });
 
 groupSchema.pre('remove', function (next) {
-	console.log("Deleted!");
 	next();
 });
 
