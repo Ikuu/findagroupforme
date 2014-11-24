@@ -1,4 +1,4 @@
-/*! findagroupforme - v0.0.0 - 2014-11-18 */angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'google-maps'.ns()])
+/*! findagroupforme - v0.0.0 - 2014-11-24 */angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'google-maps'.ns()])
 .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
 	//$locationProvider.html5Mode(true);
 	$routeProvider
@@ -9,11 +9,14 @@
 		.when('/404',{
 			templateUrl: '/app/views/404.html'
 		})
-		.when('/signup',{
+		.when('/login',{
 			templateUrl: '/app/views/login.html'
 		})
 		.when('/about', {
 			templateUrl: '/app/views/about.html'
+		})
+		.when('/signup', {
+			templateUrl: '/app/views/signup.html'
 		})
 		// User Routes
 		.when('/users',{
@@ -114,13 +117,13 @@ angular.module('MyApp')
 		};
 	}]);
 angular.module('MyApp')
-  .controller('GroupsCtrl', ['$scope', 'Group', function($scope, Group) {
-    $scope.groups = Group.query();
-  }]);
+.controller('GroupsCtrl', ['$scope', 'Group', function($scope, Group) {
+	$scope.groups = Group.query();
+}]);
 angular.module('MyApp')
-	.controller('HomeCtrl', ['$scope', '$cookieStore', function($scope, $cookieStore){
-		$scope.auth = $cookieStore.get('userid');
-	}]);
+.controller('HomeCtrl', ['$scope', '$cookieStore', function($scope, $cookieStore){
+	$scope.auth = $cookieStore.get('userid');
+}]);
 angular.module('MyApp')
   .controller('UserCtrl', ['$scope', '$rootScope', '$routeParams', 'User', 
 	function($scope, $rootScope, $routeParams, User) {
@@ -129,9 +132,9 @@ angular.module('MyApp')
 		});
 	}]);
 angular.module('MyApp')
-  .controller('UsersCtrl', ['$scope', 'User', function($scope, User) {
-    $scope.users = User.query();
-  }]);
+.controller('UsersCtrl', ['$scope', 'User', function($scope, User) {
+	$scope.users = User.query();
+}]);
 angular.module('MyApp').factory('Group', ['$resource', function($resource) {
 	return $resource('/api/groups/:_id', {}, {
 		update: {method: 'PUT', params: {_id: '@_id'}}

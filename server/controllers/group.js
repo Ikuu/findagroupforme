@@ -15,8 +15,8 @@ exports.findById = function(req, res){
 	});
 }
 
+// Need to pass in user that creates the object, so they can be the first user added to group
 exports.add = function(req, res){
-	console.log(req.body);
 	var newGroup = new Group(req.body);
 
 	Group.create(newGroup, function(err, group){

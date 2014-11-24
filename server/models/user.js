@@ -9,7 +9,7 @@ var userSchema = mongoose.Schema({
 	name: String,
 	username: String,
 	address: {
-		street_name: String, 
+		street: String, 
 		city: String,
 		post_code: String,
 		country: String

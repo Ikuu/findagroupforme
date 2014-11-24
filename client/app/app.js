@@ -9,11 +9,14 @@ angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'go
 		.when('/404',{
 			templateUrl: '/app/views/404.html'
 		})
-		.when('/signup',{
+		.when('/login',{
 			templateUrl: '/app/views/login.html'
 		})
 		.when('/about', {
 			templateUrl: '/app/views/about.html'
+		})
+		.when('/signup', {
+			templateUrl: '/app/views/signup.html'
 		})
 		// User Routes
 		.when('/users',{
