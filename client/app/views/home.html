@@ -1,5 +1,5 @@
 <div class="container">
 	<h2>Home</h2>
-	<p ng-if="auth != null">Hello <a href="/#/users/{{auth.userid}}">{{auth.username}}</a>, you are currently signed in!</p>
-	<p ng-if="auth == null">You are not signed in!</p>
+	<p ng-if="s.data.username == null">You are not signed in!</p>
+	<p ng-if="s.data.username != null">You are signed in as {{s.data.username}}.</p>
 </div>

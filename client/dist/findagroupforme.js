@@ -123,8 +123,8 @@ angular.module('MyApp')
 	$scope.groups = Group.query();
 }]);
 angular.module('MyApp')
-.controller('HomeCtrl', ['$scope', '$cookieStore', function($scope, $cookieStore){
-	$scope.auth = $cookieStore.get('userid');
+.controller('HomeCtrl', ['$scope', 'Session', function($scope, Session){
+	$scope.s = Session;
 }]);
 angular.module('MyApp')
   .controller('UserCtrl', ['$scope', '$rootScope', '$routeParams', 'User', 
@@ -142,6 +142,19 @@ angular.module('MyApp').factory('Group', ['$resource', function($resource) {
 		update: {method: 'PUT', params: {_id: '@_id'}}
 	});
 }]);
+angular.module('MyApp').factory('Session', function($http) {
+	var Session = {
+		data: {},
+		getData: function() {
+			$http.get('/session').then(function(res){
+				Session.data = res.data;
+			})
+		}
+	};
+
+	Session.getData();
+	return Session;
+});
 angular.module('MyApp').factory('User', ['$resource', function($resource) {
 	return $resource('/api/users/:_id');
 }]);

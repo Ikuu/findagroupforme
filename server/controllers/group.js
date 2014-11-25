@@ -1,7 +1,7 @@
 var User = require('../models/user');
 var Group = require('../models/group');
 
-exports.index = function(req, res){
+exports.index = function(req, res) {
 	Group.find().populate('members', 'name').exec(function (err, group){
 		if (err) return handleError(err);
 		res.send(group);
@@ -11,7 +11,7 @@ exports.index = function(req, res){
 exports.findById = function(req, res){
 	Group.findOne({_id: req.params.group_id}).populate('members', 'name').exec(function(err, group){
 		if (err) return handleError(err);
-		res.send(group)
+		res.send(group);
 	});
 }
 

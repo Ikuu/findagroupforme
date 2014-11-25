@@ -9,7 +9,7 @@ mongoose.connect('mongodb://localhost/findagroupforme-test');
 describe('User Model Unit Tests:', function(){
 	before(function(done){
 		user = new User({
-			username: "Ikuu",
+			username: "Ikuu"
 		});
 
 		done();

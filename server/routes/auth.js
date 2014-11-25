@@ -34,6 +34,11 @@ module.exports = function(app, passport) {
 		res.send(req.session);
 	});
 
+	app.get('/session', function(req, res){
+		// Need to strip password
+		res.send(req.user);
+	});
+
 	app.get('/logout', function(req, res){
 		req.session.destroy();
 		res.redirect('/');
