@@ -1,13 +1,13 @@
-exports.checkIfLoggedIn = function(req, res, next){
-	req.isAuthenticated() == true ? next() : res.status(403).end();
+exports.checkIfLoggedIn = function(req, res, next) {
+	req.isAuthenticated() === true ? next() : res.status(403).end();
 }
 
-exports.checkIfNotLoggedIn = function(req, res, next){
-	req.isAuthenticated() == false ? next() : res.status(403).end();
+exports.checkIfNotLoggedIn = function(req, res, next) {
+	req.isAuthenticated() === false ? next() : res.status(403).end();
 }
 
-exports.checkIfCorrectUser = function(req, res, next){
-	req.session.passport.user == req.body._id ? next() : res.status(403).end();
+exports.checkIfCorrectUser = function(req, res, next) {
+	req.session.passport.user === req.body._id ? next() : res.status(403).end();
 }
 
 /*

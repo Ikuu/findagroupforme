@@ -12,10 +12,8 @@ module.exports = function(){
 		process.nextTick(function(){
 			User.findOne({'facebook.id': profile.id}, function(err, user){
 				if (err) return handleError(err);
-				if (user){
-					return done(null, user);
-				}
-				else{
+				if (user) return done(null, user);
+				else {
 					var newUser = new User();
 
 					newUser.facebook.id = profile.id;
