@@ -15,9 +15,16 @@ exports.findById = function(req, res){
 	});
 }
 
-// Need to pass in user that creates the object, so they can be the first user added to group
 exports.add = function(req, res){
 	var newGroup = new Group(req.body);
+	newGroup.members.push(req.user._id);
+
+	User.findOne({_id: req.user._id}).exec(function(err, user){
+		user.groups.push(newGroup._id);
+		user.save(function(err){
+			if (err) return handleError(err);
+		});
+	});
 
 	Group.create(newGroup, function(err, group){
 		if (err) return handleError(err);
@@ -32,6 +39,7 @@ exports.update = function(req, res){
 	var updatedGroup = new Group(req.body);
 	var update = {
 		"name": updatedGroup.name,
+		"description": updatedGroup.description,
 		"activity": updatedGroup.activity,
 		"venue_location": updatedGroup.venue_location
 	};

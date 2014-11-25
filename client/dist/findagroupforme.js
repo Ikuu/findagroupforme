@@ -1,4 +1,4 @@
-/*! findagroupforme - v0.0.0 - 2014-11-24 */angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'google-maps'.ns()])
+/*! findagroupforme - v0.0.0 - 2014-11-25 */angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'google-maps'.ns()])
 .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
 	//$locationProvider.html5Mode(true);
 	$routeProvider
@@ -55,6 +55,7 @@ angular.module('MyApp')
 			Group.save({
 				name: $scope.name,
 				activity: $scope.activity,
+				description: $scope.description,
 				venue_location: [$scope.locationLat, $scope.locationLong]
 			}).$promise.then(function(response){
 				alert("Group has been added!");
@@ -73,6 +74,7 @@ angular.module('MyApp')
 			Group.update({
 				_id: $routeParams.id,
 				name: $scope.group.name,
+				description: $scope.group.description,
 				activity: $scope.group.activity,
 				venue_location: [$scope.group.venue_location[0], $scope.group.venue_location[1]],
 				date_created: $scope.group.date_created,

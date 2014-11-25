@@ -9,6 +9,7 @@ var mongoose = require('mongoose');
 
 var groupSchema = mongoose.Schema({
 	name: String,
+	description: String,
 	date_created: {type: Date, default: Date.now},
 	activity: String,
 	venue_location: [Number, Number],
