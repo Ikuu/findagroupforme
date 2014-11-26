@@ -34,9 +34,13 @@ module.exports = function(app, passport) {
 		res.send(req.session);
 	});
 
-	app.get('/session', function(req, res){
-		// Need to strip password
-		res.send(req.user);
+	app.get('/session', function(req, res) {
+		if (!req.user) res.send({});
+		else {
+			var loggedInUser = req.user;
+			loggedInUser.password = undefined;
+			res.send(loggedInUser);
+		}
 	});
 
 	app.get('/logout', function(req, res){
