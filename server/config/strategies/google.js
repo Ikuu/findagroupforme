@@ -10,7 +10,7 @@ module.exports = function(){
 		callbackURL: configAuth.googleAuth.callbackURL
 	}, function(accessToken, refreshToken, profile, done){
   		process.nextTick(function(){
-  			User.findOne({'facebook.id': profile.id}, function(err, user){
+  			User.findOne({'google.id': profile.id}, function(err, user){
   				if (err) return handleError(err);
   				if (user){
   					return done(null, user);
