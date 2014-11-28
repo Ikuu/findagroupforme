@@ -17,4 +17,4 @@ module.exports = function(passport){
 	require('./strategies/twitter')();
 	require('./strategies/facebook')();
 	require('./strategies/google')();
-}
+};

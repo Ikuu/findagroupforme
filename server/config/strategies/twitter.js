@@ -1,6 +1,6 @@
 var passport = require('passport');
 var TwitterStrategy = require('passport-twitter').Strategy;
-var User = require('../../models/user')
+var User = require('../../models/user');
 var configAuth = require('../auth');
 
 module.exports = function(){
@@ -34,4 +34,4 @@ module.exports = function(){
 			});
 		});
 	}));
-}
+};

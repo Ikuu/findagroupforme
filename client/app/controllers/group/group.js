@@ -18,7 +18,7 @@ angular.module('MyApp')
 					latitude: group.venue_location[0],
 					longitude: group.venue_location[1]
 				}
-			}
+			};
 		});
 
 		$scope.editButton = function(){

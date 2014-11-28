@@ -17,7 +17,7 @@ exports.joinGroup = function(req, res){
 	});
 
 	res.send("Should have worked!");
-}
+};
 
 exports.removeGroup = function(req, res){
 	User.findOne({_id: req.params.user_id}).exec(function(err, user){
@@ -35,4 +35,4 @@ exports.removeGroup = function(req, res){
 	});
 
 	res.send("Should have worked!");
-}
+};

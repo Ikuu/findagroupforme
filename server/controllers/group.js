@@ -6,14 +6,14 @@ exports.index = function(req, res) {
 		if (err) return handleError(err);
 		res.send(group);
 	});
-}
+};
 
 exports.findById = function(req, res){
 	Group.findOne({_id: req.params.group_id}).populate('members', 'name').exec(function(err, group){
 		if (err) return handleError(err);
 		res.send(group);
 	});
-}
+};
 
 exports.add = function(req, res){
 	var newGroup = new Group(req.body);
@@ -33,7 +33,7 @@ exports.add = function(req, res){
 			message: "Received."
 		});
 	});
-}
+};
 
 exports.update = function(req, res){
 	var updatedGroup = new Group(req.body);
@@ -46,7 +46,7 @@ exports.update = function(req, res){
 	Group.findByIdAndUpdate(updatedGroup._id, update, function(err){
 		res.send("Updated");
 	});
-}
+};
 
 exports.delete = function(req, res){
 	// Would want to remove all of the members from the group too. Grab all the Member IDs from the group and loop through each and remove from that user. Might want to see if this can be done in one call.
@@ -55,4 +55,4 @@ exports.delete = function(req, res){
 		if (err) return handleError(err);
 		res.send({});
 	});
-}
+};

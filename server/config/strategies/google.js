@@ -1,6 +1,6 @@
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-var User = require('../../models/user')
+var User = require('../../models/user');
 var configAuth = require('../auth');
 
 module.exports = function(){
@@ -31,4 +31,4 @@ module.exports = function(){
 			});
 		});
 	}));
-}
+};
