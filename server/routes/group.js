@@ -10,4 +10,7 @@ router.post('/', AuthGroupController.checkIfLoggedIn, GroupController.add);
 router.put('/:group_id', AuthGroupController.hasGroupPermission, GroupController.update);
 router.delete('/:group_id', AuthGroupController.hasGroupPermission, GroupController.delete);
 
+router.put('/:group_id/addUser', AuthGroupController.checkIfLoggedIn, GroupController.addUserToGroup);
+router.put('/:group_id/removeUser', AuthGroupController.checkIfLoggedIn, GroupController.removeUserFromGroup);
+
 module.exports = router;

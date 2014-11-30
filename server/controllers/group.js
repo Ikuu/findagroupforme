@@ -56,3 +56,41 @@ exports.delete = function(req, res){
 		res.send({});
 	});
 };
+
+// Need to check if User is already in the group, can join the group etc.
+exports.addUserToGroup = function(req, res){
+	console.log(req.body);
+	User.findOne({_id: req.user._id}).exec(function(err, user){
+		user.groups.push(req.params.group_id);
+		user.save(function(err){
+			if (err) return handleError(err);
+		});
+	});
+
+	Group.findOne({_id: req.params.group_id}).exec(function(err, group){
+		group.members.push(req.user._id);
+		group.save(function(err){
+			if (err) return handleError(err);
+		});
+	});
+
+	res.send({message: "Joined Group"});
+};
+
+exports.removeUserFromGroup = function(req, res){
+	User.findOne({_id: req.user._id}).exec(function(err, user){
+		user.groups.pull(req.params.group_id);
+		user.save(function(err){
+			if (err) return handleError(err);
+		});
+	});
+
+	Group.findOne({_id: req.params.group_id}).exec(function(err, group){
+		group.members.pull(req.user._id);
+		group.save(function(err){
+			if (err) return handleError(err);
+		});
+	});
+
+	res.send({message: "Left Group"});
+};

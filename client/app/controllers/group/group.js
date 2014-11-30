@@ -1,6 +1,6 @@
 angular.module('MyApp')
-.controller('GroupCtrl', ['$scope', '$location', '$routeParams', 'Group',
-	function($scope, $location, $routeParams, Group){
+.controller('GroupCtrl', ['$scope', '$location', '$routeParams', '$route', 'Group',
+	function($scope, $location, $routeParams, $route, Group){
 		$scope.group = Group.get({ _id: $routeParams.id }, function(group) {
 			$scope.map = {
 				center:{
@@ -24,7 +24,6 @@ angular.module('MyApp')
 		});
 
 		$scope.editButton = function(){
-			console.log("/groups/"+$routeParams.id+"/edit");
 			$location.path("/groups/"+$routeParams.id+"/edit");
 		};
 
@@ -32,6 +31,20 @@ angular.module('MyApp')
 			Group.remove({_id: $routeParams.id}).$promise.then(function(response){
 				alert("Group has been deleted!");
 				$location.path('/');
+			});
+		};
+
+		$scope.joinButton = function(){
+			Group.addUser({_id: $routeParams.id}).$promise.then(function(response){
+				alert("You have joined the group!");
+				$route.reload();
+			});
+		};
+
+		$scope.leaveButton = function(){
+			Group.removeUser({_id: $routeParams.id}).$promise.then(function(response){
+				alert("You have left the group!");
+				$location.path("/");
 			});
 		};
 	}]);
