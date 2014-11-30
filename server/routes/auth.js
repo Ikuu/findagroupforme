@@ -35,7 +35,9 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/session', function(req, res) {
-		if (!req.user) res.send({});
+		if (!req.user){
+			res.status(403).end();
+		}
 		else {
 			var loggedInUser = req.user;
 			loggedInUser.password = undefined;

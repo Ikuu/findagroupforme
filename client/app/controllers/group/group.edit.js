@@ -1,8 +1,12 @@
 angular.module('MyApp')
-.controller('GroupEditCtrl', ['$scope', '$rootScope', '$routeParams', 'Group',
-	function($scope, $rootScope, $routeParams, Group) {
+.controller('GroupEditCtrl', ['$scope', '$location', '$routeParams', 'Group',
+	function($scope, $location, $routeParams, Group) {
 		Group.get({ _id: $routeParams.id }, function(group) {
 			$scope.group = group;
+		}, function(response){
+			if (response.status === 403){
+				$location.path('/login');
+			}
 		});
 
 		$scope.editGroup = function(){

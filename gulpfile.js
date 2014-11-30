@@ -4,6 +4,7 @@ var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var jshint = require('gulp-jshint');
+var plumber = require('gulp-plumber');
 
 gulp.task('lint', function(){
 	return gulp.src('client/app/**/*.js')
@@ -13,6 +14,7 @@ gulp.task('lint', function(){
 
 gulp.task('angular', function(){
 	return gulp.src('client/app/**/*.js')
+		.pipe(plumber())
 		.pipe(concat('app.min.js'))
 		.pipe(uglify())
 		.pipe(gulp.dest('client/dist'));
