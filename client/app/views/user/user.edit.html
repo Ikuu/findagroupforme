@@ -1,0 +1,26 @@
+<div class="container">
+	<h2>{{user.username}}</h2>
+	<form class="form" method="post" ng-submit="editUser()">
+		<div>
+			<label>Name:</label>
+			<input type="text" name="name" ng-model="user.name"/>
+		</div>
+		<div>
+			<label>Email:</label>
+			<input type="text" name="email" ng-model="user.email"/>
+		</div>
+		<div>
+			<label>Home Location (Co-Ords):</label>
+			<input type="text" name="latitude" ng-model="user.home_location[0]"/>
+			<input type="text" name="longitude" ng-model="user.home_location[1]"/>
+		</div>
+		<div>
+			<label>Current Location (Co-Ords):</label>
+			<input type="text" name="latitude" ng-model="user.current_location[0]"/>
+			<input type="text" name="longitude" ng-model="user.current_location[1]"/>
+		</div>
+		<div>
+			 <button class="btn btn-primary" type="submit">Save</button>
+		</div>
+	</form>
+</div>

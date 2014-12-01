@@ -8,6 +8,8 @@ router.get('/', UserController.index);
 router.get('/:user_id', AuthUserController.checkIfLoggedIn, UserController.findById);	
 router.post('/', AuthUserController.checkIfNotLoggedIn, UserController.add);				
 router.put('/:user_id', AuthUserController.checkIfCorrectUser, UserController.update);		
-router.delete('/:user_id', UserController.delete);	
+router.delete('/:user_id', UserController.delete);
+
+router.get('/session/active', AuthUserController.checkIfLoggedIn, UserController.findLoggedInUser);
 
 module.exports = router;

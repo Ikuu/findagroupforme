@@ -2,14 +2,14 @@ var User = require('../models/user');
 var Group = require('../models/group');
 
 exports.index = function(req, res) {
-	Group.find().populate('members', 'name').exec(function (err, group){
+	Group.find().populate('members', 'name current_location').exec(function (err, group){
 		if (err) return handleError(err);
 		res.send(group);
 	});
 };
 
 exports.findById = function(req, res){
-	Group.findOne({_id: req.params.group_id}).populate('members', 'name').exec(function(err, group){
+	Group.findOne({_id: req.params.group_id}).populate('members', 'name current_location').exec(function(err, group){
 		if (err) return handleError(err);
 		res.send(group);
 	});
@@ -43,6 +43,7 @@ exports.update = function(req, res){
 		"activity": updatedGroup.activity,
 		"venue_location": updatedGroup.venue_location
 	};
+
 	Group.findByIdAndUpdate(updatedGroup._id, update, function(err){
 		res.send("Updated");
 	});
@@ -59,7 +60,6 @@ exports.delete = function(req, res){
 
 // Need to check if User is already in the group, can join the group etc.
 exports.addUserToGroup = function(req, res){
-	console.log(req.body);
 	User.findOne({_id: req.user._id}).exec(function(err, user){
 		user.groups.push(req.params.group_id);
 		user.save(function(err){

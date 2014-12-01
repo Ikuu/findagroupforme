@@ -9,7 +9,7 @@ angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'go
 		.when('/404',{
 			templateUrl: '/app/views/404.html'
 		})
-		.when('/login',{
+		.when('/login', {
 			templateUrl: '/app/views/login.html'
 		})
 		.when('/about', {
@@ -19,13 +19,18 @@ angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'go
 			templateUrl: '/app/views/signup.html'
 		})
 		// User Routes
-		.when('/users',{
+		.when('/users', {
 			templateUrl: '/app/views/users.html',
 			controller: 'UsersCtrl'
 		})
 		.when('/users/:id', {
 			templateUrl: '/app/views/user/user.html',
 			controller: 'UserCtrl'
+		})
+		// Profile
+		.when('/profile/edit',{
+			templateUrl: '/app/views/user/user.edit.html',
+			controller: 'UserEditCtrl'
 		})
 		// Group Routes
 		.when('/groups', {
