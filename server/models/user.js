@@ -1,8 +1,3 @@
-/*
-	User 2.0
-	Attempting to create the 'final' model for a User. Might want to add more fields.
-	Groups needs to really be looked at.
-*/
 var mongoose = require('mongoose');
 
 var userSchema = mongoose.Schema({

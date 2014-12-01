@@ -23,4 +23,13 @@
 			 <button class="btn btn-primary" type="submit">Save</button>
 		</div>
 	</form>
+
+	<h2>Groups</h2>
+	<li ng-show="!user.groups.length">No Groups at the moment.</li>
+	<div ng-repeat="group in user.groups">
+		<a href="./#/groups/{{group._id}}">{{group.name}}</a>
+	</div>
+
+	<h2>Social Media</h2>
+	<p>CONNECT SOCIAL MEDIAS HERE</p>
 </div>

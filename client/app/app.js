@@ -18,17 +18,8 @@ angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'go
 		.when('/signup', {
 			templateUrl: '/app/views/signup.html'
 		})
-		// User Routes
-		.when('/users', {
-			templateUrl: '/app/views/users.html',
-			controller: 'UsersCtrl'
-		})
-		.when('/users/:id', {
-			templateUrl: '/app/views/user/user.html',
-			controller: 'UserCtrl'
-		})
 		// Profile
-		.when('/profile/edit',{
+		.when('/settings',{
 			templateUrl: '/app/views/user/user.edit.html',
 			controller: 'UserEditCtrl'
 		})
@@ -48,6 +39,15 @@ angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'go
 		.when('/group/create', {
 			templateUrl: '/app/views/group/group.create.html',
 			controller: 'GroupCreateCtrl'
+		})
+		// User Routes
+		.when('/users', {
+			templateUrl: '/app/views/users.html',
+			controller: 'UsersCtrl'
+		})
+		.when('/user/:id', {
+			templateUrl: '/app/views/user/user.html',
+			controller: 'UserCtrl'
 		})
 		.otherwise({
 			redirectTo: '/404'

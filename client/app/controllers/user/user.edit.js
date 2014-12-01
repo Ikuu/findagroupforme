@@ -1,3 +1,4 @@
+// Rename to settings.
 angular.module('MyApp')
 .controller('UserEditCtrl', ['$scope','$routeParams', 'User', '$location',
 	function($scope, $routeParams, User, $location){
