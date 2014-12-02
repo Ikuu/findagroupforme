@@ -3,7 +3,7 @@ angular.module('App.user', ['ngRoute'])
 	$routeProvider
 		// Profile
 		.when('/settings',{
-			templateUrl: '/app/modules/user/views/user/user.edit.html',
+			templateUrl: './app/modules/user/views/user.edit.html',
 			controller: 'UserEditCtrl'
 		})
 		// User Routes
