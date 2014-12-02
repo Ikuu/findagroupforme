@@ -1,4 +1,4 @@
-angular.module('MyApp')
+angular.module('App.group')
 .controller('GroupCreateCtrl', function($scope, $rootScope, $location, Group) {
 		$scope.createGroup = function(){
 			Group.save({

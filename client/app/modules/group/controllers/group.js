@@ -1,4 +1,4 @@
-angular.module('MyApp')
+angular.module('App.group')
 .controller('GroupCtrl', function($scope, $location, $routeParams, $route, Group){
 	$scope.group = Group.get({ _id: $routeParams.id }, function(group) {
 		$scope.map = {

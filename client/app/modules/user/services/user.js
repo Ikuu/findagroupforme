@@ -1,4 +1,4 @@
-angular.module('MyApp')
+angular.module('App.user')
 .factory('User', function($resource) {
 	return $resource('/api/users/:_id', {}, {
 		update:{
