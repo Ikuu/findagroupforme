@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 
-// Plugins
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var jshint = require('gulp-jshint');
@@ -23,7 +22,7 @@ gulp.task('angular', function(){
 });
 
 gulp.task('watch-angular', function(){
-	gulp.watch('client/app/**/*.js', ['angular', 'lint']);
+	gulp.watch('client/app/**/*.js', ['lint', 'angular']);
 });
 
 gulp.task('lint-back', function(){
