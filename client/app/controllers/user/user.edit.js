@@ -16,7 +16,7 @@ angular.module('MyApp')
 			name: $scope.user.name,
 			email: $scope.user.email,
 			home_location: [$scope.user.home_location[0], $scope.user.home_location[0]],
-			current_location: [$scope.user.current_location[0], $scope.user.current_location[0]]
+			current_location: [$scope.user.current_location[0], $scope.user.current_location[1]]
 		}).$promise.then(function(response){
 			console.log(response.error);
 		});

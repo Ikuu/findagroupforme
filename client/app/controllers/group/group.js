@@ -16,6 +16,15 @@ angular.module('MyApp')
 				longitude: group.venue_location[1]
 			}
 		};
+		
+		$scope.marker2 = {
+			id: 0,
+			coords: {
+				latitude: group.members[0].current_location[0],
+				longitude: group.members[0].current_location[1]
+			}
+		};
+
 	}, function(response){
 		if (response.status === 403){
 			$location.path('/login');
