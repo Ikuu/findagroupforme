@@ -40,6 +40,7 @@ angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'go
 			templateUrl: '/app/views/group/group.create.html',
 			controller: 'GroupCreateCtrl'
 		})
+
 		// User Routes
 		.when('/users', {
 			templateUrl: '/app/views/users.html',

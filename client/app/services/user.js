@@ -1,4 +1,4 @@
-angular.module('MyApp').factory('User', ['$resource', function($resource) {
+angular.module('MyApp').factory('User', function($resource) {
 	return $resource('/api/users/:_id', {}, {
 		update:{
 			method: 'PUT',
@@ -9,4 +9,4 @@ angular.module('MyApp').factory('User', ['$resource', function($resource) {
 			url: '/api/users/session/active'
 		}
 	});
-}]);
+});

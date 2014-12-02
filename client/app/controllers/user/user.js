@@ -1,6 +1,5 @@
 angular.module('MyApp')
-  .controller('UserCtrl', ['$scope','$routeParams', 'User', '$location',
-  	function($scope, $routeParams, User, $location) {
+  .controller('UserCtrl', function($scope, $routeParams, User, $location) {
   		User.get({ _id: $routeParams.id }, function(user){
   			$scope.user = user;
 		}, function(response){
@@ -8,4 +7,4 @@ angular.module('MyApp')
 				$location.path('/login');
 			}
 		});
-	}]);
+	});

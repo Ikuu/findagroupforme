@@ -1,7 +1,6 @@
 // Rename to settings.
 angular.module('MyApp')
-.controller('UserEditCtrl', ['$scope','$routeParams', 'User', '$location',
-	function($scope, $routeParams, User, $location){
+.controller('UserEditCtrl', function($scope, $routeParams, User, $location){
 		User.getSignedInUser({}, function(user){
 			$scope.user = user;
 		}, function(response){
@@ -22,4 +21,4 @@ angular.module('MyApp')
 				console.log(response.error);
 			});
 		};
-	}]);
+	});

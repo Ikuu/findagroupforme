@@ -26,6 +26,10 @@ module.exports = function(app, passport) {
 	}));
 
 	app.get('/login', function(req, res){
+		res.cookie('userid', JSON.stringify({
+			'userid': req.user._id,
+			'username': req.user.username
+        }), { maxAge: 2592000000 });  // Expires in one month
 		res.redirect('/');
 	});
 

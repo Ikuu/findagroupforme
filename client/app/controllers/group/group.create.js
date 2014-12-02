@@ -1,6 +1,5 @@
 angular.module('MyApp')
-.controller('GroupCreateCtrl', ['$scope', '$rootScope', '$location', 'Group',
-	function($scope, $rootScope, $location, Group) {
+.controller('GroupCreateCtrl', function($scope, $rootScope, $location, Group) {
 		$scope.createGroup = function(){
 			Group.save({
 				name: $scope.name,
@@ -12,4 +11,4 @@ angular.module('MyApp')
 				$location.path('/groups/' + response._id);
 			});
 		};
-	}]);
+	});

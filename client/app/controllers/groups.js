@@ -1,4 +1,5 @@
 angular.module('MyApp')
-.controller('GroupsCtrl', ['$scope', 'Group', function($scope, Group) {
+.controller('GroupsCtrl', function($scope, Group, Session, $location) {
 	$scope.groups = Group.query();
-}]);
+	$scope.session = Session;
+});

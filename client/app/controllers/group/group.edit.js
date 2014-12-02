@@ -1,6 +1,5 @@
 angular.module('MyApp')
-.controller('GroupEditCtrl', ['$scope', '$location', '$routeParams', 'Group',
-	function($scope, $location, $routeParams, Group) {
+.controller('GroupEditCtrl', function($scope, $location, $routeParams, Group) {
 		Group.get({ _id: $routeParams.id }, function(group) {
 			$scope.group = group;
 		}, function(response){
@@ -21,4 +20,4 @@ angular.module('MyApp')
 			}).$promise.then(function(response){
 			});
 		};
-	}]);
+	});

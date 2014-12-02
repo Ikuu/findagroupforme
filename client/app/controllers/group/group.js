@@ -1,6 +1,5 @@
 angular.module('MyApp')
-.controller('GroupCtrl', ['$scope', '$location', '$routeParams', '$route', 'Group',
-	function($scope, $location, $routeParams, $route, Group){
+.controller('GroupCtrl', function($scope, $location, $routeParams, $route, Group){
 		$scope.group = Group.get({ _id: $routeParams.id }, function(group) {
 			$scope.map = {
 				center:{
@@ -47,4 +46,4 @@ angular.module('MyApp')
 				$location.path("/");
 			});
 		};
-	}]);
+	});

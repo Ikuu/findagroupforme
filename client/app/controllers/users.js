@@ -1,4 +1,4 @@
 angular.module('MyApp')
-.controller('UsersCtrl', ['$scope', 'User', function($scope, User) {
+.controller('UsersCtrl', function($scope, User) {
 	$scope.users = User.query();
-}]);
+});
