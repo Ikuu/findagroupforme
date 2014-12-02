@@ -1,4 +1,5 @@
-angular.module('MyApp').factory('Group', function($resource) {
+angular.module('MyApp')
+.factory('Group', function($resource) {
 	return $resource('/api/groups/:_id', {}, {
 		update: {
 			method: 'PUT',

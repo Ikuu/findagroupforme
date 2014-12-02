@@ -1,4 +1,5 @@
-angular.module('MyApp').factory('User', function($resource) {
+angular.module('MyApp')
+.factory('User', function($resource) {
 	return $resource('/api/users/:_id', {}, {
 		update:{
 			method: 'PUT',
