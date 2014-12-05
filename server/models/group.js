@@ -1,14 +1,15 @@
 /*
-	Group 2.0
-	Attempting to create the 'final' model for a Group. Might want to add more fields.
-	Members needs to really be looked at, look at suggestion from Keith.
 	Events.members_attending needs to looked at too.
-	Might want to just use [long, lat] for co-ords, no need for a sub-document.
 */
+
 var mongoose = require('mongoose');
 
 var groupSchema = mongoose.Schema({
-	name: String,
+	name: {
+		type: String,
+		required: true,
+		unique: 'error message'
+	},
 	description: String,
 	date_created: {type: Date, default: Date.now},
 	activity: String,

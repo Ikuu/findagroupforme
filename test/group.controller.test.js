@@ -1,3 +1,4 @@
+/*
 var should = require('should');
 var mongoose = require('mongoose');
 var GroupController = require('../server/controllers/group');
@@ -10,3 +11,4 @@ describe('Group Controller Unit Tests:', function(){
 		done();
 	});
 });
+*/

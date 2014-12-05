@@ -2,7 +2,11 @@ var mongoose = require('mongoose');
 
 var userSchema = mongoose.Schema({
 	name: String,
-	username: String,
+	username: {
+		type: String,
+		required: true,
+		unique: 'error message'
+	},
 	address: {
 		street: String, 
 		city: String,
@@ -10,9 +14,14 @@ var userSchema = mongoose.Schema({
 		country: String
 	},
 	email: String,
-	password: { type: String },
+	password: {
+		type: String
+	},
 	date_of_birth: Date,
-	date_registered: {type: Date, default: Date.now},
+	date_registered: {
+		type: Date,
+		default: Date.now
+	},
 	activities: [String],
 	twitter: {
 		id: Number,
