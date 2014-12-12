@@ -1,5 +1,5 @@
-angular.module('App.group')
-.controller('GroupEditCtrl', function($scope, $location, $routeParams, Group) {
+angular.module('app.group')
+.controller('GroupEditController', function($scope, $location, $routeParams, Group) {
 	Group.get({ _id: $routeParams.id }, function(group) {
 		$scope.group = group;
 	}, function(response){

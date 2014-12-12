@@ -1,12 +1,12 @@
-angular.module('App', [
+angular.module('app', [
 	'ngRoute', 
 	'ngCookies', 
 	'ngResource', 
 	'ngMessages', 
 	'google-maps'.ns(),
-	'App.core',
-	'App.user',
-	'App.group'
+	'app.core',
+	'app.user',
+	'app.group'
 ]).config(function($locationProvider, $routeProvider, $httpProvider){
 	$httpProvider.interceptors.push(interceptor);
 });

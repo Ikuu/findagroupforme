@@ -1,9 +1,9 @@
-angular.module('App.core', ['ngRoute'])
+angular.module('app.core', ['ngRoute'])
 .config(function($locationProvider, $routeProvider){
 	$routeProvider
 		.when('/', {
 			templateUrl: '/app/modules/core/views/home.html',
-			controller: 'HomeCtrl'
+			controller: 'HomeController'
 		})
 		.when('/404',{
 			templateUrl: '/app/modules/core/views/404.html'

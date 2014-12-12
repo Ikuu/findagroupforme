@@ -1,4 +1,4 @@
-angular.module('App.group')
+angular.module('app.group')
 .factory('Group', function($resource) {
 	return $resource('/api/groups/:_id', {}, {
 		update: {

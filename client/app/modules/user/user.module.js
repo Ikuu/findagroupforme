@@ -1,18 +1,18 @@
-angular.module('App.user', ['ngRoute'])
+angular.module('app.user', ['ngRoute'])
 .config(function($locationProvider, $routeProvider){
 	$routeProvider
 		// Profile
 		.when('/settings',{
 			templateUrl: './app/modules/user/views/user.edit.html',
-			controller: 'UserEditCtrl'
+			controller: 'UserEditController'
 		})
 		// User Routes
 		.when('/users', {
 			templateUrl: '/app/modules/core/views/users.html',
-			controller: 'UsersCtrl'
+			controller: 'UsersController'
 		})
 		.when('/user/:id', {
 			templateUrl: '/app/modules/user/views/user.index.html',
-			controller: 'UserCtrl'
+			controller: 'UserController'
 		});
 });

@@ -1,4 +1,4 @@
-angular.module('App.core')
+angular.module('app.core')
 .factory('Session', function($cookieStore) {
 	var Session = {
 		data: {},

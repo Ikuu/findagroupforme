@@ -1,20 +1,33 @@
-angular.module('App.group', ['ngRoute'])
+angular.module('app.group', ['ngRoute'])
 .config(function($locationProvider, $routeProvider){
 	$routeProvider
 		.when('/groups', {
 			templateUrl: '/app/modules/core/views/groups.html',
-			controller: 'GroupsCtrl'
+			controller: 'GroupsController',
+			resolve: {
+				log: checkLog
+			}
 		})
 		.when('/groups/:id', {
 			templateUrl: '/app/modules/group/views/group.index.html',
-			controller: 'GroupCtrl'
+			controller: 'GroupController'
 		})
 		.when('/groups/:id/edit', {
 			templateUrl: '/app/modules/group/views/group.edit.html',
-			controller: 'GroupEditCtrl'
+			controller: 'GroupEditController'
 		})
 		.when('/group/create', {
 			templateUrl: '/app/modules/group/views/group.create.html',
-			controller: 'GroupCreateCtrl'
+			controller: 'GroupCreateController'
 		});
 });
+
+// Test function, checks to see if user logged in, if not kicks them out.
+var checkLog = function($http, $rootScope, $location){
+	$http.get('/log').success(function(data){
+		if (data.passport.user === undefined){
+			//$location.path('/login');
+		}
+		$rootScope.user = data.passport.user;
+	});
+};
