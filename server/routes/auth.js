@@ -1,3 +1,4 @@
+// Might want to make this to a controller. Feels wrong to have logic in route.
 module.exports = function(app, passport) {
 	app.post('/auth/local', passport.authenticate('local', { 
 		successRedirect: '/',
@@ -26,10 +27,6 @@ module.exports = function(app, passport) {
 	}));
 
 	app.get('/login', function(req, res){
-		res.cookie('userid', JSON.stringify({
-			'userid': req.user._id,
-			'username': req.user.username
-        }), { maxAge: 2592000000 });  // Expires in one month
 		res.redirect('/');
 	});
 
@@ -39,8 +36,8 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/session', function(req, res) {
-		if (!req.user){
-			res.status(403).end();
+		if (!req.user) {
+			res.status(401).end();
 		}
 		else {
 			var loggedInUser = req.user;
@@ -51,7 +48,6 @@ module.exports = function(app, passport) {
 
 	app.get('/logout', function(req, res){
 		req.session.destroy();
-		res.clearCookie('userid');
 		res.redirect('/');
 	});
 };

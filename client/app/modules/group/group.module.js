@@ -24,10 +24,11 @@ angular.module('app.group', ['ngRoute'])
 
 // Test function, checks to see if user logged in, if not kicks them out.
 var checkLog = function($http, $rootScope, $location){
-	$http.get('/log').success(function(data){
-		if (data.passport.user === undefined){
-			//$location.path('/login');
-		}
-		$rootScope.user = data.passport.user;
-	});
+	$http.get('/session')
+		.success(function(data){
+			$rootScope.user = data;
+		})
+		.error(function(data){
+			$location.path('/login');
+		});
 };
