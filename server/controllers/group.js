@@ -94,3 +94,7 @@ exports.removeUserFromGroup = function(req, res){
 
 	res.send({message: "Left Group"});
 };
+
+exports.add = function(req, res){
+	return 5;
+}

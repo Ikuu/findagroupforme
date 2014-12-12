@@ -4,10 +4,6 @@ angular.module('App.user')
 	User.getSignedInUser({}, function(user){
 		$scope.user = user;
 	}, function(response){
-		if (response.status === 403) {
-			alert("Not signed in");
-			$location.path('/login');
-		}
 	});
 
 	$scope.editUser = function(){

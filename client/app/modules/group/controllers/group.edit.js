@@ -3,9 +3,6 @@ angular.module('App.group')
 	Group.get({ _id: $routeParams.id }, function(group) {
 		$scope.group = group;
 	}, function(response){
-		if (response.status === 403){
-			$location.path('/login');
-		}
 	});
 
 	$scope.editGroup = function(){
