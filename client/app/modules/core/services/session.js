@@ -1,20 +1,17 @@
 angular.module('app.core')
-.factory('Session', function($cookieStore) {
+.factory('Session', function($http) {
 	var Session = {
-		data: {},
 		username: '',
 		userid: '',
 		isLoggedIn: false,
-		getData: function() {
-			Session.data = $cookieStore.get('userid');
-			if (Session.data !== undefined) {
-				Session.username = Session.data.username;
-				Session.userid = Session.data.userid;
+		init: function() {
+			$http.get('/session').success(function(data){
+				Session.username = data.username;
 				Session.isLoggedIn = true;
-			}
+			});
 		}
 	};
 
-	Session.getData();
+	Session.init();
 	return Session;
 });

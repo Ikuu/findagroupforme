@@ -1,6 +1,5 @@
 angular.module('app', [
 	'ngRoute', 
-	'ngCookies', 
 	'ngResource', 
 	'ngMessages', 
 	'google-maps'.ns(),

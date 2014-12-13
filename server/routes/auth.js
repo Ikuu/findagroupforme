@@ -37,7 +37,8 @@ module.exports = function(app, passport) {
 
 	app.get('/session', function(req, res) {
 		if (!req.user) {
-			res.status(401).end();
+			// 204 request recieved, empty response.
+			res.status(204).end();
 		}
 		else {
 			var loggedInUser = req.user;
