@@ -4,6 +4,10 @@ angular.module('app.user')
 		update:{
 			method: 'PUT',
 			params: {_id: '@_id'}
+		},
+		getSignedInUser: {
+			method: 'GET',
+			url: '/api/users/session/active'
 		}
 	});
 });
