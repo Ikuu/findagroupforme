@@ -15,8 +15,8 @@
 <body>
   <!-- Start of Header -->
   <header class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation" ng-controller="MenuController">
-    <menubar-logged-out ng-show="loggedIn == false"></menubar-logged-out>
-    <menubar-logged-in ng-show="loggedIn == true"></menubar-logged-in>
+    <menubar-logged-out ng-if="loggedIn == false"></menubar-logged-out>
+    <menubar-logged-in ng-if="loggedIn == true"></menubar-logged-in>
   </header>
   
   <div ng-view>
