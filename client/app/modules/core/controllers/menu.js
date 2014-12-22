@@ -1,9 +1,10 @@
+// Currently we're grabbing the username in both the menu and index, should sort this out.
 angular.module('app.core')
-.controller('MenuController', function($rootScope, $scope, $http) {
+.controller('MenuController', function($scope, UserFactory) {
 	$scope.loggedIn = false;
 
-	$http.get('/session').success(function(data){
-		if (data.username) {
+	UserFactory.getUser().then(function success(response) {
+		if (response.data.username) {
 			$scope.loggedIn = true;
 		}
 	});

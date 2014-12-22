@@ -1,8 +1,3 @@
-/**
-* UserFactory Module
-*
-* Description
-*/
 angular.module('app.core')
 .factory('UserFactory', function($http) {
 	return {

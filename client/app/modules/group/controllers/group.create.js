@@ -1,5 +1,5 @@
 angular.module('app.group')
-.controller('GroupCreateController', function($scope, $rootScope, $location, Group) {
+.controller('GroupCreateController', function($scope, $location, Group) {
 		$scope.createGroup = function(){
 			Group.save({
 				name: $scope.name,

@@ -1,5 +1,5 @@
 angular.module('app.core', ['ngRoute'])
-.config(function($locationProvider, $routeProvider){
+.config(function($routeProvider){
 	$routeProvider
 		.when('/', {
 			templateUrl: '/app/modules/core/views/home.html',

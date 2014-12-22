@@ -1,12 +1,9 @@
 angular.module('app.group', ['ngRoute'])
-.config(function($locationProvider, $routeProvider){
+.config(function($routeProvider) {
 	$routeProvider
 		.when('/groups', {
 			templateUrl: '/app/modules/core/views/groups.html',
-			controller: 'GroupsController',
-			resolve: {
-				log: checkLog
-			}
+			controller: 'GroupsController'
 		})
 		.when('/groups/:id', {
 			templateUrl: '/app/modules/group/views/group.index.html',

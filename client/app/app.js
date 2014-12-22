@@ -6,18 +6,18 @@ angular.module('app', [
 	'app.core',
 	'app.user',
 	'app.group'
-]).config(function($locationProvider, $routeProvider, $httpProvider){
+]).config(function($locationProvider, $routeProvider, $httpProvider) {
 	$httpProvider.interceptors.push(interceptor);
 })
 
-.directive('menubarLoggedIn', function(){
+.directive('menubarLoggedIn', function() {
 	return {
 		restrict: 'E',
 		templateUrl: '/app/modules/core/views/menu/loggedin.html'
 	};
 })
 
-.directive('menubarLoggedOut', function(){
+.directive('menubarLoggedOut', function() {
 	return {
 		restrict: 'E',
 		templateUrl: '/app/modules/core/views/menu/loggedout.html'
@@ -25,9 +25,9 @@ angular.module('app', [
 });
 
 // Might want to move this to a service.
-var interceptor = function($location, $q){
+var interceptor = function($location, $q) {
 	return {
-		'responseError': function(response){
+		'responseError': function(response) {
 			if (response.status === 401){
 				$location.url('/login');
 			}

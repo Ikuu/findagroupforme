@@ -1,5 +1,5 @@
 angular.module('app.user', ['ngRoute'])
-.config(function($locationProvider, $routeProvider){
+.config(function($routeProvider){
 	$routeProvider
 		// Profile
 		.when('/settings',{
