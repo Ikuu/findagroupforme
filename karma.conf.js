@@ -7,11 +7,11 @@ module.exports = function(config){
       'client/assets/libs/angular.js',
       'client/assets/libs/lodash.js',
       'client/assets/libs/angular-*.js',
-      'client/assets/libs/angular-mocks.js',
+      'ngTest/unit/libs/angular-mocks.js',
       'client/app/app.js',
       'client/app/modules/**/*.module.js',
       'client/app/**/*.js',
-      'ngTest/**/*.js'
+      'ngTest/unit/modules/**/*.spec.js'
     ],
 
     autoWatch : true,
