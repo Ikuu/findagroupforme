@@ -12,6 +12,26 @@ Fill in server/config/auth.js Social Network details
 
 Requires MongoDB to be installed.
 
+Test
+-----------
+Currently there are three different test commands. 
+
+To test the server run:
+```sh
+mocha
+```
+
+To run the AngularJS unit tests run:
+```sh
+npm test
+```
+
+To run the AngularJS e2e tests run:
+```sh
+npm run webdriver
+npm run protractor
+```
+
 Tech
 -----------
 This project makes use of a number of open source projects:
