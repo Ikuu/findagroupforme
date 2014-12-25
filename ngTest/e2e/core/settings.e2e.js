@@ -3,7 +3,6 @@
 describe("Settings.html E2E Tests", function() {
 	var username, password, submit;
 	beforeEach(function() {
-		browser.get('/logout');
 		browser.get('index.html#/login');
 
 		username = element(by.id('username'));
@@ -27,6 +26,10 @@ describe("Settings.html E2E Tests", function() {
 
 		browser.setLocation('settings');
 		expect(browser.getLocationAbsUrl()).toBe('/settings');
+	});
+
+	afterEach(function() {
+		browser.get('/logout');
 	});
 
 	// Add tests for form stuff.

@@ -12,9 +12,9 @@
   <link href="./assets/stylesheets/font-awesome.css" rel="stylesheet">
   <link href="./assets/stylesheets/style.css" rel="stylesheet">
 </head>
-<body>
+<body ng-controller="BodyController">
   <!-- Start of Header -->
-  <header class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation" ng-controller="MenuController">
+  <header class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation" ng-controller="MenuBarController">
     <menubar-logged-out ng-if="loggedIn == false"></menubar-logged-out>
     <menubar-logged-in ng-if="loggedIn == true"></menubar-logged-in>
   </header>
@@ -25,6 +25,7 @@
 
   <footer>
   </footer>
+
   <script src="/assets/libs/jquery.min.js"></script>
   <script src="/assets/libs/bootstrap.min.js"></script>
   <script src="/assets/libs/angular.js"></script>

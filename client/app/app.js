@@ -10,20 +10,6 @@ angular.module('app', [
 	$httpProvider.interceptors.push(interceptor);
 })
 
-.directive('menubarLoggedIn', function() {
-	return {
-		restrict: 'E',
-		templateUrl: '/app/modules/core/views/menu/loggedin.html'
-	};
-})
-
-.directive('menubarLoggedOut', function() {
-	return {
-		restrict: 'E',
-		templateUrl: '/app/modules/core/views/menu/loggedout.html'
-	};
-});
-
 // Might want to move this to a service.
 var interceptor = function($location, $q) {
 	return {

@@ -3,7 +3,6 @@
 describe("Login.html E2E Tests", function() {
 	var username, password, submit;
 	beforeEach(function() {
-		browser.get('/logout');
 		browser.get('index.html#/login');
 
 		username = element(by.id('username'));
@@ -26,5 +25,9 @@ describe("Login.html E2E Tests", function() {
 		submit.click();
 
 		expect(browser.getLocationAbsUrl()).toBe('/');
+	});
+
+	afterEach(function() {
+		browser.get('/logout');
 	});
 });
