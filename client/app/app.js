@@ -6,9 +6,10 @@ angular.module('app', [
 	'app.core',
 	'app.user',
 	'app.group'
-]).config(function($locationProvider, $routeProvider, $httpProvider) {
+])
+.config(function($locationProvider, $routeProvider, $httpProvider) {
 	$httpProvider.interceptors.push(interceptor);
-})
+});
 
 // Might want to move this to a service.
 var interceptor = function($location, $q) {

@@ -1,12 +1,9 @@
 <!-- 
 
-Could have a directive for logged in and logged out, or maybe just re-direct them
-to another page entirely.
+	Need to check into performance for this.
 
 -->
 <div class="container">
-	<h2>Home</h2>
-	<p>This should be like Twitter home page.</p>
-
-	<h1>Hello {{loggedInUser.username}}</h1>
+	<homepage-logged-out ng-if="loggedIn == false"></homepage-logged-out>
+    <homepage-logged-in ng-if="loggedIn == true"></homepage-logged-in>
 </div>
