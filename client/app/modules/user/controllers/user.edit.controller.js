@@ -1,6 +1,7 @@
 // Rename to settings. Also need to have some feedback on the changes the user has made.
 angular.module('app.user')
-.controller('UserEditController', function($scope, $routeParams, User, $location){
+.controller('UserEditController', function($scope, $routeParams, User, $location, Title){
+	Title.set('Edit Settings');
 	User.getSignedInUser({}, function(user){
 		$scope.user = user;
 	});

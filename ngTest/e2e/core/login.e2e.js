@@ -10,6 +10,10 @@ describe("Login.html E2E Tests", function() {
 		submit = element(by.id('submit'));
 	});
 
+	it("should have a title", function() {
+		expect(browser.getTitle()).toEqual('Login | FindAGroupFor.me');
+	});
+
 	it("should not login, and redirect to signup", function() {
 		// Really this should redirect to login and give error
 		username.sendKeys('Ikuu');

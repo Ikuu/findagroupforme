@@ -4,18 +4,23 @@ angular.module('app.core', ['ngRoute'])
 		.when('/', {
 			templateUrl: '/app/modules/core/views/home.html',
 			controller: 'HomeController'
+			// Probably want a resolve somewhere in here to prevent $scope 'blinking'
 		})
 		.when('/404',{
-			templateUrl: '/app/modules/core/views/404.html'
+			templateUrl: '/app/modules/core/views/404.html',
+			controller: '404Controller'
 		})
 		.when('/login', {
-			templateUrl: '/app/modules/core/views/login.html'
+			templateUrl: '/app/modules/core/views/login.html',
+			controller: 'LoginController'
 		})
 		.when('/about', {
-			templateUrl: '/app/modules/core/views/about.html'
+			templateUrl: '/app/modules/core/views/about.html',
+			controller: 'AboutController'
 		})
 		.when('/signup', {
-			templateUrl: '/app/modules/core/views/signup.html'
+			templateUrl: '/app/modules/core/views/signup.html',
+			controller: 'SignupController'
 		})
 		.otherwise({
 			redirectTo: '/404'

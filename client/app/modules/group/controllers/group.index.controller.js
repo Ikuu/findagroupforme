@@ -1,7 +1,7 @@
 angular.module('app.group')
-.controller('GroupController', function($scope, $location, $routeParams, $route, Group, Page){
+.controller('GroupController', function($scope, $location, $routeParams, $route, Group, Title){
 	$scope.group = Group.get({ _id: $routeParams.id }, function(group) {
-		Page.setTitle(group.name);
+		Title.set(group.name);
 
 		$scope.map = {
 			center:{

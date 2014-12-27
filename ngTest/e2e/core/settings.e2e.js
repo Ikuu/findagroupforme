@@ -26,6 +26,7 @@ describe("Settings.html E2E Tests", function() {
 
 		browser.setLocation('settings');
 		expect(browser.getLocationAbsUrl()).toBe('/settings');
+		expect(browser.getTitle()).toEqual('Edit Settings | FindAGroupFor.me');
 	});
 
 	afterEach(function() {
