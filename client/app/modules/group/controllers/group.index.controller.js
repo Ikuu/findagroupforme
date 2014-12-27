@@ -1,6 +1,8 @@
 angular.module('app.group')
-.controller('GroupController', function($scope, $location, $routeParams, $route, Group){
+.controller('GroupController', function($scope, $location, $routeParams, $route, Group, Page){
 	$scope.group = Group.get({ _id: $routeParams.id }, function(group) {
+		Page.setTitle(group.name);
+
 		$scope.map = {
 			center:{
 				latitude: group.venue_location[0],

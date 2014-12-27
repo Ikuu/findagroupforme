@@ -1,5 +1,6 @@
 angular.module('app.core')
-.controller('BodyController', function($scope, UserFactory) {
+.controller('BodyController', function($scope, UserFactory, Page) {
+	$scope.Page = Page;
 	$scope.loggedIn = false;
 	
 	UserFactory.getUser().then(function success(response) {

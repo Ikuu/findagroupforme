@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html ng-app="app">
+<html ng-app="app" ng-controller="BodyController">
 <head>
   <base href="/">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FindAGroupFor.me</title>
+  <title>{{Page.getTitle()}}</title>
   <link rel="icon" type="image/png" href="favicon.png"/>
   <link href="./assets/stylesheets/bootstrap.min.css" rel="stylesheet">
   <link href="./assets/stylesheets/bootstrap-social.css" rel="stylesheet">
   <link href="./assets/stylesheets/font-awesome.css" rel="stylesheet">
   <link href="./assets/stylesheets/style.css" rel="stylesheet">
 </head>
-<body ng-controller="BodyController">
+<body>
   <!-- Start of Header -->
   <header class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation" ng-controller="MenuBarController">
     <menubar-logged-out ng-if="loggedIn == false"></menubar-logged-out>
