@@ -10,7 +10,8 @@
   },
   "scripts": {
     "start": "nodemon server/server.js",
-    "test": "mocha test/server --recursive",
+    "test": "mocha tests/server --recursive",
+    "mocha": "mocha tests/server --recursive",
     "karma": "karma start karma.conf.js",
     "webdriver": "webdriver-manager start",
     "protractor": "protractor protractor.conf.js"
@@ -43,6 +44,7 @@
     "karma-chrome-launcher": "^0.1.7",
     "karma-jasmine": "^0.2.2",
     "mocha": "*",
+    "protractor": "^1.6.1",
     "should": "^4.3.0"
   }
 }

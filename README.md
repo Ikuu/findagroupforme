@@ -18,12 +18,12 @@ Currently there are three different test commands.
 
 To test the server run:
 ```sh
-mocha
+npm test
 ```
 
 To run the AngularJS unit tests run:
 ```sh
-npm test
+npm run karma
 ```
 
 To run the AngularJS e2e tests run:
