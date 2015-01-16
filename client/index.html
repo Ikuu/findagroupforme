@@ -13,19 +13,16 @@
   <link href="./assets/stylesheets/style.css" rel="stylesheet">
 </head>
 <body>
-  <!-- Start of Header -->
   <header class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation" ng-controller="MenuBarController">
     <menubar-logged-out ng-if="loggedIn == false"></menubar-logged-out>
     <menubar-logged-in ng-if="loggedIn == true"></menubar-logged-in>
   </header>
   
-  <main ng-view>
-        <!-- Content Loaded Here -->
-  </main>
+  <main ng-view></main>
 
-  <footer>
-  </footer>
+  <footer></footer>
 
+  <!-- Vendor Files -->
   <script src="/assets/libs/jquery.min.js"></script>
   <script src="/assets/libs/bootstrap.min.js"></script>
   <script src="/assets/libs/angular.js"></script>

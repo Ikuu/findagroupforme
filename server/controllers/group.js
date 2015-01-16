@@ -8,14 +8,14 @@ exports.index = function(req, res) {
 	});
 };
 
-exports.findById = function(req, res){
+exports.findById = function(req, res) {
 	Group.findOne({_id: req.params.group_id}).populate('members', 'name current_location').exec(function(err, group){
 		if (err) return handleError(err);
 		res.send(group);
 	});
 };
 
-exports.add = function(req, res){
+exports.add = function(req, res) {
 	var newGroup = new Group(req.body);
 	newGroup.members.push(req.user._id);
 
@@ -94,7 +94,3 @@ exports.removeUserFromGroup = function(req, res){
 
 	res.send({message: "Left Group"});
 };
-
-exports.add = function(req, res){
-	return 5;
-}

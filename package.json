@@ -10,7 +10,8 @@
   },
   "scripts": {
     "start": "nodemon server/server.js",
-    "test": "karma start karma.conf.js",
+    "test": "mocha test/server --recursive",
+    "karma": "karma start karma.conf.js",
     "webdriver": "webdriver-manager start",
     "protractor": "protractor protractor.conf.js"
   },
