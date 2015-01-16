@@ -4,7 +4,6 @@ var UserController = require('../../../server/controllers/user/user');
 
 describe('UserController Unit Tests:', function() {
 	it('Should return no users', function(done){
-
 		req = {};
 		res = {_body: null, render: function() { 'noop'; } };
 		res.send = function (body) { res._body = body; };

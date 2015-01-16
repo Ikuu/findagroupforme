@@ -30,6 +30,7 @@ exports.add = function(req, res) {
 		if (err) return handleError(err);
 		res.send({
 			_id: newGroup._id,
+			name: newGroup.name,
 			message: "Received."
 		});
 	});

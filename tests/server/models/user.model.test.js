@@ -20,7 +20,6 @@ describe('User Model Unit Tests:', function(){
 		done();
 	});
 
-
 	it('Should begin with no Users', function(done){
 		User.find({}, function(err, users){
 			users.should.have.length(0);

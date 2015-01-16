@@ -1,8 +1,7 @@
-/*
 require('../../config');
 var should = require('should');
 var mongoose = require('mongoose');
-var Group = require('../server/models/group');
+var Group = require('../../../server/models/group');
 
 var group, group2;
 
@@ -56,4 +55,4 @@ describe('Group Model Unit Tests:', function(){
 		Group.remove().exec();
 		done();
 	});
-});*/
+});
