@@ -13,7 +13,7 @@ describe("Auth Controller Unit Tests:", function() {
 			done();
 		});
 
-		it("should return 401 Status Code - checkIfLoggedIn", function(done) {
+		it("should return 401 Status Code", function(done) {
 			req = {
 				session:{
 					passport: {
@@ -34,7 +34,7 @@ describe("Auth Controller Unit Tests:", function() {
 			}, 200);
 		});
 	
-		it("should move onto next() - checkIfLoggedIn", function(done) {
+		it("should move onto next()", function(done) {
 			req = {
 				session:{
 					passport: {
@@ -62,7 +62,7 @@ describe("Auth Controller Unit Tests:", function() {
 			done();
 		});
 		
-		it("should return 401 Status Code - checkIfCorrectUser", function(done) {
+		it("should return 401 Status Code", function(done) {
 			req = {
 				body: {
 					_id: "5473777e753bbfdc8b654470"
@@ -86,7 +86,7 @@ describe("Auth Controller Unit Tests:", function() {
 			}, 200);
 		});
 	
-		it("should return 401 Status Code - hasGroupPermission", function(done) {
+		it("should move onto next()", function(done) {
 			req = {
 				body: {
 					_id: "5473777e753bbfdc8b654470"

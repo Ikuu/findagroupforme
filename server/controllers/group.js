@@ -10,33 +10,42 @@ exports.index = function(req, res) {
 
 exports.findById = function(req, res) {
 	Group.findOne({_id: req.params.group_id}).populate('members', 'name current_location').exec(function(err, group){
-		if (err) return handleError(err);
+		if (err) return res.send({error: "group could not be found."});
 		res.send(group);
 	});
 };
 
 exports.add = function(req, res) {
+	if (req.user === undefined) {
+		return res.send({error: "user does not exist."});
+	}
+
 	var newGroup = new Group(req.body);
 	newGroup.members.push(req.user._id);
 
-	User.findOne({_id: req.user._id}).exec(function(err, user){
+	User.findOne({_id: req.user._id}).exec(function(err, user) {
+		if (err) return res.send(err);
 		user.groups.push(newGroup._id);
 		user.save(function(err){
-			if (err) return handleError(err);
 		});
 	});
 
 	Group.create(newGroup, function(err, group){
-		if (err) return handleError(err);
+		if (err) return res.send({error: "unable to create group."});
 		res.send({
-			_id: newGroup._id,
-			name: newGroup.name,
+			_id: group._id,
+			name: group.name,
+			members: group.members,
 			message: "Received."
 		});
 	});
 };
 
-exports.update = function(req, res){
+exports.update = function(req, res) {
+	if (req.body._id === undefined) {
+		return res.send({error: "could not update group."});
+	}
+
 	var updatedGroup = new Group(req.body);
 	var update = {
 		"name": updatedGroup.name,
@@ -46,15 +55,16 @@ exports.update = function(req, res){
 	};
 
 	Group.findByIdAndUpdate(updatedGroup._id, update, function(err){
-		res.send("Updated");
+		if (err) return res.send({error: "could not update group"});
+		res.send({message: "group has been updated."});
 	});
 };
 
 exports.delete = function(req, res){
 	// Would want to remove all of the members from the group too. Grab all the Member IDs from the group and loop through each and remove from that user. Might want to see if this can be done in one call.
 	Group.findByIdAndRemove(req.params.group_id, function(err, group) {
+		if (err) return res.send({error: "unable to delete group."});
 		group.remove();
-		if (err) return handleError(err);
 		res.send({});
 	});
 };
