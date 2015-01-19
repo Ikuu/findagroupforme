@@ -1,10 +1,12 @@
+'use strict';
+
 require('../../config');
 var should = require('should');
 var mongoose = require('mongoose');
 var GroupController = require('../../../server/controllers/group');
 var User = require('../../../server/models/user');
 
-var user, groupId;
+var user, groupId, req, res;
 
 describe('Group Controller Unit Tests:', function() {
 	before(function(done) {

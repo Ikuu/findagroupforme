@@ -39,7 +39,11 @@ exports.update = function(req, res){
 };
 
 exports.delete = function(req, res){
-	res.send("To be implemented.");
+	User.findByIdAndRemove(req.params.user_id, function(err, user) {
+		user.remove();
+		if (err) return handleError(err);
+		res.send({});
+	});
 };
 
 // Strip Password
