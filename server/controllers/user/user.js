@@ -10,7 +10,7 @@ exports.index = function(req, res){
 
 exports.findById = function(req, res){
 	User.findOne({_id: req.params.user_id}).populate('groups', 'name activity').exec(function (err, user){
-		if (err) return handleError(err);
+		if (err) return res.send({error: "_id supplied was not valid."});
 		res.send(user);
 	});
 };
@@ -18,7 +18,7 @@ exports.findById = function(req, res){
 exports.add = function(req, res){
 	var newUser = new User(req.body);
 	User.create(newUser, function(err, user){
-		if (err) return handleError(err);
+		if (err) return res.send(err);
 		res.send(user);
 	});
 };
@@ -40,8 +40,8 @@ exports.update = function(req, res){
 
 exports.delete = function(req, res){
 	User.findByIdAndRemove(req.params.user_id, function(err, user) {
+		if (err) return res.send({error: "unable to delete id"});
 		user.remove();
-		if (err) return handleError(err);
 		res.send({});
 	});
 };
