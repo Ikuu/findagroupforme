@@ -7,14 +7,14 @@ var UserController = require('../../../server/controllers/user/user');
 var req, res, userID;
 
 describe('UserController Unit Tests:', function() {
-	it('should return no users', function(done){
+	it('should return no users', function(done) {
 		req = {};
 		res = {_body: null, render: function() { 'noop'; } };
 		res.send = function (body) { res._body = body; };
 
 		UserController.index(req, res);
 
-		setTimeout(function () {
+		setTimeout(function() {
 			res._body.length.should.be.exactly(0);
 			done();
 		}, 200);
@@ -44,7 +44,7 @@ describe('UserController Unit Tests:', function() {
 
 		UserController.add(req, res);
 
-		setTimeout(function () {
+		setTimeout(function() {
 			res._body.username.should.be.exactly("TestUser01");
 			res._body.should.have.property('_id');
 			userID = res._body._id;
@@ -63,7 +63,7 @@ describe('UserController Unit Tests:', function() {
 
 		UserController.findById(req, res);
 
-		setTimeout(function () {
+		setTimeout(function() {
 			res._body.username.should.be.exactly("TestUser01");
 			done();
 		}, 200);
@@ -95,7 +95,7 @@ describe('UserController Unit Tests:', function() {
 
 		UserController.update(req, res);
 
-		setTimeout(function () {
+		setTimeout(function() {
 			res._body.message.should.be.exactly('User has been updated');
 			done();
 		}, 200);
@@ -112,7 +112,7 @@ describe('UserController Unit Tests:', function() {
 
 		UserController.delete(req, res);
 
-		setTimeout(function () {
+		setTimeout(function() {
 			res._body.should.be.an.Object.and.be.empty;
 			done();
 		}, 200);

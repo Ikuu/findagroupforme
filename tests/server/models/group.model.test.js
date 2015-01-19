@@ -7,8 +7,8 @@ var Group = require('../../../server/models/group');
 
 var group, group2;
 
-describe('Group Model Unit Tests:', function(){
-	before(function(done){
+describe('Group Model Unit Tests:', function() {
+	before(function(done) {
 		group = new Group({
 			name: "Football Group"
 		});
@@ -20,7 +20,7 @@ describe('Group Model Unit Tests:', function(){
 		done();
 	});
 
-	it('Should begin with no Groups', function(done){
+	it('Should begin with no Groups', function(done) {
 		Group.find({}, function(err, groups){
 			groups.should.have.length(0);
 			done();
@@ -47,11 +47,11 @@ describe('Group Model Unit Tests:', function(){
 		});
 	});
 
-	it('Should remove', function(done){
+	it('Should remove', function(done) {
 		group.remove(done);
 	});
 
-	after(function(done){
+	after(function(done) {
 		Group.remove().exec();
 		done();
 	});

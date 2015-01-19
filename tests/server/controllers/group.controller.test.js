@@ -17,14 +17,14 @@ describe('Group Controller Unit Tests:', function() {
 		user.save(done);
 	});
 
-	it('Should return no groups', function(done){
+	it('Should return no groups', function(done) {
 		req = {};
 		res = {_body: null, render: function() { 'noop'; }};
 		res.send = function (body) {res._body = body; };
 
 		GroupController.index(req, res);
 
-		setTimeout(function () {
+		setTimeout(function() {
 			res._body.length.should.be.exactly(0);
 			done();
 		}, 200);
@@ -48,7 +48,7 @@ describe('Group Controller Unit Tests:', function() {
 
 		GroupController.add(req, res);
 
-		setTimeout(function () {
+		setTimeout(function() {
 			groupId = res._body._id;
 			res._body.message.should.be.exactly('Received.');
 			done();
@@ -95,7 +95,7 @@ describe('Group Controller Unit Tests:', function() {
 
 		GroupController.delete(req, res);
 
-		setTimeout(function () {
+		setTimeout(function() {
 			res._body.should.be.an.Object.and.be.empty;
 			done();
 		}, 200);
