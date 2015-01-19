@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var GroupController = require('../../../server/controllers/group');
 var User = require('../../../server/models/user');
 
-var user, groupId, req, res;
+var user, user2, groupId, req, res;
 
 describe('Group Controller Unit Tests:', function() {
 	before(function(done) {
@@ -14,7 +14,13 @@ describe('Group Controller Unit Tests:', function() {
 			username: "Ikuu"
 		});
 
-		user.save(done);
+		user2 = new User({
+			username: "Test User"
+		});
+
+		user.save();
+		user2.save();
+		done();
 	});
 
 	describe("index() Unit Tests", function() {
@@ -183,14 +189,56 @@ describe('Group Controller Unit Tests:', function() {
 	});
 
 	describe("addUserToGroup() Unit Tests", function() {
-		it("should add a user to the group", function(done) {
+		it("should fail to add user to group they already belong to", function(done) {
 			done();
+		});
+
+		it("should add a user to the group", function(done) {
+			req = {
+				user: {
+					_id: user2._id
+				},
+				params: {
+					group_id: groupId
+				}
+			};
+	
+			res = {_body: null, render: function() { 'noop'; }};
+			res.send = function (body) { res._body = body; };
+	
+			GroupController.addUserToGroup(req, res);
+	
+			setTimeout(function() {
+				res._body.message.should.be.exactly('user added to group.');
+				done();
+			}, 200);
 		});	
 	});
 
 	describe("removeUserFromGroup() Unit Tests", function() {
-		it("should remove the user from the group", function(done) {
+		it("should fail to remove user from group they don't belong to", function(done) {
 			done();
+		});
+		
+		it("should remove the user from the group", function(done) {
+			req = {
+				user: {
+					_id: user2._id
+				},
+				params: {
+					group_id: groupId
+				}
+			};
+	
+			res = {_body: null, render: function() { 'noop'; }};
+			res.send = function (body) { res._body = body; };
+	
+			GroupController.removeUserFromGroup(req, res);
+	
+			setTimeout(function() {
+				res._body.message.should.be.exactly('user removed from group.');
+				done();
+			}, 200);
 		});
 	});
 

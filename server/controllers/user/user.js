@@ -24,6 +24,10 @@ exports.add = function(req, res){
 };
 
 exports.update = function(req, res){
+	if (req.user === undefined) {
+		return res.send({error: "could not update user."});
+	}
+
 	var updatedUser = new User(req.body);
 	var update = {
 		"name": updatedUser.name,

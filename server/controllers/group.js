@@ -60,7 +60,7 @@ exports.update = function(req, res) {
 	});
 };
 
-exports.delete = function(req, res){
+exports.delete = function(req, res) {
 	// Would want to remove all of the members from the group too. Grab all the Member IDs from the group and loop through each and remove from that user. Might want to see if this can be done in one call.
 	Group.findByIdAndRemove(req.params.group_id, function(err, group) {
 		if (err) return res.send({error: "unable to delete group."});
@@ -70,38 +70,40 @@ exports.delete = function(req, res){
 };
 
 // Need to check if User is already in the group, can join the group etc.
-exports.addUserToGroup = function(req, res){
-	User.findOne({_id: req.user._id}).exec(function(err, user){
+exports.addUserToGroup = function(req, res) {
+	User.findOne({_id: req.user._id}).exec(function(err, user) {
+		if (err) return res.send({error: "user does not exist."});
 		user.groups.push(req.params.group_id);
 		user.save(function(err){
 			if (err) return handleError(err);
 		});
 	});
 
-	Group.findOne({_id: req.params.group_id}).exec(function(err, group){
+	Group.findOne({_id: req.params.group_id}).exec(function(err, group) {
+		if (err) return res.send({error: "group does not exist."});
 		group.members.push(req.user._id);
-		group.save(function(err){
+		group.save(function(err) {
 			if (err) return handleError(err);
 		});
 	});
 
-	res.send({message: "Joined Group"});
+	res.send({message: "user added to group."});
 };
 
-exports.removeUserFromGroup = function(req, res){
-	User.findOne({_id: req.user._id}).exec(function(err, user){
+exports.removeUserFromGroup = function(req, res) {
+	User.findOne({_id: req.user._id}).exec(function(err, user) {
 		user.groups.pull(req.params.group_id);
 		user.save(function(err){
 			if (err) return handleError(err);
 		});
 	});
 
-	Group.findOne({_id: req.params.group_id}).exec(function(err, group){
+	Group.findOne({_id: req.params.group_id}).exec(function(err, group) {
 		group.members.pull(req.user._id);
-		group.save(function(err){
+		group.save(function(err) {
 			if (err) return handleError(err);
 		});
 	});
 
-	res.send({message: "Left Group"});
+	res.send({message: "user removed from group."});
 };
