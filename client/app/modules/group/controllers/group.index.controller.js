@@ -35,23 +35,33 @@ angular.module('app.group')
 	};
 
 	$scope.deleteButton = function(){
-		Group.remove({_id: $routeParams.id}).$promise.then(function(response){
+		Group.remove({_id: $routeParams.id}).$promise.then(function(response) {
 			alert("Group has been deleted!");
 			$location.path('/');
 		});
 	};
 
 	$scope.joinButton = function(){
-		Group.addUser({_id: $routeParams.id}).$promise.then(function(response){
-			alert("You have joined the group!");
-			$route.reload();
+		Group.addUser({_id: $routeParams.id}).$promise.then(function(response) {
+			if (response.error) {
+				alert("Already in this group!");
+			}
+			else {
+				alert("You have joined the group!");
+				$route.reload();
+			}
 		});
 	};
 
 	$scope.leaveButton = function(){
-		Group.removeUser({_id: $routeParams.id}).$promise.then(function(response){
-			alert("You have left the group!");
-			$location.path("/");
+		Group.removeUser({_id: $routeParams.id}).$promise.then(function(response) {
+			if (response.error) {
+				alert("Not in group!");
+			}
+			else {
+				alert("You have left the group!");
+				$location.path("/");
+			}
 		});
 	};
 });

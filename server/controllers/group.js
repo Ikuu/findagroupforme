@@ -69,25 +69,32 @@ exports.delete = function(req, res) {
 	});
 };
 
-// Might want to nest the Group inside User, could have issues adding groups that don't exist to a user.
+/*
+	Find User
+	Check if User already in group
+	Push group id into user
+	Push user id into group
+*/
 exports.addUserToGroup = function(req, res) {
 	User.findOne({_id: req.user._id, groups: {"$nin" : [req.params.group_id]}}).exec(function(err, user) {
 		if (err || user === null) return res.send({error: "user already belongs to group."});
 		user.groups.push(req.params.group_id);
-		user.save(function(err){
+		user.save(function(err) {
 			if (err) return handleError(err);
 		});
-	});
 
-	Group.findOne({_id: req.params.group_id}).exec(function(err, group) {
-		if (err) return res.send({error: "group does not exist."});
-		group.members.push(req.user._id);
-		group.save(function(err) {
-			if (err) return handleError(err);
+		Group.findOne({_id: req.params.group_id}).exec(function(err, group) {
+			if (err) return res.send({error: "group does not exist."});
+			group.members.push(req.user._id);
+			group.save(function(err) {
+				if (err) return handleError(err);
+			});
 		});
+
+		res.send({message: "user added to group."});	
 	});
 
-	res.send({message: "user added to group."});
+	
 };
 
 exports.removeUserFromGroup = function(req, res) {
@@ -97,14 +104,14 @@ exports.removeUserFromGroup = function(req, res) {
 		user.save(function(err) {
 			if (err) return handleError(err);
 		});
-	});
 
-	Group.findOne({_id: req.params.group_id}).exec(function(err, group) {
-		group.members.pull(req.user._id);
-		group.save(function(err) {
-			if (err) return handleError(err);
+		Group.findOne({_id: req.params.group_id}).exec(function(err, group) {
+			group.members.pull(req.user._id);
+			group.save(function(err) {
+				if (err) return handleError(err);
+			});
 		});
-	});
 
-	res.send({message: "user removed from group."});
+		res.send({message: "user removed from group."});
+	});
 };
