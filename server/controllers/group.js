@@ -69,10 +69,10 @@ exports.delete = function(req, res) {
 	});
 };
 
-// Need to check if User is already in the group, can join the group etc.
+// Might want to nest the Group inside User, could have issues adding groups that don't exist to a user.
 exports.addUserToGroup = function(req, res) {
-	User.findOne({_id: req.user._id}).exec(function(err, user) {
-		if (err) return res.send({error: "user does not exist."});
+	User.findOne({_id: req.user._id, groups: {"$nin" : [req.params.group_id]}}).exec(function(err, user) {
+		if (err || user === null) return res.send({error: "user already belongs to group."});
 		user.groups.push(req.params.group_id);
 		user.save(function(err){
 			if (err) return handleError(err);
@@ -91,9 +91,10 @@ exports.addUserToGroup = function(req, res) {
 };
 
 exports.removeUserFromGroup = function(req, res) {
-	User.findOne({_id: req.user._id}).exec(function(err, user) {
+	User.findOne({_id: req.user._id, groups: req.params.group_id}).exec(function(err, user) {
+		if (err || user === null) return res.send({error: "user does not belong to group."});
 		user.groups.pull(req.params.group_id);
-		user.save(function(err){
+		user.save(function(err) {
 			if (err) return handleError(err);
 		});
 	});

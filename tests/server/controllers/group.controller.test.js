@@ -189,10 +189,6 @@ describe('Group Controller Unit Tests:', function() {
 	});
 
 	describe("addUserToGroup() Unit Tests", function() {
-		it("should fail to add user to group they already belong to", function(done) {
-			done();
-		});
-
 		it("should add a user to the group", function(done) {
 			req = {
 				user: {
@@ -213,13 +209,30 @@ describe('Group Controller Unit Tests:', function() {
 				done();
 			}, 200);
 		});	
+
+		it("should fail to add user to group they already belong to", function(done) {
+			req = {
+				user: {
+					_id: user2._id
+				},
+				params: {
+					group_id: groupId
+				}
+			};
+	
+			res = {_body: null, render: function() { 'noop'; }};
+			res.send = function (body) { res._body = body; };
+	
+			GroupController.addUserToGroup(req, res);
+	
+			setTimeout(function() {
+				res._body.error.should.be.exactly('user already belongs to group.');
+				done();
+			}, 200);
+		});
 	});
 
 	describe("removeUserFromGroup() Unit Tests", function() {
-		it("should fail to remove user from group they don't belong to", function(done) {
-			done();
-		});
-		
 		it("should remove the user from the group", function(done) {
 			req = {
 				user: {
@@ -237,6 +250,27 @@ describe('Group Controller Unit Tests:', function() {
 	
 			setTimeout(function() {
 				res._body.message.should.be.exactly('user removed from group.');
+				done();
+			}, 200);
+		});
+
+		it("should fail to remove user from group they don't belong to", function(done) {
+			req = {
+				user: {
+					_id: user2._id
+				},
+				params: {
+					group_id: groupId
+				}
+			};
+	
+			res = {_body: null, render: function() { 'noop'; }};
+			res.send = function (body) { res._body = body; };
+	
+			GroupController.removeUserFromGroup(req, res);
+	
+			setTimeout(function() {
+				res._body.error.should.be.exactly('user does not belong to group.');
 				done();
 			}, 200);
 		});

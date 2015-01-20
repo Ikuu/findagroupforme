@@ -48,7 +48,8 @@ var userSchema = mongoose.Schema({
 	},
 	home_location: [Number, Number],
 	current_location: [Number, Number],
-	groups: [{type: mongoose.Schema.Types.ObjectId, ref: 'Group'}]
+	groups: [{type: mongoose.Schema.Types.ObjectId, ref: 'Group'}],
+	privacy: Number
 });
 
 module.exports = mongoose.model('User', userSchema);
