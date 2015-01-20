@@ -16,29 +16,35 @@ exports.findById = function(req, res) {
 };
 
 exports.add = function(req, res) {
-	if (req.user === undefined) {
+	if (req.user === undefined || req.user === null) {
 		return res.send({error: "user does not exist."});
 	}
-
-	var newGroup = new Group(req.body);
-	newGroup.members.push(req.user._id);
-
-	User.findOne({_id: req.user._id}).exec(function(err, user) {
-		if (err) return res.send(err);
-		user.groups.push(newGroup._id);
-		user.save(function(err){
+	else if (req.body === undefined || req.body === null) {
+		return res.send({error: "body is empty."});
+	}
+	else {
+		var newGroup = new Group(req.body);
+		newGroup.owner = req.user._id;
+		newGroup.members.push(req.user._id);
+	
+		User.findOne({_id: req.user._id}).exec(function(err, user) {
+			if (err) return res.send(err);
+			user.groups.push(newGroup._id);
+			user.save(function(err){
+			});
 		});
-	});
-
-	Group.create(newGroup, function(err, group){
-		if (err) return res.send({error: "unable to create group."});
-		res.send({
-			_id: group._id,
-			name: group.name,
-			members: group.members,
-			message: "Received."
+	
+		Group.create(newGroup, function(err, group){
+			if (err) return res.send({error: "unable to create group."});
+			res.send({
+				_id: group._id,
+				name: group.name,
+				owner: group.owner,
+				members: group.members,
+				message: "Received."
+			});
 		});
-	});
+	}
 };
 
 exports.update = function(req, res) {
@@ -61,34 +67,26 @@ exports.update = function(req, res) {
 };
 
 exports.delete = function(req, res) {
-	// Would want to remove all of the members from the group too. Grab all the Member IDs from the group and loop through each and remove from that user. Might want to see if this can be done in one call.
 	Group.findByIdAndRemove(req.params.group_id, function(err, group) {
 		if (err) return res.send({error: "unable to delete group."});
+		User.update({groups: req.params.group_id},
+			{$pull :{ 'groups': req.params.group_id}},
+			{multi: true}).exec(function(err) {});
 		group.remove();
 		res.send({});
 	});
 };
 
-/*
-	Find User
-	Check if User already in group
-	Push group id into user
-	Push user id into group
-*/
 exports.addUserToGroup = function(req, res) {
 	User.findOne({_id: req.user._id, groups: {"$nin" : [req.params.group_id]}}).exec(function(err, user) {
 		if (err || user === null) return res.send({error: "user already belongs to group."});
 		user.groups.push(req.params.group_id);
-		user.save(function(err) {
-			if (err) return handleError(err);
-		});
+		user.save();
 
 		Group.findOne({_id: req.params.group_id}).exec(function(err, group) {
 			if (err) return res.send({error: "group does not exist."});
 			group.members.push(req.user._id);
-			group.save(function(err) {
-				if (err) return handleError(err);
-			});
+			group.save();
 		});
 
 		res.send({message: "user added to group."});	

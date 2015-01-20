@@ -59,7 +59,8 @@ describe('Group Controller Unit Tests:', function() {
 	
 			setTimeout(function() {
 				groupId = res._body._id;
-				res._body.name.should.be.exactly('Test Group')
+				res._body.name.should.be.exactly('Test Group');
+				res._body.owner.should.be.exactly(user._id);
 				res._body.message.should.be.exactly('Received.');
 				done();
 			}, 200);
@@ -90,8 +91,6 @@ describe('Group Controller Unit Tests:', function() {
 			req = {
 				user: {
 					_id: user._id
-				},
-				body: {
 				}
 			};
 	
@@ -101,7 +100,7 @@ describe('Group Controller Unit Tests:', function() {
 			GroupController.add(req, res);
 	
 			setTimeout(function() {
-				res._body.error.should.be.exactly('unable to create group.');
+				res._body.error.should.be.exactly('body is empty.');
 				done();
 			}, 200);
 		});

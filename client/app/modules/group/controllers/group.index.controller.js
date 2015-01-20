@@ -36,6 +36,7 @@ angular.module('app.group')
 
 	$scope.deleteButton = function(){
 		Group.remove({_id: $routeParams.id}).$promise.then(function(response) {
+			console.log(response);
 			alert("Group has been deleted!");
 			$location.path('/');
 		});

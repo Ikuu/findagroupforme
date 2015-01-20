@@ -14,6 +14,7 @@ var groupSchema = mongoose.Schema({
 	date_created: {type: Date, default: Date.now},
 	activity: String,
 	venue_location: [Number, Number],
+	owner: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
 	members: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
 	posts: [{
 		username: String,

@@ -3,7 +3,8 @@
 	<p>
 		Activity: {{group.activity}}</br>
 		Date Created: {{group.date_created | date:'dd/MM/yyyy'}}</br>
-		Description: {{group.description}}
+		Description: {{group.description}}</br>
+		Owner: {{group.owner}}
 	</p>
 	<p>
 		<button ng-click="joinButton()" class="btn btn-primary">Join</button>

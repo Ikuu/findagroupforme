@@ -11,12 +11,14 @@ angular.module('app', [
 	$httpProvider.interceptors.push(interceptor);
 });
 
-// Might want to move this to a service.
 var interceptor = function($location, $q) {
 	return {
 		'responseError': function(response) {
-			if (response.status === 401){
+			if (response.status === 401) {
 				$location.url('/login');
+			}
+			if (response.status === 403) {
+				alert("You do not have permission for this action!");
 			}
 			return $q.reject(response);
 		}
