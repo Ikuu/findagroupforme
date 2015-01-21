@@ -152,7 +152,8 @@ describe('UserController Unit Tests:', function() {
 					password: "1234",
 					date_of_birth: "1980-11-24T18:22:54.062Z",
 					current_location: [55.896154, -5.427094],
-					home_location: [55.896154, -5.427094]
+					home_location: [55.896154, -5.427094],
+					privacy: 0
 				}
 			};
 			res = {_body: null, render: function() { 'noop'; } };

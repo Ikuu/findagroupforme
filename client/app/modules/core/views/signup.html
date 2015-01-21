@@ -1,29 +1,46 @@
-<!-- Need to Hide this page if already logged in -->
 <div class="container">
 	<h1>Sign Up</h1>
-	<form action="/api/users" method="post">
-		<div>
-			<label>Name:</label>
-			<input type="text" name="name"/>
-		</div>
+	<form class="form" method="post" ng-submit="createUser()">
 		<div>
 			<label>Username:</label>
-			<input type="text" name="username"/>
+			<input type="text" name="username" ng-model="user.username"/>
+		</div>
+		<div>
+			<label>Name:</label>
+			<input type="text" name="name" ng-model="user.name"/>
 		</div>
 		<div>
 			<label>Password:</label>
-			<input type="password" name="password"/>
-		</div>
-		<div>
-			<label>E-Mail:</label>
-			<input type="text" name="email"/>
+			<input type="password" name="password" ng-model="user.password"/>
 		</div>
 		<div>
 			<label>Address:</label>
-			<input type="text" name="address.street"/>
-			<input type="text" name="address.city"/>
-			<input type="text" name="address.post_code"/>
-			<input type="text" name="address.country"/>
+			<label>Street:</label><input type="text" name="address.street" ng-model="user.address.street"/>
+			<label>City:</label><input type="text" name="address.city" ng-model="user.address.city"/>
+			<label>Post Code:</label><input type="text" name="address.post_code" ng-model="user.address.post_code"/>
+			<label>Country:</label><input type="text" name="address.country" ng-model="user.address.country"/>
+		</div>
+		<div>
+			<label>Email:</label>
+			<input type="text" name="email" ng-model="user.email"/>
+		</div>
+		<div>
+			<label>Privacy</label>
+			<input type="text" name="privacy" ng-model="user.privacy">
+		</div>
+		<div>
+			<label>Activities</label>
+			<input type="text" name="activites" ng-model="user.activites"/>
+		</div>
+		<div>
+			<label>Home Location (Co-Ords):</label>
+			<input type="text" name="latitude" ng-model="user.home_location[0]"/>
+			<input type="text" name="longitude" ng-model="user.home_location[1]"/>
+		</div>
+		<div>
+			<label>Current Location (Co-Ords):</label>
+			<input type="text" name="latitude" ng-model="user.current_location[0]"/>
+			<input type="text" name="longitude" ng-model="user.current_location[1]"/>
 		</div>
 		<div>
 			<input type="submit" value="Register"/>

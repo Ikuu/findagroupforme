@@ -1,48 +1,52 @@
 var User = require('../../models/user');
 var Group = require('../../models/group');
 
-exports.index = function(req, res){
-	User.find().populate('groups', 'name activity').exec(function (err, user){
+exports.index = function(req, res) {
+	User.find().populate('groups', 'name activity').exec(function (err, user) {
 		if (err) return handleError(err);
 		res.send(user);
 	});
 };
 
-exports.findById = function(req, res){
-	User.findOne({_id: req.params.user_id}).populate('groups', 'name activity').exec(function (err, user){
+exports.findById = function(req, res) {
+	User.findOne({_id: req.params.user_id}).populate('groups', 'name activity').exec(function (err, user) {
 		if (err) return res.send({error: "_id supplied was not valid."});
 		res.send(user);
 	});
 };
 
-exports.add = function(req, res){
-	var newUser = new User(req.body);
-	User.create(newUser, function(err, user){
+exports.add = function(req, res) {
+	var userToAdd = new User(req.body);
+	User.create(userToAdd, function(err, user) {
 		if (err) return res.send(err);
 		res.send(user);
 	});
 };
 
-exports.update = function(req, res){
+exports.update = function(req, res) {
 	if (req.user === undefined) {
 		return res.send({error: "could not update user."});
 	}
+	else {
+		var update = {
+			"name": req.body.name,
+			"email": req.body.email,
+			"address": req.body.address,
+			"password": req.body.password,
+			"activites": req.body.activites,
+			"privacy": req.body.privacy,
+			"home_location": req.body.home_location,
+			"current_location": req.body.current_location
+		};
 
-	var updatedUser = new User(req.body);
-	var update = {
-		"name": updatedUser.name,
-		"email": updatedUser.email,
-		"home_location": [updatedUser.home_location[0], updatedUser.home_location[1]],
-		"current_location": [updatedUser.current_location[0], updatedUser.current_location[1]]
-	};
-
-	User.findByIdAndUpdate(req.user._id, update, function(err){
-		if (err) return res.send({"error": err});
-		res.send({message: "User has been updated"});
-	});
+		User.findByIdAndUpdate(req.user._id, update, function(err) {
+			if (err) return res.send({"error": err});
+			res.send({message: "User has been updated"});
+		});
+	}
 };
 
-exports.delete = function(req, res){
+exports.delete = function(req, res) {
 	User.findByIdAndRemove(req.params.user_id, function(err, user) {
 		if (err) return res.send({error: "unable to delete id"});
 		user.remove();
@@ -51,8 +55,8 @@ exports.delete = function(req, res){
 };
 
 // Strip Password
-exports.findLoggedInUser = function(req, res){
-	User.findOne({_id: req.user._id}).populate('groups', 'name activity').exec(function(err, user){
+exports.findLoggedInUser = function(req, res) {
+	User.findOne({_id: req.user._id}).populate('groups', 'name activity').exec(function(err, user) {
 		if (err) return handleError(err);
 		res.send(user);
 	});

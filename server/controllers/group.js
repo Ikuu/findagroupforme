@@ -47,23 +47,26 @@ exports.add = function(req, res) {
 	}
 };
 
+// Might need to remake the object due to populate.
+// Could make another end-point that returns without populate, and have Edit call that.
 exports.update = function(req, res) {
 	if (req.body._id === undefined) {
 		return res.send({error: "could not update group."});
 	}
-
-	var updatedGroup = new Group(req.body);
-	var update = {
-		"name": updatedGroup.name,
-		"description": updatedGroup.description,
-		"activity": updatedGroup.activity,
-		"venue_location": updatedGroup.venue_location
-	};
-
-	Group.findByIdAndUpdate(updatedGroup._id, update, function(err){
-		if (err) return res.send({error: "could not update group"});
-		res.send({message: "group has been updated."});
-	});
+	else {
+		var updatedGroup = new Group(req.body);
+		var update = {
+		 	"name": updatedGroup.name,
+		 	"description": updatedGroup.description,
+		 	"activity": updatedGroup.activity,
+		 	"venue_location": updatedGroup.venue_location
+		};
+	
+		Group.findByIdAndUpdate(updatedGroup._id, update, function(err, doc) {
+			if (err) return res.send({error: "could not update group"});
+			res.send({message: "group has been updated."});
+		});
+	}
 };
 
 exports.delete = function(req, res) {

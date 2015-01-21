@@ -1,7 +1,10 @@
 var mongoose = require('mongoose');
 
 var userSchema = mongoose.Schema({
-	name: String,
+	name: {
+		type: String,
+		required: true
+	},
 	username: {
 		type: String,
 		required: true,
@@ -49,7 +52,10 @@ var userSchema = mongoose.Schema({
 	home_location: [Number, Number],
 	current_location: [Number, Number],
 	groups: [{type: mongoose.Schema.Types.ObjectId, ref: 'Group'}],
-	privacy: Number
+	privacy: {
+		type: Number,
+		default: 0
+	}
 });
 
 module.exports = mongoose.model('User', userSchema);

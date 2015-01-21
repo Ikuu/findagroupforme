@@ -6,8 +6,27 @@
 			<input type="text" name="name" ng-model="user.name"/>
 		</div>
 		<div>
+			<label>Password:</label>
+			<input type="password" name="password" ng-model="user.password"/>
+		</div>
+		<div>
+			<label>Address:</label>
+			<label>Street:</label><input type="text" name="address.street" ng-model="user.address.street"/>
+			<label>City:</label><input type="text" name="address.city" ng-model="user.address.city"/>
+			<label>Post Code:</label><input type="text" name="address.post_code" ng-model="user.address.post_code"/>
+			<label>Country:</label><input type="text" name="address.country" ng-model="user.address.country"/>
+		</div>
+		<div>
 			<label>Email:</label>
 			<input type="text" name="email" ng-model="user.email"/>
+		</div>
+		<div>
+			<label>Privacy</label>
+			<input type="text" name="privacy" ng-model="user.privacy">
+		</div>
+		<div>
+			<label>Activities</label>
+			<input type="text" name="activites" ng-model="user.activites"/>
 		</div>
 		<div>
 			<label>Home Location (Co-Ords):</label>
@@ -25,7 +44,7 @@
 	</form>
 
 	<h2>Groups</h2>
-	<li ng-show="!user.groups.length">No Groups at the moment.</li>
+	<li ng-if="!user.groups.length">No Groups at the moment.</li>
 	<div ng-repeat="group in user.groups">
 		<a href="./#/groups/{{group._id}}">{{group.name}}</a>
 	</div>

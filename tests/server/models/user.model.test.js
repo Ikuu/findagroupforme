@@ -10,11 +10,13 @@ var user, user2;
 describe('User Model Unit Tests:', function(){
 	before(function(done){
 		user = new User({
-			username: "Ikuu"
+			username: "Ikuu",
+			name: "Test User"
 		});
 
 		user2 = new User({
-			username: "Ikuu"
+			username: "Ikuu",
+			name: "Test User"
 		});
 
 		done();

@@ -1,5 +1,5 @@
 angular.module('app.group')
-.controller('GroupEditController', function($scope, $location, $routeParams, Group) {
+.controller('GroupEditController', function($scope, $location, $routeParams, $route, Group) {
 	Group.get({ _id: $routeParams.id }, function(group) {
 		$scope.group = group;
 	}, function(response){
@@ -15,7 +15,10 @@ angular.module('app.group')
 			date_created: $scope.group.date_created,
 			members: $scope.group.members
 		}).$promise.then(function(response) {
-
+			if (response.message == "group has been updated.") {
+				alert("updated");
+				$route.reload();
+			}
 		});
 	};
 });

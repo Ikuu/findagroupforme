@@ -11,11 +11,13 @@ var user, user2, groupId, req, res;
 describe('Group Controller Unit Tests:', function() {
 	before(function(done) {
 		user = new User({
-			username: "Ikuu"
+			username: "Ikuu",
+			name: "Test User"
 		});
 
 		user2 = new User({
-			username: "Test User"
+			username: "Test User",
+			name: "Test User"
 		});
 
 		user.save();
