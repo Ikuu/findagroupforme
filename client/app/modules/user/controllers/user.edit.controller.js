@@ -7,7 +7,7 @@ angular.module('app.user')
 	});
 
 	// Can just change this to pass $scope.user
-	$scope.editUser = function(){
+	$scope.editUser = function() {
 		User.update($scope.user).$promise.then(function(response) {
 			console.log(response);
 			if (response.message === "User has been updated") {

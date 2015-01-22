@@ -11,7 +11,17 @@ exports.index = function(req, res) {
 exports.findById = function(req, res) {
 	User.findOne({_id: req.params.user_id}).populate('groups', 'name activity').exec(function (err, user) {
 		if (err) return res.send({error: "_id supplied was not valid."});
-		res.send(user);
+		if (user.private) {
+			res.send({
+				_id: user._id,
+				name: user.name,
+				username: user.username,
+				private: user.private
+			});
+		}
+		else {
+			res.send(user);
+		}
 	});
 };
 
@@ -34,7 +44,7 @@ exports.update = function(req, res) {
 			"address": req.body.address,
 			"password": req.body.password,
 			"activites": req.body.activites,
-			"privacy": req.body.privacy,
+			"private": req.body.private,
 			"home_location": req.body.home_location,
 			"current_location": req.body.current_location
 		};
@@ -56,7 +66,7 @@ exports.delete = function(req, res) {
 
 // Strip Password
 exports.findLoggedInUser = function(req, res) {
-	User.findOne({_id: req.user._id}).populate('groups', 'name activity').exec(function(err, user) {
+	User.findOne({_id: req.user._id}).populate('groups', 'name activity').exec(function (err, user) {
 		if (err) return handleError(err);
 		res.send(user);
 	});

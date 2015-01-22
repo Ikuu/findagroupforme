@@ -85,6 +85,11 @@ describe('UserController Unit Tests:', function() {
 				done();
 			}, 200);
 		});
+
+		it("should return partial user if private is true", function(done) {
+			// create user with privacy true and then test.
+			done();
+		});
 	
 		it("should return the added user", function(done) {
 			req = {
@@ -153,7 +158,7 @@ describe('UserController Unit Tests:', function() {
 					date_of_birth: "1980-11-24T18:22:54.062Z",
 					current_location: [55.896154, -5.427094],
 					home_location: [55.896154, -5.427094],
-					privacy: 0
+					private: false
 				}
 			};
 			res = {_body: null, render: function() { 'noop'; } };
@@ -163,6 +168,25 @@ describe('UserController Unit Tests:', function() {
 	
 			setTimeout(function() {
 				res._body.message.should.be.exactly('User has been updated');
+				done();
+			}, 200);
+		});
+	});
+	
+	describe("findLoggedInUser() Unit Tests", function() {
+		it("should return current user logged in", function(done) {
+			req = {
+				user: {
+					_id: userID
+				}
+			};
+			res = {_body: null, render: function() { 'noop'; } };
+			res.send = function (body) { res._body = body; };
+	
+			UserController.findLoggedInUser(req, res);
+	
+			setTimeout(function() {
+				res._body.username.should.be.exactly("TestUser01");
 				done();
 			}, 200);
 		});

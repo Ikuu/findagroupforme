@@ -52,9 +52,9 @@ var userSchema = mongoose.Schema({
 	home_location: [Number, Number],
 	current_location: [Number, Number],
 	groups: [{type: mongoose.Schema.Types.ObjectId, ref: 'Group'}],
-	privacy: {
-		type: Number,
-		default: 0
+	private: {
+		type: Boolean,
+		default: false
 	}
 });
 
