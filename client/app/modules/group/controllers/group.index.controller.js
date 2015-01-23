@@ -1,40 +1,44 @@
 angular.module('app.group')
-.controller('GroupController', function($scope, $location, $routeParams, $route, Group, Title){
+.controller('GroupController', function($scope, $location, $routeParams, $route, Group, Title) { 
+	$scope.private = false;
 	$scope.group = Group.get({ _id: $routeParams.id }, function(group) {
 		Title.set(group.name);
 
-		$scope.map = {
-			center:{
-				latitude: group.venue_location[0],
-				longitude: group.venue_location[1]
-			},
-			zoom: 15
-		};
-
-		$scope.marker = {
-			id: 0,
-			coords: {
-				latitude: group.venue_location[0],
-				longitude: group.venue_location[1]
-			}
-		};
-		
-		$scope.marker2 = {
-			id: 0,
-			coords: {
-				latitude: group.members[0].current_location[0],
-				longitude: group.members[0].current_location[1]
-			}
-		};
-
-	}, function(response){
+		if (!group.description) {
+			$scope.private = true; 
+		}
+		else {
+			$scope.map = {
+				center:{
+					latitude: group.venue_location[0],
+					longitude: group.venue_location[1]
+				},
+				zoom: 15
+			};
+	
+			$scope.marker = {
+				id: 0,
+				coords: {
+					latitude: group.venue_location[0],
+					longitude: group.venue_location[1]
+				}
+			};
+			
+			$scope.marker2 = {
+				id: 0,
+				coords: {
+					latitude: group.members[0].current_location[0],
+					longitude: group.members[0].current_location[1]
+				}
+			};
+		}
 	});
 
-	$scope.editButton = function(){
+	$scope.editButton = function() {
 		$location.path("/groups/"+$routeParams.id+"/edit");
 	};
 
-	$scope.deleteButton = function(){
+	$scope.deleteButton = function() {
 		Group.remove({_id: $routeParams.id}).$promise.then(function(response) {
 			console.log(response);
 			alert("Group has been deleted!");
@@ -42,7 +46,7 @@ angular.module('app.group')
 		});
 	};
 
-	$scope.joinButton = function(){
+	$scope.joinButton = function() {
 		Group.addUser({_id: $routeParams.id}).$promise.then(function(response) {
 			if (response.error) {
 				alert("Already in this group!");
@@ -54,7 +58,7 @@ angular.module('app.group')
 		});
 	};
 
-	$scope.leaveButton = function(){
+	$scope.leaveButton = function() {
 		Group.removeUser({_id: $routeParams.id}).$promise.then(function(response) {
 			if (response.error) {
 				alert("Not in group!");

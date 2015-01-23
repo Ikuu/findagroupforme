@@ -20,7 +20,7 @@ angular.module('app.group', ['ngRoute'])
 });
 
 // Test function, checks to see if user logged in, if not kicks them out. Not needed due to httpInterceptor
-var checkLog = function($http, $rootScope, $location){
+/*var checkLog = function($http, $rootScope, $location){
 	$http.get('/session')
 		.success(function(data){
 			$rootScope.user = data;
@@ -28,4 +28,4 @@ var checkLog = function($http, $rootScope, $location){
 		.error(function(data){
 			$location.path('/login');
 		});
-};
+};*/

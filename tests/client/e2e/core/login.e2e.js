@@ -14,13 +14,12 @@ describe("Login.html E2E Tests", function() {
 		expect(browser.getTitle()).toEqual('Login | FindAGroupFor.me');
 	});
 
-	it("should not login, and redirect to signup", function() {
-		// Really this should redirect to login and give error
+	it("should not login, and redirect to login", function() {
 		username.sendKeys('Ikuu');
 		password.sendKeys('123');
 		submit.click();
 
-		expect(browser.getLocationAbsUrl()).toBe('/signup');
+		expect(browser.getLocationAbsUrl()).toBe('/login');
 	});
 
 	it("should login successfully", function() {

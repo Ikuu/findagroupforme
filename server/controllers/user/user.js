@@ -11,10 +11,9 @@ exports.index = function(req, res) {
 exports.findById = function(req, res) {
 	User.findOne({_id: req.params.user_id}).populate('groups', 'name activity').exec(function (err, user) {
 		if (err) return res.send({error: "_id supplied was not valid."});
-		if (user.private) {
+		if (user.private && !user._id.equals(req.user._id)) {
 			res.send({
 				_id: user._id,
-				name: user.name,
 				username: user.username,
 				private: user.private
 			});

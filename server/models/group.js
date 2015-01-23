@@ -1,7 +1,6 @@
 /*
 	Events.members_attending needs to looked at too.
 */
-
 var mongoose = require('mongoose');
 
 var groupSchema = mongoose.Schema({
@@ -12,6 +11,10 @@ var groupSchema = mongoose.Schema({
 	},
 	description: String,
 	date_created: {type: Date, default: Date.now},
+	private: {
+		type: Boolean,
+		default: false
+	},
 	activity: String,
 	venue_location: [Number, Number],
 	owner: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},

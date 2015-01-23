@@ -50,7 +50,8 @@ describe('Group Controller Unit Tests:', function() {
 					name: 'Test Group',
 					activity: 'football',
 					description: 'This is a test group!',
-					venue_location: [ '55.879622', '-4.571489' ]
+					venue_location: [ '55.879622', '-4.571489' ],
+					private: true
 				}
 			};
 	
@@ -126,8 +127,33 @@ describe('Group Controller Unit Tests:', function() {
 			}, 200);
 		});
 
+		it("should return partial", function(done) {
+			req = {
+				user: {
+					_id: user2._id
+				},
+				params: {
+					group_id: groupId
+				}
+			};
+			res = { _body: null, render: function() { 'noop'; }};
+			res.send = function (body) { res._body = body; };
+	
+			GroupController.findById(req, res);
+	
+			setTimeout(function () {
+				res._body.should.be.an.Object;
+				res._body.name.should.be.exactly('Test Group');
+				res._body.private.should.be.exactly(true);
+				done();
+			}, 200);
+		});
+
 		it("should return the group added", function(done) {
 			req = {
+				user: {
+					_id: user._id
+				},
 				params: {
 					group_id: groupId
 				}

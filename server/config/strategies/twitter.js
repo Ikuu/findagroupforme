@@ -18,7 +18,8 @@ module.exports = function(){
 				}
 				else{
 					var newUser = new User();
-
+					
+					newUser.name = profile._json.name;
 					newUser.username = profile.username;
 					newUser.twitter.id = profile.id;
 					newUser.twitter.token = token;
@@ -26,8 +27,7 @@ module.exports = function(){
 					newUser.twitter.displayName = profile.displayName;
 
 					newUser.save(function(err){
-						if (err)
-							throw err;
+						if (err) throw err;
 						return done(null, newUser);
 					});
 				}
