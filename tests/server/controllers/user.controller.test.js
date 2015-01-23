@@ -47,6 +47,7 @@ describe('UserController Unit Tests:', function() {
 						post_code: "G2 4PP",
 						county: "United Kingdom"
 					},
+					private: true,
 					email: "test@user.com",
 					password: "1234",
 					date_of_birth: "1980-11-24T18:22:54.062Z",
@@ -87,12 +88,31 @@ describe('UserController Unit Tests:', function() {
 		});
 
 		it("should return partial user if private is true", function(done) {
-			// create user with privacy true and then test.
-			done();
+			req = {
+				user: {
+					_id: "547b6252ee09fef8405d1834"
+				},
+				params: {
+					user_id: userID
+				}
+			};
+			res = {_body: null, render: function() { 'noop'; } };
+			res.send = function (body) { res._body = body; };
+	
+			UserController.findById(req, res);
+	
+			setTimeout(function() {
+				res._body.username.should.be.exactly("TestUser01");
+				res._body.should.not.have.property('name');
+				done();
+			}, 200);
 		});
 	
 		it("should return the added user", function(done) {
 			req = {
+				user: {
+					_id: userID
+				},
 				params: {
 					user_id: userID
 				}
