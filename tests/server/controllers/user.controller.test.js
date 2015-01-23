@@ -73,7 +73,7 @@ describe('UserController Unit Tests:', function() {
 		it("should return id not valid", function(done) {
 			req = {
 				params: {
-					user_id: "invalid id"
+					user_id: '54bfbacd3444730000228786'
 				}
 			};
 			res = {_body: null, render: function() { 'noop'; } };
