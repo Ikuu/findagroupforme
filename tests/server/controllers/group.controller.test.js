@@ -113,7 +113,7 @@ describe('Group Controller Unit Tests:', function() {
 		it("should fail to return group with invalid id", function(done) {
 			req = {
 				params: {
-					group_id: ""
+					group_id: "5427eb4f598100c1fd15ca7c"
 				}
 			};
 			res = { _body: null, render: function() { 'noop'; }};
@@ -127,7 +127,7 @@ describe('Group Controller Unit Tests:', function() {
 			}, 200);
 		});
 
-		it("should return partial", function(done) {
+		it("should return partial group as user not in group", function(done) {
 			req = {
 				user: {
 					_id: user2._id

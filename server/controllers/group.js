@@ -12,7 +12,7 @@ exports.findById = function(req, res) {
 	var userInGroup = false;
 
 	Group.findOne({_id: req.params.group_id}).populate('members', 'name current_location').exec(function(err, group) {
-		if (err) return res.send({error: "group could not be found."});
+		if (err || group === null) return res.send({error: "group could not be found."});
 
 		if (group.private) {
 			for (var i = 0; i < group.members.length; i++) {
