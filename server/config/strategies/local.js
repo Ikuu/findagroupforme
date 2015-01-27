@@ -6,7 +6,6 @@ module.exports = function(){
 	passport.use(new LocalStrategy(
 		function(loginName, loginPass, done){
 			User.findOne({username: loginName}, function(err, user){
-				console.log(user);
 				if (err) return handleError(err);
 				if (!user){
 					return done (null, false, {message: 'incorrect username.'});

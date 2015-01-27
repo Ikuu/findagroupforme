@@ -22,6 +22,10 @@ angular.module('app.core', ['ngRoute'])
 			templateUrl: '/app/modules/core/views/signup.html',
 			controller: 'SignupController'
 		})
+		// To handle Facebook Login
+		.when('/_=_', {
+			redirectTo: '/'
+		})
 		.otherwise({
 			redirectTo: '/404'
 		});

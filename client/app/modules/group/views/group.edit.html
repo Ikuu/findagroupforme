@@ -10,6 +10,10 @@
 			<input type="text" name="activity" ng-model="group.activity"/>
 		</div>
 		<div>
+			<label>Private</label>
+			<input type="checkbox" name="private" ng-model="group.private">
+		</div>
+		<div>
 			<label>Description:</label>
 			<textarea type="text" rows="4" name="description" ng-model="group.description"/>
 		</div>
@@ -23,6 +27,15 @@
 			 <button class="btn btn-primary" type="submit">Add</button>
 		</div>
 	</form>
-	<h2>Member</h2>
-	<div ng-repeat="member in group.members">{{member.name}} - Remove From Group</div>
+
+	<h2>Members</h2>
+	<div ng-repeat="member in group.members">
+		<a href="#/user/{{member._id}}">{{member.name}}</a> - Remove From Group
+	</div>
+
+	<h2>Posts</h2>
+	<span>None at present.</span>
+
+	<h2>Events</h2>
+	<span>None at present.</span>
 </div>

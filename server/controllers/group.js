@@ -81,6 +81,7 @@ exports.update = function(req, res) {
 		var update = {
 		 	"name": updatedGroup.name,
 		 	"description": updatedGroup.description,
+		 	"private": updatedGroup.private,
 		 	"activity": updatedGroup.activity,
 		 	"venue_location": updatedGroup.venue_location
 		};

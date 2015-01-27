@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 
+
+// Might want gender.
 var userSchema = mongoose.Schema({
 	name: {
 		type: String,
