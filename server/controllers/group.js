@@ -3,8 +3,10 @@ var Group = require('../models/group');
 
 exports.index = function(req, res) {
 	Group.find().populate('members', 'name current_location').exec(function (err, group) {
-		if (err) return handleError(err);
-		res.send(group);
+		if (err) {
+            return handleError(err);
+        }
+		return res.send(group);
 	});
 };
 

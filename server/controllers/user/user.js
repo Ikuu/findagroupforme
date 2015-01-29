@@ -10,16 +10,20 @@ exports.index = function(req, res) {
 
 exports.findById = function(req, res) {
 	User.findOne({_id: req.params.user_id}).populate('groups', 'name activity').exec(function (err, user) {
-		if (err || user === null) return res.send({error: "_id supplied was not valid."});
+		var noUserFound = (err || user === null);
+
+		if (noUserFound) {
+			return res.send({error: "_id supplied was not valid."});
+		}
 		else if (user.private && !user._id.equals(req.user._id)) {
-			res.send({
+			return res.send({
 				_id: user._id,
 				username: user.username,
 				private: user.private
 			});
 		}
 		else {
-			res.send(user);
+			return res.send(user);
 		}
 	});
 };
@@ -42,7 +46,7 @@ exports.update = function(req, res) {
 			"email": req.body.email,
 			"address": req.body.address,
 			"password": req.body.password,
-			"activites": req.body.activites,
+			"activities": req.body.activities,
 			"private": req.body.private,
 			"home_location": req.body.home_location,
 			"current_location": req.body.current_location
@@ -50,7 +54,7 @@ exports.update = function(req, res) {
 
 		User.findByIdAndUpdate(req.user._id, update, function(err) {
 			if (err) return res.send({"error": err});
-			res.send({message: "User has been updated"});
+			return res.send({message: "User has been updated"});
 		});
 	}
 };

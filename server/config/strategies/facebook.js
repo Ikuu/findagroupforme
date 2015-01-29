@@ -23,10 +23,7 @@ module.exports = function() {
 					newUser.facebook.token = accessToken;
 					newUser.facebook.name = profile.displayName;
 
-					newUser.save(function(err) {
-						if (err) handleErr(err);
-					});
-
+					newUser.save();
 					return done(null, newUser);
 				}		
 			});

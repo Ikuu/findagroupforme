@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, '../client')));
 app.use(session({
 	secret: '<mysecret>',
 	store: new MongoStore({
-		url: dbConfig.url,
+		url: dbConfig.url
 	}),
 	resave: true,
 	saveUninitialized: true

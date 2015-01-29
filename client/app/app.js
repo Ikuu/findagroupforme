@@ -11,9 +11,9 @@ angular.module('app', [
 	$httpProvider.interceptors.push(interceptor);
 });
 
-var interceptor = function($location, $q) {
+var interceptor = function ($location, $q) {
 	return {
-		'responseError': function(response) {
+		'responseError': function (response) {
 			if (response.status === 401) {
 				$location.url('/login');
 			}
