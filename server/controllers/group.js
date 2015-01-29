@@ -25,13 +25,14 @@ exports.findById = function(req, res) {
 		}
 
 		if (userInGroup || !group.private) {
+			console.log("return full group")
 			return res.send(group);
 		}
 		else {
 			return res.send({
 				id: group._id,
 				name: group.name,
-				private: group.private
+				privateGroup: true
 			});
 		}
 	});
