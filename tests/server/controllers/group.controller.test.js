@@ -25,7 +25,7 @@ describe('Group Controller Unit Tests:', function() {
 		done();
 	});
 
-	describe("index() Unit Tests", function() {
+	describe("index Unit Tests", function() {
 		it('Should return no groups', function(done) {
 			req = {};
 			res = {_body: null, render: function() { 'noop'; }};
@@ -40,7 +40,7 @@ describe('Group Controller Unit Tests:', function() {
 		});
 	});
 
-	describe("add() Unit Tests", function() {
+	describe("add Unit Tests", function() {
 		it("should add a group", function(done) {
 			req = {
 				user: {
@@ -109,7 +109,7 @@ describe('Group Controller Unit Tests:', function() {
 		});
 	});
 
-	describe("findById() Unit Tests", function() {
+	describe("findById Unit Tests", function() {
 		it("should fail to return group with invalid id", function(done) {
 			req = {
 				params: {
@@ -144,7 +144,7 @@ describe('Group Controller Unit Tests:', function() {
 			setTimeout(function () {
 				res._body.should.be.an.Object;
 				res._body.name.should.be.exactly('Test Group');
-				res._body.private.should.be.exactly(true);
+				res._body.privateGroup.should.be.exactly(true);
 				done();
 			}, 200);
 		});
@@ -170,7 +170,7 @@ describe('Group Controller Unit Tests:', function() {
 		});
 	});
 
-	describe("update() Unit Tests", function() {
+	describe("update Unit Tests", function() {
 		it("should fail to update group with no id", function(done) {
 			req = {
 				body: {
@@ -215,7 +215,7 @@ describe('Group Controller Unit Tests:', function() {
 		});
 	});
 
-	describe("addUserToGroup() Unit Tests", function() {
+	describe("addUserToGroup Unit Tests", function() {
 		it("should add a user to the group", function(done) {
 			req = {
 				user: {
@@ -259,7 +259,7 @@ describe('Group Controller Unit Tests:', function() {
 		});
 	});
 
-	describe("removeUserFromGroup() Unit Tests", function() {
+	describe("removeUserFromGroup Unit Tests", function() {
 		it("should remove the user from the group", function(done) {
 			req = {
 				user: {
@@ -303,7 +303,44 @@ describe('Group Controller Unit Tests:', function() {
 		});
 	});
 
-	describe("delete() Unit Tests", function() {
+	describe("addEventToGroup Unit Tests", function() {
+		it("should add event to the group", function(done) {
+			req = {
+				user: {
+					_id: user._id
+				},
+				body: {
+					events: {
+						name: "New Event",
+						description: "Test event for testing",
+						date: "02/02/2015 18:00",
+						location: [55.879622, -4.571489],
+					}
+				},
+				params: {
+					group_id: groupId
+				}
+			};
+	
+			res = {_body: null, render: function() { 'noop'; }};
+			res.send = function (body) { res._body = body; };
+	
+			GroupController.addEventToGroup(req, res);
+	
+			setTimeout(function() {
+				res._body.events[0].name.should.be.exactly("New Event");
+				done();
+			}, 200);
+		});
+	});
+
+	describe("removeEventFromGroup Unit Tests", function() {
+		it("should remove event from the group", function(done) {
+			done();
+		});
+	});
+
+	describe("delete Unit Tests", function() {
 		it("should fail to delete group with invalid id", function(done) {
 			req = {
 				params: {

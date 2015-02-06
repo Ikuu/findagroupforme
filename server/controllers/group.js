@@ -147,3 +147,15 @@ exports.removeUserFromGroup = function(req, res) {
 		}
 	});
 };
+
+exports.addEventToGroup = function(req, res) {
+	Group.findOne({_id: req.params.group_id}).exec(function(err, group) {
+		group.events.push(req.body.events);
+		group.save();
+		return res.send(group);
+	});
+};
+
+exports.removeEventFromGroup = function(req, res) {
+
+};

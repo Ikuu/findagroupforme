@@ -7,7 +7,7 @@ var UserController = require('../../../server/controllers/user/user');
 var req, res, userID;
 
 describe('UserController Unit Tests:', function() {
-	describe("index() Unit Tests", function() {
+	describe("index Unit Tests", function() {
 		it('should return no users', function(done) {
 			req = {};
 			res = {_body: null, render: function() { 'noop'; } };
@@ -22,7 +22,7 @@ describe('UserController Unit Tests:', function() {
 		});
 	});
 
-	describe("add() Unit Tests", function() {
+	describe("add Unit Tests", function() {
 		it("should fail to add blank user", function(done) {
 			req = {};
 			res = {_body: null, render: function() { 'noop'; } };
@@ -69,7 +69,7 @@ describe('UserController Unit Tests:', function() {
 		});		
 	});
 
-	describe("findById() Unit Tests", function() {
+	describe("findById Unit Tests", function() {
 		it("should return id not valid", function(done) {
 			req = {
 				params: {
@@ -129,7 +129,7 @@ describe('UserController Unit Tests:', function() {
 		});
 	});
 
-	describe("update() Unit Tests", function() {
+	describe("update Unit Tests", function() {
 		it("should fail to update user with invalid id", function(done) {
 			req = {
 				body: {
@@ -194,7 +194,7 @@ describe('UserController Unit Tests:', function() {
 		});
 	});
 	
-	describe("findLoggedInUser() Unit Tests", function() {
+	describe("findLoggedInUser Unit Tests", function() {
 		it("should return current user logged in", function(done) {
 			req = {
 				user: {
@@ -213,7 +213,7 @@ describe('UserController Unit Tests:', function() {
 		});
 	});
 
-	describe("delete() Unit Tests", function() {
+	describe("delete Unit Tests", function() {
 		it("should fail to delete user with invalid id", function(done) {
 			req = {
 				params: {
