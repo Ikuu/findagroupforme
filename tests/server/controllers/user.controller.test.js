@@ -217,7 +217,7 @@ describe('UserController Unit Tests:', function() {
 		it("should fail to delete user with invalid id", function(done) {
 			req = {
 				params: {
-					user_id: "dfsgdfghdfgh" 
+					user_id: "54749bcf213fg00000c004b0" 
 				}
 			};
 			res = {_body: null, render: function() { 'noop'; } };

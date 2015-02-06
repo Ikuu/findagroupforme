@@ -61,7 +61,7 @@ exports.update = function(req, res) {
 
 exports.delete = function(req, res) {
 	User.findByIdAndRemove(req.params.user_id, function(err, user) {
-		if (err) return res.send({error: "unable to delete id"});
+		if (err || user === null) return res.send({error: "unable to delete id"});
 		user.remove();
 		res.send({});
 	});

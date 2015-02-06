@@ -20,7 +20,8 @@ describe("User.Profile.html E2E Tests", function() {
 		submit.click();
 
 		// find out how to get this id without manually putting it in
-		browser.setLocation('user/54bd693719aee30000967768');
+		//browser.setLocation('user/54bd693719aee30000967768');
+		browser.setLocation('user/54738add5014e6000091a93f');
 
 		expect(browser.getTitle()).toEqual('Ikuu | FindAGroupFor.me');
 		expect(userUsername.getText()).toEqual('Ikuu');
@@ -28,10 +29,13 @@ describe("User.Profile.html E2E Tests", function() {
 	});
 
 	it("should display user profile and be private", function() {
-		username.sendKeys('Ikuu00');
+		//username.sendKeys('Ikuu00');
+		username.sendKeys('1kuu');
 		password.sendKeys('1');
 		submit.click();
-		browser.setLocation('user/54bd693719aee30000967768');
+
+		//browser.setLocation('user/54bd693719aee30000967768');
+		browser.setLocation('user/54738add5014e6000091a93f');
 
 		expect(browser.getTitle()).toEqual('Ikuu | FindAGroupFor.me');
 		expect(userUsername.getText()).toEqual('Ikuu');

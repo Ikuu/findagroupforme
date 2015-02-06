@@ -58,7 +58,8 @@ module.exports = function(app, passport) {
 		}
 	});
 
-	app.get('/logout', function(req, res){
+	// Look at removing session from collection upon delete.
+	app.get('/logout', function(req, res) {
 		req.session.destroy();
 		res.redirect('/');
 	});
