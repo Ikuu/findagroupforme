@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var GroupController = require('../../../server/controllers/group');
 var User = require('../../../server/models/user');
 
-var user, user2, groupId, req, res;
+var user, user2, groupId, req, res, eventId;
 
 describe('Group Controller Unit Tests:', function() {
 	before(function(done) {
@@ -329,6 +329,59 @@ describe('Group Controller Unit Tests:', function() {
 	
 			setTimeout(function() {
 				res._body.events[0].name.should.be.exactly("New Event");
+				eventId = res._body.events[0]._id;
+				done();
+			}, 200);
+		});
+
+		it("should fail to add event to group that does not exist", function(done) {
+			req = {
+				user: {
+					_id: user._id
+				},
+				body: {
+					events: {
+						name: "New Event",
+						description: "Test event for testing",
+						date: "02/02/2015 18:00",
+						location: [55.879622, -4.571489],
+					}
+				},
+				params: {
+					group_id: "54bf8b8666a4350000a8378c"
+				}
+			};
+	
+			res = {_body: null, render: function() { 'noop'; }};
+			res.send = function (body) { res._body = body; };
+	
+			GroupController.addEventToGroup(req, res);
+	
+			setTimeout(function() {
+				res._body.error.should.be.exactly("could not add event");
+				done();
+			}, 200);
+		});
+
+		it("should fail if event is missing", function(done) {
+			req = {
+				user: {
+					_id: user._id
+				},
+				body: {
+				},
+				params: {
+					group_id: "54bf8b8666a4350000a8378c"
+				}
+			};
+	
+			res = {_body: null, render: function() { 'noop'; }};
+			res.send = function (body) { res._body = body; };
+	
+			GroupController.addEventToGroup(req, res);
+	
+			setTimeout(function() {
+				res._body.error.should.be.exactly("could not add event");
 				done();
 			}, 200);
 		});
@@ -336,7 +389,47 @@ describe('Group Controller Unit Tests:', function() {
 
 	describe("removeEventFromGroup Unit Tests", function() {
 		it("should remove event from the group", function(done) {
-			done();
+			req = {
+				user: {
+					_id: user._id
+				},
+				params: {
+					group_id: groupId,
+					event_id: eventId
+				}
+			};
+	
+			res = {_body: null, render: function() { 'noop'; }};
+			res.send = function (body) { res._body = body; };
+	
+			GroupController.removeEventFromGroup(req, res);
+	
+			setTimeout(function() {
+				res._body.events.should.be.empty;
+				done();
+			}, 200);
+		});
+
+		it("should fail to remove event that is not in group", function(done) {
+			req = {
+				user: {
+					_id: user._id
+				},
+				params: {
+					group_id: groupId,
+					event_id: "54bf8b8666a4350000a8378c"
+				}
+			};
+	
+			res = {_body: null, render: function() { 'noop'; }};
+			res.send = function (body) { res._body = body; };
+	
+			GroupController.removeEventFromGroup(req, res);
+	
+			setTimeout(function() {
+				res._body.error.should.be.exactly("could not remove event");
+				done();
+			}, 200);
 		});
 	});
 
@@ -344,7 +437,7 @@ describe('Group Controller Unit Tests:', function() {
 		it("should fail to delete group with invalid id", function(done) {
 			req = {
 				params: {
-					group_id: "sdfsdf"
+					group_id: "666a4350000a8378c54bf8b8"
 				}
 			};
 			res = { _body: null, render: function() { 'noop'; }};

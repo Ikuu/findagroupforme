@@ -25,7 +25,6 @@ exports.findById = function(req, res) {
 		}
 
 		if (userInGroup || !group.private) {
-			console.log("return full group")
 			return res.send(group);
 		}
 		else {
@@ -54,14 +53,14 @@ exports.add = function(req, res) {
 		newGroup.members.push(req.user._id);
 	
 		User.findOne({_id: req.user._id}).exec(function(err, user) {
-			if (err) return res.send(err);
+			if (err || user === null) return res.send(err);
 			user.groups.push(newGroup._id);
 			user.save(function(err){
 			});
 		});
 	
 		Group.create(newGroup, function(err, group) {
-			if (err) return res.send({error: "unable to create group."});
+			if (err || group === null) return res.send({error: "unable to create group."});
 			res.send({
 				_id: group._id,
 				name: group.name,
@@ -98,7 +97,7 @@ exports.update = function(req, res) {
 
 exports.delete = function(req, res) {
 	Group.findByIdAndRemove(req.params.group_id, function(err, group) {
-		if (err) return res.send({error: "unable to delete group."});
+		if (err || group === null) return res.send({error: "unable to delete group."});
 		User.update({groups: req.params.group_id},
 			{$pull :{ 'groups': req.params.group_id}},
 			{multi: true}).exec(function(err) {});
@@ -114,7 +113,7 @@ exports.addUserToGroup = function(req, res) {
 		user.save();
 
 		Group.findOne({_id: req.params.group_id}).exec(function(err, group) {
-			if (err) return res.send({error: "group does not exist."});
+			if (err || group === null) return res.send({error: "group does not exist."});
 			group.members.push(req.user._id);
 			group.save();
 		});
@@ -148,8 +147,16 @@ exports.removeUserFromGroup = function(req, res) {
 	});
 };
 
+// Might want to add some verification that event object is setup correctly
 exports.addEventToGroup = function(req, res) {
-	Group.findOne({_id: req.params.group_id}).exec(function(err, group) {
+	Group.findOne({_id: req.params.group_id}).exec(function (err, group) {
+		var errorOrNull = (err || group === null);
+		var eventMissing = (req.body.events === undefined || req.body.events === null)
+
+		if (errorOrNull || eventMissing) {
+			return res.send({error: "could not add event"});
+		}
+
 		group.events.push(req.body.events);
 		group.save();
 		return res.send(group);
@@ -157,5 +164,15 @@ exports.addEventToGroup = function(req, res) {
 };
 
 exports.removeEventFromGroup = function(req, res) {
+	Group.findOne({_id: req.params.group_id, 'events._id': req.params.event_id}).exec(function (err, group) {
+		var errorOrNull = (err || group === null);
 
+		if (errorOrNull) {
+			return res.send({error: "could not remove event"});
+		}
+
+		group.events.pull({_id: req.params.event_id});
+		group.save();
+		return res.send(group);
+	});
 };

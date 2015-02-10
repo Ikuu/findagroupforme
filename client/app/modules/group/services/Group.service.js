@@ -11,9 +11,19 @@ angular.module('app.group')
 			params: {_id: '@_id'}
 		},
 		removeUser: {
-			method: 'PUT',
+			method: 'DELETE',
 			url: '/api/groups/:_id/removeUser',
 			params: {_id: '@_id'}
+		},
+		addEvent: {
+			method: 'PUT',
+			url: '/api/groups/:_id/event',
+			params: {_id: '@_id'}
+		},
+		removeEvent: {
+			method: 'DELETE',
+			url: '/api/groups/:_id/event/:event_id',
+			params: {_id: '@_id', event_id: '@event_id'}
 		}
 	});
 });

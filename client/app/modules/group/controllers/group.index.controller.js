@@ -69,4 +69,19 @@ angular.module('app.group')
 			}
 		});
 	};
+
+	$scope.addEventButton = function() {
+		var eventVar = {
+			name: "New Event",
+			description: "Test event for testing",
+			date: "02/02/2015 18:00",
+			location: [55.879622, -4.571489],
+		};
+
+		Group.addEvent({_id: $routeParams.id, events: eventVar});
+	};
+
+	$scope.removeEventButton = function(event_id) {
+		Group.removeEvent({_id: $routeParams.id, event_id: event_id});
+	};
 });

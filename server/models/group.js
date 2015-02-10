@@ -1,5 +1,6 @@
 /*
 	Events.members_attending needs to looked at too.
+	Events.variables need to be required
 */
 var mongoose = require('mongoose');
 

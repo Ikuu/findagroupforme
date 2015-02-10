@@ -11,6 +11,9 @@ router.put('/:group_id', AuthGroupController.hasGroupPermission, GroupController
 router.delete('/:group_id', AuthGroupController.hasGroupPermission, GroupController.delete);
 
 router.put('/:group_id/addUser', AuthGroupController.checkIfLoggedIn, GroupController.addUserToGroup);
-router.put('/:group_id/removeUser', AuthGroupController.checkIfLoggedIn, GroupController.removeUserFromGroup);
+router.delete('/:group_id/removeUser', AuthGroupController.checkIfLoggedIn, GroupController.removeUserFromGroup);
+
+router.put('/:group_id/event', AuthGroupController.hasGroupPermission, GroupController.addEventToGroup);
+router.delete('/:group_id/event/:event_id', AuthGroupController.hasGroupPermission, GroupController.removeEventFromGroup);
 
 module.exports = router;
