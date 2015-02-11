@@ -13,7 +13,6 @@
 			<button ng-click="leaveButton()" class="btn btn-warning">Leave</button>
 			<button ng-click="editButton()" class="btn btn-info">Edit</button>
 			<button ng-click="deleteButton()" class="btn btn-danger">Delete</button>
-			<button ng-click="addEventButton()" class="btn btn-secondary">Add Event</button>
 		</p>
 		
 		<h3>Users</h3>
@@ -25,11 +24,10 @@
 		<h3>Events</h3>
 		<li ng-show="!group.events.length">None at the moment.</li>
 		<li ng-show="group.events.length" ng-repeat="event in group.events | orderBy:'date'">
-			{{event.name}} - {{event.description}} @ {{event.date | date: 'medium'}}
-			<button ng-click="removeEventButton(event._id)" class="btn btn-secondary">
-				Remove Event
-			</button>
+			<event-details></event-details>
 		</li>
+
+		<event-create></event-create>
 		
 		<h3>Map</h3>
 		<ui-gmap-google-map center='map.center' zoom='map.zoom'>
