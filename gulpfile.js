@@ -17,7 +17,7 @@ gulp.task('angular', function(){
 		.pipe(plumber())
 		.pipe(concat('app.min.js'))
 		.pipe(ngAnnotate())
-		//.pipe(uglify())
+		.pipe(uglify())
 		.pipe(gulp.dest('client/dist'));
 });
 

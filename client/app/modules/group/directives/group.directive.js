@@ -3,7 +3,7 @@ angular.module('app.group')
 	return {
 		restrict: 'E',
 		templateUrl: 'app/modules/group/views/event/details.html'
-	}
+	};
 })
 .directive('eventCreate', function() {
 	return {
