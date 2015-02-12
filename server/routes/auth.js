@@ -7,7 +7,6 @@ module.exports = function(app, passport) {
 
 /*	app.post('/auth/local', function(req, res, next) {
 		passport.authenticate('local', function(err, user, info) {
-			console.log("test")
 			if (err) {
 				return next(err);
 			}

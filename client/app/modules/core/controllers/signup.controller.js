@@ -4,7 +4,6 @@ angular.module('app.core')
 
 	$scope.createUser = function() {
 		User.save($scope.user).$promise.then(function(response) {
-			console.log(response);
 			alert("Signed up!");
 		});
 	};

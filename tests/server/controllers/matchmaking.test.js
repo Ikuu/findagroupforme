@@ -16,7 +16,7 @@ describe("Matchmaking Controller Unit Tests:", function() {
 			location: [55.879622, -4.571489]
 		});
 
-		match.save();
+		//match.save();
 		done();
 	});
 
@@ -37,9 +37,44 @@ describe("Matchmaking Controller Unit Tests:", function() {
 			MatchmakingController.addRecord(req, res);
 	
 			setTimeout(function() {
-				console.log(res._body);
 				res._body.should.have.property('_id');
 				res._body.interest.should.be.exactly('soccer');
+				done();
+			}, 200);
+		});
+	});
+
+	describe("findAllEntries", function() {
+		it("should find all entries for a user", function(done) {
+			req = {
+				user: {
+					_id: '547b6252ee09fef8405d1834'
+				}
+			};
+			res = {_body: null, render: function() { 'noop'; }};
+			res.send = function (body) {res._body = body; };
+	
+			MatchmakingController.findAllEntries(req, res);
+	
+			setTimeout(function() {
+				res._body.should.be.an.Object;
+				done();
+			}, 200);
+		});
+
+		it("should return error if invalid user id", function(done) {
+			req = {
+				user: {
+					_id: '09fef8405d1834547b6252ee'
+				}
+			};
+			res = {_body: null, render: function() { 'noop'; }};
+			res.send = function (body) {res._body = body; };
+	
+			MatchmakingController.findAllEntries(req, res);
+	
+			setTimeout(function() {
+				res._body.error.should.be.exactly('user not found');
 				done();
 			}, 200);
 		});

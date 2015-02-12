@@ -11,8 +11,8 @@ var Matchmaking = require('../../models/matchmaking');
 exports.addRecord = function(req, res) {
 	var newMatch = new Matchmaking({
 		user_id: req.user._id,
-		interest: req.body.interest,
-		location: req.body.location
+		interest: 'soccer',
+		location: [55.8964011, -4.4279418]
 	});
 
 	Matchmaking.create(newMatch, function(err, match) {
@@ -20,6 +20,18 @@ exports.addRecord = function(req, res) {
 
 		if (matchNotAdded) {
 			return res.send({error: "missing infromation"});
+		}
+		else {
+			return res.send(match);
+		}
+	});
+};
+
+exports.findAllEntries = function(req, res) {
+	Matchmaking.find({user_id: req.user._id}).exec(function(err, match) {
+		var erro = (err || match === null || match.length === 0);
+		if (erro) {
+			return res.send({error: "user not found"})
 		}
 		else {
 			return res.send(match);

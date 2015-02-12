@@ -49,6 +49,12 @@
 		<a href="./#/groups/{{group._id}}">{{group.name}}</a>
 	</div>
 
+	<h2>Matchmaking Groups</h2>
+	<li ng-if="!match.length">Not matchmaking</li>
+	<div ng-repeat="m in match">
+		{{m.interest}} since {{m.date_added | date: 'short'}}
+	</div>
+
 	<h2>Social Media</h2>
 	<p>CONNECT SOCIAL MEDIAS HERE</p>
 </div>

@@ -8,6 +8,11 @@ angular.module('app.user')
 		getSignedInUser: {
 			method: 'GET',
 			url: '/api/users/session/active'
+		},
+		findMatchmakingGroups: {
+			method: 'GET',
+			isArray: true,
+			url: '/api/groups/add/mm'
 		}
 	});
 });
