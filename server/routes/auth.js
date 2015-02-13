@@ -1,3 +1,5 @@
+var VenueController = require('../controllers/venue');
+
 // Might want to make this to a controller. Feels wrong to have logic in route.
 module.exports = function(app, passport) {
 	app.post('/auth/local', passport.authenticate('local', { 
@@ -62,4 +64,8 @@ module.exports = function(app, passport) {
 		req.session.destroy();
 		res.redirect('/');
 	});
+
+	app.get('/venue', function(req, res) {
+		VenueController.test(req, res);
+	})
 };

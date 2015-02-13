@@ -3,6 +3,7 @@ var router = express.Router();
 
 var GroupController = require('../controllers/group');
 var MatchmakingController = require('../controllers/group/matchmaking');
+var VenueController = require('../controllers/venue');
 var AuthGroupController = require('../controllers/auth/auth.group');
 
 router.get('/', GroupController.index);

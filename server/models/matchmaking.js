@@ -26,4 +26,6 @@ var MatchmakingSchema = mongoose.Schema({
 	}
 });
 
+MatchmakingSchema.index({ location: '2d'});
+
 module.exports = mongoose.model('Matchmaking', MatchmakingSchema);

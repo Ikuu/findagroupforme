@@ -11,8 +11,8 @@ var Matchmaking = require('../../models/matchmaking');
 exports.addRecord = function(req, res) {
 	var newMatch = new Matchmaking({
 		user_id: req.user._id,
-		interest: 'soccer',
-		location: [55.8964011, -4.4279418]
+		interest: req.body.interest,
+		location: req.body.location
 	});
 
 	Matchmaking.create(newMatch, function(err, match) {
