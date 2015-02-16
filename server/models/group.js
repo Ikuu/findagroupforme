@@ -3,6 +3,7 @@
 	Events.variables need to be required
 */
 var mongoose = require('mongoose');
+var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var groupSchema = mongoose.Schema({
 	name: {
@@ -18,8 +19,8 @@ var groupSchema = mongoose.Schema({
 	},
 	activity: String,
 	venue_location: [Number, Number],
-	owner: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-	members: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
+	owner: {type: ObjectId, ref: 'User'},
+	members: [{type: ObjectId, ref: 'User'}],
 	posts: [{
 		username: String,
 		date_posted: {type: Date, default: Date.now},

@@ -67,5 +67,5 @@ module.exports = function(app, passport) {
 
 	app.get('/venue', function(req, res) {
 		VenueController.test(req, res);
-	})
+	});
 };

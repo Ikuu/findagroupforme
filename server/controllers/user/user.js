@@ -31,8 +31,8 @@ exports.findById = function(req, res) {
 exports.add = function(req, res) {
 	var userToAdd = new User(req.body);
 	User.create(userToAdd, function(err, user) {
-		if (err) return res.send(err);
-		res.send(user);
+		if (err || user === null) return res.send(err);
+		return res.send(user);
 	});
 };
 

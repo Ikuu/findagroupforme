@@ -3,7 +3,7 @@ var Group = require('../models/group');
 
 exports.index = function(req, res) {
 	Group.find().populate('members', 'name current_location').exec(function (err, group) {
-		if (err) {
+		if (err || group === null) {
             return handleError(err);
         }
 		return res.send(group);
@@ -61,7 +61,7 @@ exports.add = function(req, res) {
 	
 		Group.create(newGroup, function(err, group) {
 			if (err || group === null) return res.send({error: "unable to create group."});
-			res.send({
+			return res.send({
 				_id: group._id,
 				name: group.name,
 				owner: group.owner,
@@ -90,7 +90,7 @@ exports.update = function(req, res) {
 	
 		Group.findByIdAndUpdate(updatedGroup._id, update, function(err, doc) {
 			if (err) return res.send({error: "could not update group"});
-			res.send({message: "group has been updated."});
+			return res.send({message: "group has been updated."});
 		});
 	}
 };
@@ -98,11 +98,22 @@ exports.update = function(req, res) {
 exports.delete = function(req, res) {
 	Group.findByIdAndRemove(req.params.group_id, function(err, group) {
 		if (err || group === null) return res.send({error: "unable to delete group."});
-		User.update({groups: req.params.group_id},
-			{$pull :{ 'groups': req.params.group_id}},
-			{multi: true}).exec(function(err) {});
+
+		var query = ({ 
+			groups: req.params.group_id 
+		},
+		{
+			$pull : {
+				'groups': req.params.group_id
+			}
+		},
+		{
+			multi: true
+		});
+		
+		User.update(query).exec(function(err) {});
 		group.remove();
-		res.send({});
+		return res.send({});
 	});
 };
 
@@ -118,10 +129,8 @@ exports.addUserToGroup = function(req, res) {
 			group.save();
 		});
 
-		res.send({message: "user added to group."});	
+		return res.send({message: "user added to group."});	
 	});
-
-	
 };
 
 exports.removeUserFromGroup = function(req, res) {
@@ -142,7 +151,7 @@ exports.removeUserFromGroup = function(req, res) {
 				});
 			});
 	
-			res.send({message: "user removed from group."});
+			return res.send({message: "user removed from group."});
 		}
 	});
 };
@@ -151,7 +160,7 @@ exports.removeUserFromGroup = function(req, res) {
 exports.addEventToGroup = function(req, res) {
 	Group.findOne({_id: req.params.group_id}).exec(function (err, group) {
 		var errorOrNull = (err || group === null);
-		var eventMissing = (req.body.events === undefined || req.body.events === null)
+		var eventMissing = (req.body.events === undefined || req.body.events === null);
 
 		if (errorOrNull || eventMissing) {
 			return res.send({error: "could not add event"});

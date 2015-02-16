@@ -32,6 +32,10 @@ npm run webdriver
 npm run protractor
 ```
 
+Note About Co-Ordinates
+-----------------------
+MongoDB stores co-ordinates in the format longitude, latitude. However GoogleMaps use the reverse. When working with the co-ordinates from the DB be careful that they are in the correct order.
+
 Tech
 -----------
 This project makes use of a number of open source projects:

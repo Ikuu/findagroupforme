@@ -30,13 +30,13 @@
 		</div>
 		<div>
 			<label>Home Location (Co-Ords):</label>
-			<input type="text" name="latitude" ng-model="user.home_location[0]"/>
-			<input type="text" name="longitude" ng-model="user.home_location[1]"/>
+			<input type="text" name="latitude" ng-model="user.home_location.coordinates[1]"/>
+			<input type="text" name="longitude" ng-model="user.home_location.coordinates[0]"/>
 		</div>
 		<div>
 			<label>Current Location (Co-Ords):</label>
-			<input type="text" name="latitude" ng-model="user.current_location[0]"/>
-			<input type="text" name="longitude" ng-model="user.current_location[1]"/>
+			<input type="text" name="latitude" ng-model="user.current_location[1]"/>
+			<input type="text" name="longitude" ng-model="user.current_location[0]"/>
 		</div>
 		<div>
 			 <button class="btn btn-primary" type="submit">Save</button>

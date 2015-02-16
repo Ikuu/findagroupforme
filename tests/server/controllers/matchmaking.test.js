@@ -13,7 +13,10 @@ describe("Matchmaking Controller Unit Tests:", function() {
 		match = new Matchmaking({
 			user_id: "547b6252ee09fef8405d1834",
 			interest: "soccer",
-			location: [55.879622, -4.571489]
+			location: {
+				type: "Point",
+				coordinates: [55.879622, -4.571489]
+			}
 		});
 
 		//match.save();
@@ -28,7 +31,10 @@ describe("Matchmaking Controller Unit Tests:", function() {
 				},
 				body: {
 					interest: 'soccer',
-					location: [55.879622, -4.571489]
+					location: {
+						type: "Point",
+						coordinates: [55.879622, -4.571489]
+					}
 				}
 			};
 			res = {_body: null, render: function() { 'noop'; }};

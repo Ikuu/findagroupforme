@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var ObjectId = mongoose.Schema.Types.ObjectId;
 
 
 // Might want gender.
@@ -51,13 +52,18 @@ var userSchema = mongoose.Schema({
 		email: String,
 		token: String
 	},
-	home_location: [Number, Number],
+	home_location: {
+		type: { type: String },
+		coordinates: [Number, Number]
+	},
 	current_location: [Number, Number],
-	groups: [{type: mongoose.Schema.Types.ObjectId, ref: 'Group'}],
+	groups: [{type: ObjectId, ref: 'Group'}],
 	private: {
 		type: Boolean,
 		default: false
 	}
 });
+
+// userSchema.index({home_location: 2dsphere});
 
 module.exports = mongoose.model('User', userSchema);

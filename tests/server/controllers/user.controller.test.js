@@ -31,7 +31,7 @@ describe('UserController Unit Tests:', function() {
 			UserController.add(req, res);
 	
 			setTimeout(function() {
-				res._body.message.should.be.exactly("Validation failed")
+				res._body.message.should.be.exactly("User validation failed")
 				done();
 			}, 200);
 		});
@@ -52,7 +52,10 @@ describe('UserController Unit Tests:', function() {
 					password: "1234",
 					date_of_birth: "1980-11-24T18:22:54.062Z",
 					current_location: [55.896154, -5.427094],
-					home_location: [55.896154, -5.427094]
+					home_location: {
+						"type": "Point",
+						"coordinates": [55.896154, -5.427094]
+					}
 				}
 			};
 			res = {_body: null, render: function() { 'noop'; } };
@@ -145,7 +148,10 @@ describe('UserController Unit Tests:', function() {
 					password: "1234",
 					date_of_birth: "1980-11-24T18:22:54.062Z",
 					current_location: [55.896154, -5.427094],
-					home_location: [55.896154, -5.427094]
+					home_location: {
+						"type": "Point",
+						"coordinates": [55.896154, -5.427094]
+					}
 				}
 			};
 			res = {_body: null, render: function() { 'noop'; } };
@@ -178,7 +184,10 @@ describe('UserController Unit Tests:', function() {
 					password: "1234",
 					date_of_birth: "1980-11-24T18:22:54.062Z",
 					current_location: [55.896154, -5.427094],
-					home_location: [55.896154, -5.427094],
+					home_location: {
+						"type": "Point",
+						"coordinates": [55.896154, -5.427094]
+					},
 					private: false
 				}
 			};

@@ -11,7 +11,10 @@ describe('Matchmaking Model Unit Tests:', function() {
 	before(function(done) {
 		matchmaking = new Matchmaking({
 			user_id: "547b6252ee09fef8405d1834",
-			location: [55.879622, -4.571489],
+			location: {
+				type: "Point",
+				coordinates: [55.879622, -4.571489]
+			},
 			interest: "soccer"
 		});
 
