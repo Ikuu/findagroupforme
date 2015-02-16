@@ -51,10 +51,10 @@ describe('UserController Unit Tests:', function() {
 					email: "test@user.com",
 					password: "1234",
 					date_of_birth: "1980-11-24T18:22:54.062Z",
-					current_location: [55.896154, -5.427094],
+					current_location: [-5.427094, 55.896154],
 					home_location: {
 						"type": "Point",
-						"coordinates": [55.896154, -5.427094]
+						"coordinates": [-5.427094, 55.896154]
 					}
 				}
 			};
@@ -147,10 +147,10 @@ describe('UserController Unit Tests:', function() {
 					email: "test@user.com",
 					password: "1234",
 					date_of_birth: "1980-11-24T18:22:54.062Z",
-					current_location: [55.896154, -5.427094],
+					current_location: [-5.427094, 55.896154],
 					home_location: {
 						"type": "Point",
-						"coordinates": [55.896154, -5.427094]
+						"coordinates": [-5.427094, 55.896154]
 					}
 				}
 			};
@@ -183,10 +183,10 @@ describe('UserController Unit Tests:', function() {
 					activities: null,
 					password: "1234",
 					date_of_birth: "1980-11-24T18:22:54.062Z",
-					current_location: [55.896154, -5.427094],
+					current_location: [-5.427094, 55.896154],
 					home_location: {
 						"type": "Point",
-						"coordinates": [55.896154, -5.427094]
+						"coordinates": [-5.427094, 55.896154]
 					},
 					private: false
 				}

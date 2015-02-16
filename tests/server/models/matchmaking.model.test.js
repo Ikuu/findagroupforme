@@ -13,7 +13,7 @@ describe('Matchmaking Model Unit Tests:', function() {
 			user_id: "547b6252ee09fef8405d1834",
 			location: {
 				type: "Point",
-				coordinates: [55.879622, -4.571489]
+				coordinates: [-4.571489, 55.879622]
 			},
 			interest: "soccer"
 		});

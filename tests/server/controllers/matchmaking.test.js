@@ -15,7 +15,7 @@ describe("Matchmaking Controller Unit Tests:", function() {
 			interest: "soccer",
 			location: {
 				type: "Point",
-				coordinates: [55.879622, -4.571489]
+				coordinates: [-4.571489, 55.879622]
 			}
 		});
 
@@ -33,7 +33,7 @@ describe("Matchmaking Controller Unit Tests:", function() {
 					interest: 'soccer',
 					location: {
 						type: "Point",
-						coordinates: [55.879622, -4.571489]
+						coordinates: [-4.571489, 55.879622]
 					}
 				}
 			};
@@ -50,7 +50,8 @@ describe("Matchmaking Controller Unit Tests:", function() {
 		});
 	});
 
-	describe("findAllEntries", function() {
+	// Need to be re-done for new function
+	describe("find", function() {
 		it("should find all entries for a user", function(done) {
 			req = {
 				user: {
@@ -60,7 +61,7 @@ describe("Matchmaking Controller Unit Tests:", function() {
 			res = {_body: null, render: function() { 'noop'; }};
 			res.send = function (body) {res._body = body; };
 	
-			MatchmakingController.findAllEntries(req, res);
+			MatchmakingController.find(req, res);
 	
 			setTimeout(function() {
 				res._body.should.be.an.Object;
@@ -77,10 +78,10 @@ describe("Matchmaking Controller Unit Tests:", function() {
 			res = {_body: null, render: function() { 'noop'; }};
 			res.send = function (body) {res._body = body; };
 	
-			MatchmakingController.findAllEntries(req, res);
+			MatchmakingController.find(req, res);
 	
 			setTimeout(function() {
-				res._body.error.should.be.exactly('user not found');
+				res._body.message.should.be.exactly('no match');
 				done();
 			}, 200);
 		});

@@ -50,7 +50,7 @@ describe('Group Controller Unit Tests:', function() {
 					name: 'Test Group',
 					activity: 'football',
 					description: 'This is a test group!',
-					venue_location: [ '55.879622', '-4.571489' ],
+					venue_location: [-4.571489, 55.879622],
 					private: true
 				}
 			};
@@ -75,7 +75,7 @@ describe('Group Controller Unit Tests:', function() {
 					name: 'Test Group',
 					activity: 'football',
 					description: 'This is a test group!',
-					venue_location: [ '55.879622', '-4.571489' ]
+					venue_location: [-4.571489, 55.879622]
 				}
 			};
 	
@@ -177,7 +177,7 @@ describe('Group Controller Unit Tests:', function() {
 					name: 'Test Group',
 					activity: 'football',
 					description: 'This is a test groupz!',
-					venue_location: [ '55.879622', '-4.571489' ]
+					venue_location: [-4.571489, 55.879622]
 				}
 			};
 	
@@ -199,7 +199,7 @@ describe('Group Controller Unit Tests:', function() {
 					name: 'Test Group',
 					activity: 'football',
 					description: 'This is a test groupz!',
-					venue_location: [ '55.879622', '-4.571489' ]
+					venue_location: [-4.571489, 55.879622]
 				}
 			};
 	
@@ -314,7 +314,7 @@ describe('Group Controller Unit Tests:', function() {
 						name: "New Event",
 						description: "Test event for testing",
 						date: "02/02/2015 18:00",
-						location: [55.879622, -4.571489],
+						location: [-4.571489, 55.879622],
 					}
 				},
 				params: {
@@ -344,7 +344,7 @@ describe('Group Controller Unit Tests:', function() {
 						name: "New Event",
 						description: "Test event for testing",
 						date: "02/02/2015 18:00",
-						location: [55.879622, -4.571489],
+						location: [-4.571489, 55.879622],
 					}
 				},
 				params: {
