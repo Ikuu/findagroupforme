@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
 
-// Might want gender.
+// Might want gender, move social networks into their own array
 var userSchema = mongoose.Schema({
 	name: {
 		type: String,
@@ -67,6 +67,10 @@ var userSchema = mongoose.Schema({
 		date: {
 			type: Date,
 			default: Date.now
+		},
+		viewed: {
+			type: Boolean,
+			default: false
 		}
 	}]
 });

@@ -11,6 +11,7 @@
 var _ = require('underscore');
 var Matchmaking = require('../../models/matchmaking');
 var User = require('../../models/user');
+var TempGroup = require('../../models/temp.group');
 
 // Probably want these as functions
 exports.addRecord = function(req, res) {
@@ -73,18 +74,23 @@ exports.findMatch = function(req, res) {
 				users.push(doc.obj.user_id);
 			});
 
-			var q = { 'user_id': { $in: users }, 'interest': "soccer" };
-			Matchmaking.update(q, { 'pending': true }, { multi: true }, function(err) {});
+			// Might be able to move this out, or into a function
+			var matchMakingQuery = { 'user_id': { $in: users }, 'interest': "soccer" };
+			var matchMakingUpdate = { 'pending': true };
+			Matchmaking.update(matchMakingQuery, matchMakingUpdate, function(err) {
+			});
 
-			var qq = { '_id': { $in: users } };
-			var update = { $push : { 'messages': { 'text': "auto-group has found you a match." } } }
-			User.update(qq, update, { multi: true }, function(err) {});
+			var newTempGroup = new TempGroup({
+				users: users
+			});
+			TempGroup.create(newTempGroup);
 
-			return res.send("can make group");
-			// Mark entry as pending.
-			// Inivte users to form a group
+			var userQuery = { '_id': { $in: users } };
+			var userMessage = "A group has been found for INTEREST_VAR and here is an INSERT_LINK";
+			var userUpdate = { $push : { 'messages': { 'text': userMessage } } };
+			User.update(userQuery, userUpdate, { multi: true }, function(err) {});
 
-			//return res.send(results);
+			return res.send({ message: "temp group has been made, and messages sent." });
 		}
 	});
 };
