@@ -61,7 +61,14 @@ var userSchema = mongoose.Schema({
 	private: {
 		type: Boolean,
 		default: false
-	}
+	},
+	messages: [{
+		text: String,
+		date: {
+			type: Date,
+			default: Date.now
+		}
+	}]
 });
 
 // userSchema.index({home_location: 2dsphere});

@@ -99,17 +99,7 @@ exports.delete = function(req, res) {
 	Group.findByIdAndRemove(req.params.group_id, function(err, group) {
 		if (err || group === null) return res.send({error: "unable to delete group."});
 
-		var query = ({ 
-			groups: req.params.group_id 
-		},
-		{
-			$pull : {
-				'groups': req.params.group_id
-			}
-		},
-		{
-			multi: true
-		});
+		var query = ({ groups: req.params.group_id }, { $pull : { 'groups': req.params.group_id} }, { multi: true });
 		
 		User.update(query).exec(function(err) {});
 		group.remove();

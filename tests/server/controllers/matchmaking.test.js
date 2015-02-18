@@ -48,10 +48,34 @@ describe("Matchmaking Controller Unit Tests:", function() {
 				done();
 			}, 200);
 		});
+
+		it("should fail to add duplicate entry", function(done) {
+			req = {
+				user: {
+					_id: '547b6252ee09fef8405d1834'
+				},
+				body: {
+					interest: 'soccer',
+					location: {
+						type: "Point",
+						coordinates: [-4.571489, 55.879622]
+					}
+				}
+			};
+			res = {_body: null, render: function() { 'noop'; }};
+			res.send = function (body) {res._body = body; };
+	
+			MatchmakingController.addRecord(req, res);
+	
+			setTimeout(function() {
+				res._body.error.should.be.exactly('missing infromation');
+				done();
+			}, 200);
+		});
 	});
 
 	// Need to be re-done for new function
-	describe("find", function() {
+	describe("find Unit Tests", function() {
 		it("should find all entries for a user", function(done) {
 			req = {
 				user: {
@@ -84,6 +108,12 @@ describe("Matchmaking Controller Unit Tests:", function() {
 				res._body.message.should.be.exactly('no match');
 				done();
 			}, 200);
+		});
+	});
+
+	describe("findMatch Unit Tests", function() {
+		it("should not find a match", function(done) {
+			done();
 		});
 	});
 

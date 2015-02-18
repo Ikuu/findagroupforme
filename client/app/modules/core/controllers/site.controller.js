@@ -8,6 +8,7 @@ angular.module('app.core')
 		$scope.loggedInUser = response.data;
 		if (response.data.username) {
 			$scope.loggedIn = true;
+			$scope.numberOfMessages = response.data.messages.length;
 		}
 	});
 });

@@ -8,6 +8,6 @@ var AuthGroupController = require('../controllers/auth/auth.group');
 
 // Need to add :user_id
 router.get('/', AuthGroupController.checkIfLoggedIn,
-				MatchmakingController.find);
+				MatchmakingController.findMatch);
 
 module.exports = router;
