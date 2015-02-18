@@ -25,7 +25,7 @@ exports.addRecord = function(req, res) {
 		var matchNotAdded = (err || match === null);
 
 		if (matchNotAdded) {
-			return res.send({error: "missing infromation"});
+			return res.send({ error: "missing infromation" });
 		}
 		else {
 			return res.send(match);
@@ -36,14 +36,14 @@ exports.addRecord = function(req, res) {
 exports.find = function(req, res) {
 	var homeCoords = { type: "Point", coordinates: [-4.427356, 55.896058] };
 	var filter = {};
-	var options = { spherical: true, query: filter};
+	var options = { spherical: true, query: filter };
 
 	Matchmaking.geoNear(homeCoords, options, function(err, results, stats) {
 		var noMatches = (err || results === null || results.length === 0);
 		if (noMatches) {
-			return res.send({message: "no match"});
+			return res.send({ message: "no match" });
 		}
-		return res.send({results: results, stats: stats});
+		return res.send({ results: results, stats: stats });
 	});
 };
 
@@ -66,18 +66,17 @@ exports.findMatch = function(req, res) {
 
 		if (noMatch) {
 			// add new record to Collection, call addRecord()
-			// also add way to deal with error
 			return res.send({ message: "not enough matches to make group" });
 		}
 		else {
-			_.each(results, function(doc){
+			_.each(results, function(doc) {
 				users.push(doc.obj.user_id);
 			});
 
 			// Might be able to move this out, or into a function
-			var matchMakingQuery = { 'user_id': { $in: users }, 'interest': "soccer" };
-			var matchMakingUpdate = { 'pending': true };
-			Matchmaking.update(matchMakingQuery, matchMakingUpdate, function(err) {
+			var mmQuery = { 'user_id': { $in: users }, 'interest': "soccer" };
+			var mmUpdate = { 'pending': true };
+			Matchmaking.update(mmQuery, mmUpdate, { multi: true }, function(err) {
 			});
 
 			var newTempGroup = new TempGroup({
@@ -86,7 +85,7 @@ exports.findMatch = function(req, res) {
 			TempGroup.create(newTempGroup);
 
 			var userQuery = { '_id': { $in: users } };
-			var userMessage = "A group has been found for INTEREST_VAR and here is an INSERT_LINK";
+			var userMessage = "A group has been found for "+ filter.interest +" and here is an INSERT_LINK";
 			var userUpdate = { $push : { 'messages': { 'text': userMessage } } };
 			User.update(userQuery, userUpdate, { multi: true }, function(err) {});
 
