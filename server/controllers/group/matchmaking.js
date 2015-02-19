@@ -69,8 +69,13 @@ exports.findMatch = function(req, res) {
 			return res.send({ message: "not enough matches to make group" });
 		}
 		else {
+			var newTempGroup = new TempGroup({
+				users: []
+			});
+
 			_.each(results, function(doc) {
 				users.push(doc.obj.user_id);
+				newTempGroup.users.push({ user_id: doc.obj.user_id });
 			});
 
 			// Might be able to move this out, or into a function
@@ -79,9 +84,6 @@ exports.findMatch = function(req, res) {
 			Matchmaking.update(mmQuery, mmUpdate, { multi: true }, function(err) {
 			});
 
-			var newTempGroup = new TempGroup({
-				users: users
-			});
 			TempGroup.create(newTempGroup);
 
 			var userQuery = { '_id': { $in: users } };
@@ -90,6 +92,29 @@ exports.findMatch = function(req, res) {
 			User.update(userQuery, userUpdate, { multi: true }, function(err) {});
 
 			return res.send({ message: "temp group has been made, and messages sent." });
+		}
+	});
+};
+
+exports.testFunc = function(req, res) {
+	TempGroup.findByIdAndRemove(req.params.id, function(err, group) {
+		if (err) return res.send(err);
+		else {
+			var mmUsers = [];
+			var tempV;				// Might not be required
+			tempV = group.users;	// Might not be required			
+	
+			_.each(tempV, function(doc) {
+				mmUsers.push(doc.user_id);
+			});
+	
+			var mmQuery = { 'user_id': { $in: mmUsers }, 'interest': "soccer" };
+			var mmUpdate = { 'pending': false };
+	
+			Matchmaking.update(mmQuery, mmUpdate, { multi: true }, function(err) {
+			});
+
+			res.send('made');
 		}
 	});
 };

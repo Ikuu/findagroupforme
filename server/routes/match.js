@@ -10,4 +10,6 @@ var AuthGroupController = require('../controllers/auth/auth.group');
 router.get('/', AuthGroupController.checkIfLoggedIn,
 				MatchmakingController.findMatch);
 
+router.get('/remove/:id', AuthGroupController.checkIfLoggedIn, MatchmakingController.testFunc);
+
 module.exports = router;
