@@ -34,11 +34,6 @@
 			<input type="text" name="longitude" ng-model="user.home_location.coordinates[0]"/>
 		</div>
 		<div>
-			<label>Current Location (Co-Ords):</label>
-			<input type="text" name="latitude" ng-model="user.current_location[1]"/>
-			<input type="text" name="longitude" ng-model="user.current_location[0]"/>
-		</div>
-		<div>
 			 <button class="btn btn-primary" type="submit">Save</button>
 		</div>
 	</form>
@@ -49,8 +44,13 @@
 		<a href="./#/groups/{{group._id}}">{{group.name}}</a>
 	</div>
 
+	<h2>Address Book</h2>
+	<div ng-repeat="address in user.address">
+		{{address}} ss
+	</div>
+
 	<h2>Matchmaking Groups</h2>
-	<li ng-if="!match.length">Not matchmaking</li>
+	<li ng-if="!match.length">Not Matchmaking</li>
 	<div ng-repeat="m in match">
 		{{m.interest}} since {{m.date_added | date: 'short'}}
 	</div>

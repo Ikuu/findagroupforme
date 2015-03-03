@@ -1,5 +1,7 @@
+// Add function to auth to make sure user has address fille
 var User = require('../../models/user');
 var Group = require('../../models/group');
+var request = require('request');
 
 exports.index = function(req, res) {
 	User.find().populate('groups', 'name activity').exec(function (err, user) {
@@ -11,6 +13,12 @@ exports.index = function(req, res) {
 exports.findById = function(req, res) {
 	User.findOne({_id: req.params.user_id}).populate('groups', 'name activity').exec(function (err, user) {
 		var noUserFound = (err || user === null);
+
+		// Server Side Geocoding, might want to use client-side.
+		var url = 'http://maps.google.com/maps/api/geocode/json?address=151%20Flures%20Drive%20Erskine%20PA8%207DF';
+		request.get({ url: url, json: true }, function(err, response, body) {
+			console.log(body.results[0].geometry.location);
+		});
 
 		if (noUserFound) {
 			return res.send({error: "_id supplied was not valid."});
@@ -41,6 +49,7 @@ exports.update = function(req, res) {
 		return res.send({error: "could not update user."});
 	}
 	else {
+		console.log(req.body.home_location);
 		var update = {
 			"name": req.body.name,
 			"email": req.body.email,

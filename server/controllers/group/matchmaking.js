@@ -4,14 +4,34 @@
 	If no matches add to the database
 	If match create a group and invite people.
 
-	Run command every hour to check for groups over 72 hours old,
+	Run command every hour to check for groups over 7 days old,
 	delete them and set Match pending to false.
 */
 
 var _ = require('underscore');
+var schedule = require('node-schedule');
+
 var Matchmaking = require('../../models/matchmaking');
 var User = require('../../models/user');
 var TempGroup = require('../../models/temp.group');
+
+var removeOldEntries = schedule.scheduleJob('35 * * * *', function() {
+	console.log('Deleting Old TempGroups');
+	var cutOffDate = new Date();
+	cutOffDate.setDate(cutOffDate.getDate() - 7);
+
+	var query = { date_created: { $lte: cutOffDate } };
+
+	TempGroup.find(query).exec(function(err, group) {
+		_.each(group, function(data) {
+			TempGroup.findByIdAndRemove(data._id, function(err, group) {
+				group.remove();
+			});
+		});
+	});
+
+	console.log('Finished Deleting Old TempGroups')
+});
 
 // Probably want these as functions
 exports.addRecord = function(req, res) {
@@ -70,6 +90,7 @@ exports.findMatch = function(req, res) {
 		}
 		else {
 			var newTempGroup = new TempGroup({
+				interest: filter.interest,
 				users: []
 			});
 
@@ -96,24 +117,12 @@ exports.findMatch = function(req, res) {
 	});
 };
 
+// Need button to reject and remove from matchmaking.
 exports.testFunc = function(req, res) {
 	TempGroup.findByIdAndRemove(req.params.id, function(err, group) {
-		if (err) return res.send(err);
+		if (err || group === null) return res.send({ message: "something wrong" });
 		else {
-			var mmUsers = [];
-			var tempV;				// Might not be required
-			tempV = group.users;	// Might not be required			
-	
-			_.each(tempV, function(doc) {
-				mmUsers.push(doc.user_id);
-			});
-	
-			var mmQuery = { 'user_id': { $in: mmUsers }, 'interest': "soccer" };
-			var mmUpdate = { 'pending': false };
-	
-			Matchmaking.update(mmQuery, mmUpdate, { multi: true }, function(err) {
-			});
-
+			group.remove(); // to trigger middleware
 			res.send('made');
 		}
 	});
