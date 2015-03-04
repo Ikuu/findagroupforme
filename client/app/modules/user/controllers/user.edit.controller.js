@@ -1,20 +1,22 @@
 // Rename to settings. Also need to have some feedback on the changes the user has made.
 angular.module('app.user')
-.controller('UserEditController', function($scope, $routeParams, User, $location, $route, Title){
+.controller('UserEditController', function($scope, $routeParams, User, $location, $route, Title, Matchmaking) {
 	Title.set('Edit Settings');
 
 	User.getSignedInUser({}, function(user) {
 		$scope.user = user;
 	});
 
-/*	User.findMatchmakingGroups({}, function(data) {
+	Matchmaking.findCurrentSearches({}, function(data) {
 		$scope.match = data;
-	});*/
+	});
+
+	$scope.deleteMatch = function(id) {
+		Matchmaking.deleteMatch({ _id: id });
+	};
 
 	$scope.editUser = function() {
 		var address = $scope.user.address.street + " " + $scope.user.address.city;
-
-		console.log(1);
 
 		geocoder = new google.maps.Geocoder();
 		geocoder.geocode({ 'address': address }, function(results, status) {

@@ -4,7 +4,7 @@ angular.module('app.core')
 		getUser: getUser
 	};
 
-	function getUser(){
+	function getUser() {
 		return $http.get('/session');
 	}
 });

@@ -1,8 +1,8 @@
 // Temporary Group For Matchmaking.
 var _ 				=	require('underscore');
 var mongoose 		=	require('mongoose');
-var ObjectId 		=	mongoose.Schema.Types.ObjectId;
 var Matchmaking 	=	require('./matchmaking');
+var ObjectId 		=	mongoose.Schema.Types.ObjectId;
 
 var tempGroupSchema = mongoose.Schema({
 	interest: String,
@@ -20,12 +20,10 @@ var tempGroupSchema = mongoose.Schema({
 });
 
 tempGroupSchema.pre('save', function(next) {
-	console.log("TESTONG");
 	next();
 });
 
 tempGroupSchema.pre('remove', function(next) {
-	console.log("TESTING");
 	var mmUsers = [];
 
 	_.each(this.users, function(user) {
@@ -36,7 +34,6 @@ tempGroupSchema.pre('remove', function(next) {
 	var mmUpdate = { 'pending': false };
 
 	Matchmaking.update(mmQuery, mmUpdate, { multi: true }, function(err) {
-
 	});
 
 	next();

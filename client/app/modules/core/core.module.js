@@ -22,6 +22,14 @@ angular.module('app.core', ['ngRoute'])
 			templateUrl: '/app/modules/core/views/signup.html',
 			controller: 'SignupController'
 		})
+		.when('/messages', {
+			templateUrl: '/app/modules/core/views/messages.html',
+			controller: 'MessagesController'
+		})
+		.when('/matchmaking', {
+			templateUrl: '/app/modules/core/views/matchmaking.html',
+			controller: 'MatchmakingController'
+		})
 		// To handle Facebook Login
 		.when('/_=_', {
 			redirectTo: '/'
