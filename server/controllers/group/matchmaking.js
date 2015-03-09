@@ -98,12 +98,15 @@ exports.findMatch = function(req, res) {
 				TempGroup.create(newTempGroup);
 	
 				var userQuery = { '_id': { $in: users } };
-				var userMessage = "A group has been found for "+ req.body.interest +" and here is an INSERT_LINK";
-				var userUpdate = { $push : { 'messages': { 'text': userMessage } } };
+				var userMessage = "A group has been found for "+ req.body.interest +", <a href=\'./#/match/" + newTempGroup._id + "\'>click here<\/a> for more information.";
+				var userUpdate = { $push : { 'messages': { sender: 'The Matchmaking Service', 'text': userMessage } } };
 				User.update(userQuery, userUpdate, { multi: true }, function(err) {});
 	
 				// Probably want to return an object here, or more.
-				return res.send({ message: "temp group has been made, and messages sent." });
+				return res.send({ 
+					message: "temp group has been made, and messages sent.",
+					group: newTempGroup
+				 });
 			}
 		});
 	});

@@ -30,6 +30,10 @@ angular.module('app.core', ['ngRoute'])
 			templateUrl: '/app/modules/core/views/matchmaking.html',
 			controller: 'MatchmakingController'
 		})
+		.when('/match/:id', {
+			templateUrl: '/app/modules/core/views/match.index.html',
+			controller: 'MatchController'
+		})
 		// To handle Facebook Login
 		.when('/_=_', {
 			redirectTo: '/'

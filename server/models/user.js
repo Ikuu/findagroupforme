@@ -63,6 +63,7 @@ var userSchema = mongoose.Schema({
 		default: false
 	},
 	messages: [{
+		sender: String,
 		text: String,
 		date: {
 			type: Date,

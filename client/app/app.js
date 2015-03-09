@@ -1,7 +1,8 @@
 angular.module('app', [
 	'ngRoute', 
 	'ngResource', 
-	'ngMessages', 
+	'ngMessages',
+	'ngSanitize', 
 	'google-maps'.ns(),
 	'app.core',
 	'app.user',

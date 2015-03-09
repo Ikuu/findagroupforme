@@ -3,8 +3,8 @@ angular.module('app.core')
 	Title.set('Matchmaking');
 
 	$scope.findMatchmakingGroup = function() {
-		Matchmaking.searchForGroup({ interest: 'basketball' }).$promise.then(function(response) {
-			console.log(response.message);
+		Matchmaking.searchForGroup({ interest: 'soccer' }).$promise.then(function(response) {
+			console.log(response);
 		});
 	};
 });
