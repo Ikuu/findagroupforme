@@ -12,7 +12,9 @@ angular.module('app.user')
 	});
 
 	$scope.deleteMatch = function(id) {
-		Matchmaking.deleteMatch({ _id: id });
+		Matchmaking.deleteMatch({ _id: id }).$promise.then(function(response) {
+			$route.reload();
+		});
 	};
 
 	$scope.editUser = function() {

@@ -1,23 +1,23 @@
 <h3>Create Event</h3>
-	<form class="form" method="post" ng-submit="addEventButton(event)">
-		<div>
-			<label>Name:</label>
-			<input type="text" name="name" ng-model="event.name"/>
-		</div>
-		<div>
-			<label>Description:</label>
-			<input type="text" name="description" ng-model="event.description"/>
-		</div>
-		<div>
-			<label>Date</label>
-			<input type="text" name="date" ng-model="event.date">
-		</div>
-		<div>
-			<label>Venue Location (Co-Ords):</label>
-			<input type="text" name="latitude" ng-model="event.venue_location[0]"/>
-			<input type="text" name="longitude" ng-model="event.venue_location[1]"/>
-		</div>
-		<div>
-			 <button class="btn btn-primary" type="submit">Add</button>
-		</div>
-	</form>
+<form class="form" method="post" ng-submit="addEventButton(event)">
+	<div>
+		<label>Name:</label>
+		<input type="text" name="name" ng-model="event.name"/>
+	</div>
+	<div>
+		<label>Description:</label>
+		<input type="text" name="description" ng-model="event.description"/>
+	</div>
+	<div>
+		<label>Date</label>
+		<input type="text" name="date" ng-model="event.date">
+	</div>
+	<div>
+		<label>Venue Location (Co-Ords):</label>
+		<input type="text" name="latitude" ng-model="event.venue_location[0]"/>
+		<input type="text" name="longitude" ng-model="event.venue_location[1]"/>
+	</div>
+	<div>
+		 <button class="btn btn-primary" type="submit">Add</button>
+	</div>
+</form>

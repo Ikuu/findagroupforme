@@ -2,7 +2,16 @@
 	<h2>Matchmaking</h2>
 	<p>Use our matchmaking service to find a group for your interest!</p>
 
-	<a ng-click="findMatchmakingGroup()" class="btn btn-block btn-success">
-		Find Group!
-	</a>
+	<form class="form" method="post" ng-submit="findMatchmakingGroup(interest)">
+		<div>
+			<label>Interest:</label>
+			<input type="text" name="name" ng-model="interest"/>
+		</div>
+		<div>
+			 <button class="btn btn-block btn-success" type="submit">Add</button>
+		</div>
+	</form>
+
+	<h2>Results</h2>
+	<p>{{message}}</p>
 </div>

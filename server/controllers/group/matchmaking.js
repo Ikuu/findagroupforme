@@ -42,15 +42,20 @@ exports.findAllMatchesForUser = function(req, res) {
 };
 
 exports.deleteMatch = function(req, res) {
-	console.log(req.params);
 	Matchmaking.findOne({ _id: req.params.id }).exec(function(err, match) {
-		match.remove();
+		var invalidMatch = (err || match === null);
+		if (invalidMatch) {
+			return res.send({ error: 'could not remove entry '});
+		}
+		else {
+			match.remove();
+			return res.send({ message: 'Matchmaking entry removed.' });
+		}
 	});
 };
 
 // Main Function called
 exports.findMatch = function(req, res) {
-	console.log(req.body);
 	var GROUP_SIZE = 2;
 	var MAX_DISTANCE = 10000;
 	var coords = { 

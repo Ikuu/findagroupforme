@@ -12,6 +12,7 @@ var MongoStore = require('connect-mongo')(session);
 
 var group = require('./routes/group');
 var user = require('./routes/user');
+var userMessaging = require('./routes/user.messaging');
 var match = require('./routes/match');
 var tempGroup = require('./routes/temp.group');
 
@@ -42,6 +43,7 @@ app.use(passport.session());
 // Routes
 app.use('/api/groups/', group);
 app.use('/api/users/', user);
+app.use('/api/message', userMessaging);
 app.use('/api/match/', match);
 app.use('/api/tempGroup', tempGroup);
 require('./routes/auth.js')(app, passport);
