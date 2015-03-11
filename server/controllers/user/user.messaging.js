@@ -1,5 +1,4 @@
 // User Messaging Functions
-
 var User = require('../../models/user');
 
 exports.markAsViewed = function(req, res) {

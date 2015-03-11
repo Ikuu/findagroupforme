@@ -16,13 +16,11 @@ angular.module('app.core')
 
 	$scope.markAsViewed = function(messageId) {
 		$http.post('/api/message/viewed/' + messageId).success(function(response) {
-			console.log(response);
 		});
 	};
 
 	$scope.markAsUnviewed = function(messageId) {
 		$http.post('/api/message/unviewed/' + messageId).success(function(response) {
-			console.log(response);
 		});
 	};
 });
