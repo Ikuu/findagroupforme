@@ -47,7 +47,6 @@ exports.update = function(req, res) {
 			"email": req.body.email,
 			"address": req.body.address,
 			"password": req.body.password,
-			"activities": req.body.activities,
 			"private": req.body.private,
 			"home_location": req.body.home_location,
 			"current_location": req.body.current_location

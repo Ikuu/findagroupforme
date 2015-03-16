@@ -41,7 +41,8 @@ function checkIfGroupIsToBeMade(req, res) {
 			var userUpdate = { $push : { 'messages': { sender: 'The Matchmaking Service', 'text': userMessage }, 'groups': group._id } };
 			User.update(userQuery, userUpdate, { multi: true }, function(err) {});
 
-			Matchmaking.find({ 'user_id': { $in: users }, 'interest': tGroup.interest}).exec(function(err, matches) {
+			var mmQuery = { 'user_id': { $in: users }, 'interest': tGroup.interest};
+			Matchmaking.find(mmQuery).exec(function(err, matches) {
 				matches.forEach(function(match) {
 					match.remove();
 				});

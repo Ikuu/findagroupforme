@@ -36,4 +36,20 @@ angular.module('app.user')
 			}
 		});
 	};
+	$scope.addInterest = function() {
+		var interest = prompt("Please enter the interest:");
+		if (interest !== null) {
+			User.addInterest({interest: interest}).$promise.then(function(response) {
+				//if success
+				$route.reload();
+			});
+		}
+	};
+	
+	$scope.removeInterest = function(interest) {
+		User.removeInterest({interest: interest}).$promise.then(function(response) {
+			//if success
+			$route.reload();
+		});
+	};
 });

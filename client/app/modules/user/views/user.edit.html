@@ -10,10 +10,10 @@
 			<input type="password" name="password" ng-model="user.password"/>
 		</div>
 		<div>
-			<label>Address:</label>
-			<label>Street:</label><input type="text" name="address.street" ng-model="user.address.street"/>
-			<label>City:</label><input type="text" name="address.city" ng-model="user.address.city"/>
-			<label>Post Code:</label><input type="text" name="address.post_code" ng-model="user.address.post_code"/>
+			<label>Address:</label></br>
+			<label>Street:</label><input type="text" name="address.street" ng-model="user.address.street"/><br />
+			<label>City:</label><input type="text" name="address.city" ng-model="user.address.city"/><br />
+			<label>Post Code:</label><input type="text" name="address.post_code" ng-model="user.address.post_code"/><br />
 			<label>Country:</label><input type="text" name="address.country" ng-model="user.address.country"/>
 		</div>
 		<div>
@@ -25,10 +25,6 @@
 			<input type="checkbox" name="private" ng-model="user.private">
 		</div>
 		<div>
-			<label>Activities</label>
-			<input type="text" name="activites" ng-model="user.activities"/>
-		</div>
-		<div>
 			<label>Home Location (Co-Ords):</label>
 			<input type="text" name="latitude" ng-model="user.home_location.coordinates[1]"/>
 			<input type="text" name="longitude" ng-model="user.home_location.coordinates[0]"/>
@@ -37,6 +33,11 @@
 			 <button class="btn btn-primary" type="submit">Save</button>
 		</div>
 	</form>
+
+	<h2>Interests</h2>
+	<li ng-if="!user.activities.length">No interests.</li>
+	<li ng-repeat="interest in user.activities">{{interest}} - <a href="" ng-click="removeInterest(interest)" class="glyphicon glyphicon-trash"></a></li>
+	<button class="btn btn-primary" ng-click="addInterest()">Add</button>
 
 	<h2>Groups</h2>
 	<li ng-if="!user.groups.length">No Groups at the moment.</li>

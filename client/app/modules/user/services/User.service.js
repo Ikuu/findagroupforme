@@ -13,6 +13,16 @@ angular.module('app.user')
 			method: 'GET',
 			isArray: true,
 			url: '/api/groups/add/mm'
+		},
+		addInterest: {
+			method: 'POST',
+			params: { interest: '@interest' },
+			url: '/api/users/interest/add/:interest'
+		},
+		removeInterest: {
+			method: 'DELETE',
+			params: { interest: '@interest' },
+			url: '/api/users/interest/remove/:interest'
 		}
 	});
 });

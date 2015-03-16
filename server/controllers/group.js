@@ -126,7 +126,7 @@ exports.addUserToGroup = function(req, res) {
 exports.removeUserFromGroup = function(req, res) {
 	User.findOne({_id: req.user._id, groups: req.params.group_id}).exec(function(err, user) {
 		if (err || user === null) {
-			return res.send({error: "user does not belong to group."});
+			return res.send({ error: "user does not belong to group." });
 		}
 		else {
 			user.groups.pull(req.params.group_id);
@@ -141,7 +141,7 @@ exports.removeUserFromGroup = function(req, res) {
 				});
 			});
 	
-			return res.send({message: "user removed from group."});
+			return res.send({ message: "user removed from group." });
 		}
 	});
 };

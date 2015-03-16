@@ -21,6 +21,7 @@ var removeOldEntries = schedule.scheduleJob('0 * * * *', function() {
 	});
 });
 
+// Not used
 exports.find = function(req, res) {
 	var homeCoords = { type: "Point", coordinates: [-4.427356, 55.896058] };
 	var filter = {};
