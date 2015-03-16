@@ -10,24 +10,12 @@
 			<input type="password" name="password" ng-model="user.password"/>
 		</div>
 		<div>
-			<label>Address:</label></br>
-			<label>Street:</label><input type="text" name="address.street" ng-model="user.address.street"/><br />
-			<label>City:</label><input type="text" name="address.city" ng-model="user.address.city"/><br />
-			<label>Post Code:</label><input type="text" name="address.post_code" ng-model="user.address.post_code"/><br />
-			<label>Country:</label><input type="text" name="address.country" ng-model="user.address.country"/>
-		</div>
-		<div>
 			<label>Email:</label>
 			<input type="text" name="email" ng-model="user.email"/>
 		</div>
 		<div>
 			<label>Private</label>
 			<input type="checkbox" name="private" ng-model="user.private">
-		</div>
-		<div>
-			<label>Home Location (Co-Ords):</label>
-			<input type="text" name="latitude" ng-model="user.home_location.coordinates[1]"/>
-			<input type="text" name="longitude" ng-model="user.home_location.coordinates[0]"/>
 		</div>
 		<div>
 			 <button class="btn btn-primary" type="submit">Save</button>
@@ -46,9 +34,14 @@
 	</div>
 
 	<h2>Address Book</h2>
-	<div ng-repeat="address in user.address">
-		{{address}}
+	<div>
+		{{user.address.street}} <br />
+		{{user.address.city}} <br />
+		{{user.address.country}} <br />
+		{{user.address.post_code}} <br />
 	</div>
+
+	<address-book></address-book>
 
 	<h2>Matchmaking Groups</h2>
 	<li ng-if="!match.length">Not Matchmaking</li>

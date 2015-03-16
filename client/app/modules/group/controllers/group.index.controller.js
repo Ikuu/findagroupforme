@@ -10,27 +10,38 @@ angular.module('app.group')
 		else {
 			$scope.map = {
 				center:{
-					latitude: group.venue_location[0],
-					longitude: group.venue_location[1]
+					latitude: group.venue_location[1],
+					longitude: group.venue_location[0]
 				},
-				zoom: 15
+				zoom: 12
 			};
 	
-			$scope.marker = {
+			$scope.groupMarker = {
 				id: 0,
+				options: {
+					title: group.name,
+					icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+				},
 				coords: {
-					latitude: group.venue_location[0],
-					longitude: group.venue_location[1]
+					latitude: group.venue_location[1],
+					longitude: group.venue_location[0]
 				}
 			};
-			
-			$scope.marker2 = {
-				id: 0,
-				coords: {
-					latitude: group.members[0].current_location[0],
-					longitude: group.members[0].current_location[1]
-				}
-			};
+
+			$scope.markerList = []
+
+			group.members.forEach(function(member) {
+				$scope.markerList.push({
+					id: member._id,
+					options: {
+						title: member.name
+					},
+					coords: {
+						latitude: member.home_location[1],
+						longitude: member.home_location[0],
+					}
+				});
+			});
 		}
 	});
 

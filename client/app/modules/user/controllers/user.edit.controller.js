@@ -2,6 +2,7 @@
 angular.module('app.user')
 .controller('UserEditController', function($scope, $routeParams, User, $location, $route, Title, Matchmaking) {
 	Title.set('Edit Settings');
+	$scope.addressNotVerified =  true;
 
 	User.getSignedInUser({}, function(user) {
 		$scope.user = user;
@@ -20,22 +21,52 @@ angular.module('app.user')
 	$scope.editUser = function() {
 		var address = $scope.user.address.street + " " + $scope.user.address.city;
 
-		geocoder = new google.maps.Geocoder();
-		geocoder.geocode({ 'address': address }, function(results, status) {
-			if (status == google.maps.GeocoderStatus.OK) {
-				$scope.user.home_location.coordinates[0] = results[0].geometry.location.D;
-				$scope.user.home_location.coordinates[1] = results[0].geometry.location.k;
-				$scope.$apply();
-
-				User.update($scope.user).$promise.then(function(response) {
-					if (response.message === "User has been updated") {
-						alert("Profile Updated!");
-						$route.reload();
-					}
-				});
+		User.update({
+			_id: $scope.user._id,
+			name: $scope.user.name,
+			password: $scope.user.password,
+			email: $scope.user.email,
+			private: $scope.user.private
+		}).$promise.then(function(response) {
+			if (response.message === "User has been updated") {
+				alert("Profile Updated!");
+				$route.reload();
 			}
 		});
 	};
+
+	$scope.verifyAddress = function() {
+		var address = $scope.user.address.street + " " + $scope.user.address.city + " " + $scope.user.address.post_code + " " + $scope.user.address.country;
+		geocoder = new google.maps.Geocoder();
+		geocoder.geocode({ 'address': address }, function(results, status) {
+			if (status == google.maps.GeocoderStatus.OK) {
+				$scope.userCoords = [];
+				$scope.userCoords[0] = results[0].geometry.location.D;
+				$scope.userCoords[1] = results[0].geometry.location.k;
+				$scope.addressNotVerified = false;
+
+				$scope.$apply();
+			}
+			else {
+				$scope.addressNotVerified = true;
+				console.log("error, display somehow");
+			}
+		});
+	};
+
+	$scope.saveAddress = function() {
+		User.updateAddress({
+			_id: $scope.user._id,
+			address: $scope.user.address,
+			home_location: $scope.userCoords
+		}).$promise.then(function(response) {
+			if (response.message === "address has been updated") {
+				alert("Address Updated!");
+				$route.reload();
+			}
+		})
+	};
+
 	$scope.addInterest = function() {
 		var interest = prompt("Please enter the interest:");
 		if (interest !== null) {

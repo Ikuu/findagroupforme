@@ -11,6 +11,8 @@ router.post('/', AuthUserController.checkIfNotLoggedIn, UserController.add);
 router.put('/:user_id', AuthUserController.checkIfCorrectUser, UserController.update);		
 router.delete('/:user_id', UserController.delete);
 
+router.put('/address/update', AuthUserController.checkIfCorrectUser, UserController.updateAddress);
+
 router.post('/interest/add/:interest', AuthUserController.checkIfLoggedIn, InterestController.addInterest);
 router.delete('/interest/remove/:interest', AuthUserController.checkIfLoggedIn, InterestController.removeInterest);
 

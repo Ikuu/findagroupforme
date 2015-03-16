@@ -1,0 +1,30 @@
+	<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addressBookModal" ng-click="addressNotVerified = true">Verify Address</button>
+
+<!-- Modal -->
+<div class="modal fade" id="addressBookModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add Address</h4>
+      </div>
+
+      <div class="modal-body">
+        <div>
+          <label>Street:</label><input type="text" name="address.street" ng-model="user.address.street"/><br />
+          <label>City:</label><input type="text" name="address.city" ng-model="user.address.city" /><br />
+          <label>Country:</label><input type="text" name="address.country" ng-model="user.address.country"/><br />
+          <label>Post Code:</label><input type="text" name="address.post_code" ng-model="user.address.post_code"/><br />
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal">Close</button>
+        <button class="btn btn-info" ng-click="verifyAddress()">Verify</button>
+        <button class="btn btn-success" ng-click="saveAddress()" ng-disabled="addressNotVerified">Save</button>
+      </div>
+
+    </div>
+  </div>
+</div>

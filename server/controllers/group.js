@@ -2,7 +2,7 @@ var User = require('../models/user');
 var Group = require('../models/group');
 
 exports.index = function(req, res) {
-	Group.find().populate('members', 'name current_location').exec(function (err, group) {
+	Group.find().populate('members', 'name home_location').exec(function (err, group) {
 		if (err || group === null) {
             return handleError(err);
         }
@@ -13,7 +13,7 @@ exports.index = function(req, res) {
 exports.findById = function(req, res) {
 	var userInGroup = false;
 
-	Group.findOne({_id: req.params.group_id}).populate('members', 'name current_location').exec(function(err, group) {
+	Group.findOne({_id: req.params.group_id}).populate('members', 'name home_location').exec(function(err, group) {
 		if (err || group === null) return res.send({error: "group could not be found."});
 
 		if (group.private) {

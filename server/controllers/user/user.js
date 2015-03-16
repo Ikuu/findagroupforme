@@ -39,24 +39,33 @@ exports.add = function(req, res) {
 
 exports.update = function(req, res) {
 	if (req.user === undefined) {
-		return res.send({error: "could not update user."});
+		return res.send({ error: "could not update user." });
 	}
 	else {
 		var update = {
 			"name": req.body.name,
 			"email": req.body.email,
-			"address": req.body.address,
 			"password": req.body.password,
-			"private": req.body.private,
-			"home_location": req.body.home_location,
-			"current_location": req.body.current_location
+			"private": req.body.private
 		};
 
 		User.findByIdAndUpdate(req.user._id, update, function(err) {
-			if (err) return res.send({"error": err});
-			return res.send({message: "User has been updated"});
+			if (err) return res.send({ "error": err });
+			return res.send({ message: "User has been updated" });
 		});
 	}
+};
+
+exports.updateAddress = function(req, res) {
+	var update = {
+		"address": req.body.address,
+		"home_location": req.body.home_location
+	}
+
+	User.findByIdAndUpdate(req.user._id, update, function(err) {
+		if (err) return res.send({ "error": err });
+		return res.send({ message: "address has been updated" });
+	})
 };
 
 exports.delete = function(req, res) {
