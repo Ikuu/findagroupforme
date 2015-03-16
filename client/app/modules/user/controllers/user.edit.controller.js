@@ -19,8 +19,6 @@ angular.module('app.user')
 	};
 
 	$scope.editUser = function() {
-		var address = $scope.user.address.street + " " + $scope.user.address.city;
-
 		User.update({
 			_id: $scope.user._id,
 			name: $scope.user.name,

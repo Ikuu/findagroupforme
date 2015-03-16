@@ -59,8 +59,11 @@ exports.update = function(req, res) {
 exports.updateAddress = function(req, res) {
 	var update = {
 		"address": req.body.address,
-		"home_location": req.body.home_location
-	}
+		"home_location": {
+			type: "Point",
+			coordinates: [req.body.home_location[1], req.body.home_location[0]]
+		}
+	};
 
 	User.findByIdAndUpdate(req.user._id, update, function(err) {
 		if (err) return res.send({ "error": err });

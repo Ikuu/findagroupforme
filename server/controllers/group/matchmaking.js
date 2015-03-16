@@ -62,7 +62,8 @@ exports.findMatch = function(req, res) {
 	var coords = { 
 		type: req.user.home_location.type,
 		coordinates: req.user.home_location.coordinates
-		};
+	};
+	console.log(coords);
 
 	var filter = { interest: req.body.interest, pending: false };
 	var options = { spherical: true, maxDistance: MAX_DISTANCE, query: filter };

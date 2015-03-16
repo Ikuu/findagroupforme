@@ -2,14 +2,14 @@ var express = require('express');
 var router = express.Router();
 
 var MatchmakingController = require('../controllers/group/matchmaking');
-var AuthGroupController = require('../controllers/auth/auth.group');
+var AuthUserController = require('../controllers/auth/auth.group');
 
-router.post('/', AuthGroupController.checkIfLoggedIn,
+router.post('/', AuthUserController.checkIfLoggedIn,
 				MatchmakingController.findMatch);
 
 //router.get('/remove/:id', AuthGroupController.checkIfLoggedIn, MatchmakingController.testFunc);
-router.get('/user/', AuthGroupController.checkIfLoggedIn,
+router.get('/user/', AuthUserController.checkIfLoggedIn,
 				MatchmakingController.findAllMatchesForUser);
-router.delete('/remove/:id', AuthGroupController.checkIfLoggedIn, MatchmakingController.deleteMatch);
+router.delete('/remove/:id', AuthUserController.checkIfLoggedIn, MatchmakingController.deleteMatch);
 
 module.exports = router;
