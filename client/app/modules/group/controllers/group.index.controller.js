@@ -37,8 +37,8 @@ angular.module('app.group')
 						title: member.name
 					},
 					coords: {
-						latitude: member.home_location[1],
-						longitude: member.home_location[0],
+						latitude: member.home_location.coordinates[1],
+						longitude: member.home_location.coordinates[0],
 					}
 				});
 			});

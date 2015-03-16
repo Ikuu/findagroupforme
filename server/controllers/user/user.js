@@ -61,7 +61,7 @@ exports.updateAddress = function(req, res) {
 		"address": req.body.address,
 		"home_location": {
 			type: "Point",
-			coordinates: [req.body.home_location[1], req.body.home_location[0]]
+			coordinates: [req.body.home_location[0], req.body.home_location[1]]
 		}
 	};
 

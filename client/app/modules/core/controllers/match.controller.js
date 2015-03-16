@@ -15,13 +15,15 @@ angular.module('app.core')
 
 	$scope.acceptButton = function() {
 		$http.post('/api/tempGroup/invite/accept/'+ $routeParams.id).success(function(response) {
-			$route.reload();
+			// bug here, response from server is off
 		});
+		$route.reload();
 	};
 
 	$scope.declineButton = function() {
 		$http.post('/api/tempGroup/invite/decline/'+ $routeParams.id).success(function(response) {
-			$route.reload();
+			// bug here, response from server is off
 		});
+		$route.reload();
 	};
 });
