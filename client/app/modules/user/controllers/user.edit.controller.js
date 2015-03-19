@@ -1,6 +1,6 @@
 // Rename to settings. Also need to have some feedback on the changes the user has made.
 angular.module('app.user')
-.controller('UserEditController', function($scope, $routeParams, User, $location, $route, Title, Matchmaking) {
+.controller('UserEditController', function($scope, $routeParams, User, $location, $route, Title, Matchmaking, $http) {
 	Title.set('Edit Settings');
 	$scope.addressNotVerified =  true;
 	getUserDetails();
@@ -14,6 +14,19 @@ angular.module('app.user')
 	Matchmaking.findCurrentSearches({}, function(data) {
 		$scope.match = data;
 	});
+
+	$http.get('/api/users/interest/find').success(function(response) {
+		$scope.recommenededInterests = response;
+	});
+
+	$scope.addRecommendedInterest = function(interest) {
+		User.addInterest({ interest: interest }).$promise.then(function(response) {
+			getUserDetails();
+			$http.get('/api/users/interest/find').success(function(response) {
+				$scope.recommenededInterests = response;
+			});
+		});
+	};
 
 	$scope.deleteMatch = function(id) {
 		Matchmaking.deleteMatch({ _id: id }).$promise.then(function(response) {
@@ -77,6 +90,10 @@ angular.module('app.user')
 		if (interest !== null) {
 			User.addInterest({ interest: interest }).$promise.then(function(response) {
 				getUserDetails();
+				
+				$http.get('/api/users/interest/find').success(function(response) {
+					$scope.recommenededInterests = response;
+				});
 			});
 		}
 	};
@@ -84,6 +101,10 @@ angular.module('app.user')
 	$scope.removeInterest = function(interest) {
 		User.removeInterest({ interest: interest }).$promise.then(function(response) {
 			getUserDetails();
+
+			$http.get('/api/users/interest/find').success(function(response) {
+				$scope.recommenededInterests = response;
+			});
 		});
 	};
 });

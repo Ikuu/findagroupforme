@@ -27,6 +27,10 @@
 	<li ng-repeat="interest in user.activities">{{interest}} - <a href="" ng-click="removeInterest(interest)" class="glyphicon glyphicon-trash"></a></li>
 	<button class="btn btn-primary" ng-click="addInterest()">Add</button>
 
+	<h2>Recommened Interest</h2>
+	<li ng-if="!recommenededInterests.length">No recommended interests.</li>
+	<li ng-repeat="interest in recommenededInterests"><a href="" ng-click="addRecommendedInterest(interest._id)">{{interest._id}}</a></li>
+
 	<h2>Groups</h2>
 	<li ng-if="!user.groups.length">No Groups at the moment.</li>
 	<div ng-repeat="group in user.groups">
