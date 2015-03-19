@@ -18,4 +18,5 @@ router.delete('/interest/remove/:interest', AuthUserController.checkIfLoggedIn, 
 
 router.get('/session/active', AuthUserController.checkIfLoggedIn, UserController.findLoggedInUser);
 
+router.get('/interest/find', AuthUserController.checkIfLoggedIn, UserController.findNewInterest);
 module.exports = router;

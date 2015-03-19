@@ -79,6 +79,27 @@ exports.delete = function(req, res) {
 	});
 };
 
+exports.findNewInterest = function(req, res) {
+	console.log(req.user);
+	User.aggregate({ 
+		$match: { activities: { $in: req.user.activities } }
+	},
+	{
+		$unwind : "$activities"
+	},
+	{ 
+		$match: { activities: { $nin: req.user.activities } }
+	},
+	{
+		$group: { "_id": "$activities", count: { $sum: 1 } }
+	},
+	{
+		$sort: { count: -1 }
+	}).exec(function(err, result) {
+		return res.send(result);
+	});
+};
+
 // Strip Password
 exports.findLoggedInUser = function(req, res) {
 	User.findOne({_id: req.user._id}).populate('groups', 'name activity').exec(function (err, user) {
