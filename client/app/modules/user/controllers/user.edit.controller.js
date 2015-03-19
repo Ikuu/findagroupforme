@@ -3,10 +3,13 @@ angular.module('app.user')
 .controller('UserEditController', function($scope, $routeParams, User, $location, $route, Title, Matchmaking) {
 	Title.set('Edit Settings');
 	$scope.addressNotVerified =  true;
+	getUserDetails();
 
-	User.getSignedInUser({}, function(user) {
-		$scope.user = user;
-	});
+	function getUserDetails(){
+		User.getSignedInUser({}, function(user) {
+			$scope.user = user;
+		});	
+	};
 
 	Matchmaking.findCurrentSearches({}, function(data) {
 		$scope.match = data;
@@ -14,7 +17,9 @@ angular.module('app.user')
 
 	$scope.deleteMatch = function(id) {
 		Matchmaking.deleteMatch({ _id: id }).$promise.then(function(response) {
-			$route.reload();
+			Matchmaking.findCurrentSearches({}, function(data) {
+				$scope.match = data;
+			});
 		});
 	};
 
@@ -28,7 +33,8 @@ angular.module('app.user')
 		}).$promise.then(function(response) {
 			if (response.message === "User has been updated") {
 				alert("Profile Updated!");
-				$route.reload();
+
+				getUserDetails();
 			}
 		});
 	};
@@ -61,24 +67,23 @@ angular.module('app.user')
 			if (response.message === "address has been updated") {
 				alert("Address Updated!");
 				$route.reload();
+				//need to close modal here too.
 			}
-		})
+		});
 	};
 
 	$scope.addInterest = function() {
 		var interest = prompt("Please enter the interest:");
 		if (interest !== null) {
-			User.addInterest({interest: interest}).$promise.then(function(response) {
-				//if success
-				$route.reload();
+			User.addInterest({ interest: interest }).$promise.then(function(response) {
+				getUserDetails();
 			});
 		}
 	};
 	
 	$scope.removeInterest = function(interest) {
-		User.removeInterest({interest: interest}).$promise.then(function(response) {
-			//if success
-			$route.reload();
+		User.removeInterest({ interest: interest }).$promise.then(function(response) {
+			getUserDetails();
 		});
 	};
 });
