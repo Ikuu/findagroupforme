@@ -63,7 +63,7 @@ exports.acceptInvite = function(req, res) {
 
 	TempGroup.update(query, update, function(err, tempGroup) {
 		checkIfGroupIsToBeMade(req, res);
-		return res.send(tempGroup);
+		return res.send({ message: "PLACEHOLDER MESSAGE - PLEASE CHANGE" });
 	});
 };
 
@@ -72,6 +72,6 @@ exports.declineInvite = function(req, res) {
 	var update = { $set: { "users.$.accepted": 'false' } };
 
 	TempGroup.update(query, update, function(err, tempGroup) {
-		return res.send(tempGroup);
+		return res.send({ message: "PLACEHOLDER MESSAGE - PLEASE CHANGE" });
 	});
 };

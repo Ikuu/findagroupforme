@@ -4,7 +4,7 @@ angular.module('app.user', ['ngRoute'])
 		// Profile
 		.when('/settings',{
 			templateUrl: './app/modules/user/views/user.edit.html',
-			controller: 'UserEditController'
+			controller: 'UserEditController',
 		})
 		// User Routes
 		.when('/users', {

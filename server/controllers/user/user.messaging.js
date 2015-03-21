@@ -6,7 +6,7 @@ exports.markAsViewed = function(req, res) {
 	var update = { $set: { "messages.$.viewed": true } };
 
 	User.update(query, update, function(err, user) {
-		return res.send(user);
+		return res.send({ message: "message has been marked as viewed" });
 	});
 };
 
@@ -15,7 +15,7 @@ exports.markAsUnviewed = function(req, res) {
 	var update = { $set: { "messages.$.viewed": false } };
 
 	User.update(query, update, function(err, user) {
-		return res.send(user);
+		return res.send({ message: "message has been marked as unviewed" });
 	});
 };
 

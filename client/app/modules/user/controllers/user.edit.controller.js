@@ -1,6 +1,6 @@
 // Rename to settings. Also need to have some feedback on the changes the user has made.
 angular.module('app.user')
-.controller('UserEditController', function($scope, $routeParams, User, $location, $route, Title, Matchmaking, $http) {
+.controller('UserEditController', function($scope, $routeParams, User, $location, Title, Matchmaking, $http) {
 	Title.set('Edit Settings');
 	$scope.addressNotVerified =  true;
 	getUserDetails();
@@ -79,8 +79,8 @@ angular.module('app.user')
 		}).$promise.then(function(response) {
 			if (response.message === "address has been updated") {
 				alert("Address Updated!");
-				$route.reload();
-				//need to close modal here too.
+				getUserDetails();
+				$('#addressBookModal').modal('hide');
 			}
 		});
 	};
@@ -90,7 +90,7 @@ angular.module('app.user')
 		if (interest !== null) {
 			User.addInterest({ interest: interest }).$promise.then(function(response) {
 				getUserDetails();
-				
+
 				$http.get('/api/users/interest/find').success(function(response) {
 					$scope.recommenededInterests = response;
 				});

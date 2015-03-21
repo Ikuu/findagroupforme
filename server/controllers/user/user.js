@@ -10,7 +10,7 @@ exports.index = function(req, res) {
 };
 
 exports.findById = function(req, res) {
-	User.findOne({_id: req.params.user_id}).populate('groups', 'name activity').exec(function (err, user) {
+	User.findOne({ _id: req.params.user_id }).populate('groups', 'name activity').exec(function (err, user) {
 		var noUserFound = (err || user === null);
 
 		if (noUserFound) {
@@ -80,7 +80,6 @@ exports.delete = function(req, res) {
 };
 
 exports.findNewInterest = function(req, res) {
-	console.log(req.user);
 	User.aggregate({ 
 		$match: { activities: { $in: req.user.activities } }
 	},

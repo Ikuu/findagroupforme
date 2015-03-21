@@ -1,3 +1,4 @@
+// Still need to remove $route.reload
 angular.module('app.group')
 .controller('GroupController', function($scope, $location, $routeParams, $route, Group, Title) { 
 	$scope.private = false;

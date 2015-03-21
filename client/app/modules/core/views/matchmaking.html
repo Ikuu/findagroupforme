@@ -3,12 +3,12 @@
 	<p>Use our matchmaking service to find a group for your interest!</p>
 
 	<form class="form" method="post" ng-submit="findMatchmakingGroup(interest)">
-		<div>
-			<label>Interest:</label>
-			<input type="text" name="name" ng-model="interest"/>
+		<div class="form-group">
+			<label>Interest</label>
+			<input type="text" name="name" ng-model="interest" class="form-control"/>
 		</div>
 		<div>
-			 <button class="btn btn-block btn-success" type="submit">Add</button>
+			 <button class="btn btn-block btn-success" type="submit">Start Matchmaking!</button>
 		</div>
 	</form>
 

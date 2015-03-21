@@ -1,6 +1,6 @@
 //ngDisabled to 'hide' button https://docs.angularjs.org/api/ng/directive/ngDisabled
 angular.module('app.core')
-.controller('MatchController', function($scope, Title, $routeParams, $http, $route, $location) {
+.controller('MatchController', function($scope, Title, $routeParams, $http, $location) {
 	Title.set('Matchmaking Group');
 
 	$http.get('/api/tempGroup/'+$routeParams.id).success(function(response) {
@@ -15,15 +15,17 @@ angular.module('app.core')
 
 	$scope.acceptButton = function() {
 		$http.post('/api/tempGroup/invite/accept/'+ $routeParams.id).success(function(response) {
-			// bug here, response from server is off
+			$http.get('/api/tempGroup/'+$routeParams.id).success(function(response) {
+				$scope.tempGroup = response;
+			});
 		});
-		$route.reload();
 	};
 
 	$scope.declineButton = function() {
 		$http.post('/api/tempGroup/invite/decline/'+ $routeParams.id).success(function(response) {
-			// bug here, response from server is off
+			$http.get('/api/tempGroup/'+$routeParams.id).success(function(response) {
+				$scope.tempGroup = response;
+			});
 		});
-		$route.reload();
 	};
 });

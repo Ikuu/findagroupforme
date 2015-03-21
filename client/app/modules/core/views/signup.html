@@ -1,28 +1,28 @@
 <div class="container">
 	<h1>Sign Up</h1>
 	<form class="form" method="post" ng-submit="createUser()">
-		<div>
-			<label>Username:</label>
-			<input type="text" name="username" ng-model="user.username"/>
+		<div class="form-group">
+			<label>Username</label>
+			<input type="text" name="username" ng-model="user.username" class="form-control"/>
+		</div>
+		<div class="form-group">
+			<label>Name</label>
+			<input type="text" name="name" ng-model="user.name" class="form-control"/>
+		</div>
+		<div class="form-group">
+			<label>Password</label>
+			<input type="password" name="password" ng-model="user.password" class="form-control"/>
+		</div>
+		<div class="form-group">
+			<label>Email</label>
+			<input type="text" name="email" ng-model="user.email" class="form-control"/>
+		</div>
+		<div class=>
+			<label>Privacy: </label>
+			<input type="checkbox" name="privacy" ng-model="user.privacy"/>
 		</div>
 		<div>
-			<label>Name:</label>
-			<input type="text" name="name" ng-model="user.name"/>
-		</div>
-		<div>
-			<label>Password:</label>
-			<input type="password" name="password" ng-model="user.password"/>
-		</div>
-		<div>
-			<label>Email:</label>
-			<input type="text" name="email" ng-model="user.email"/>
-		</div>
-		<div>
-			<label>Privacy</label>
-			<input type="checkbox" name="privacy" ng-model="user.privacy">
-		</div>
-		<div>
-			<input type="submit" value="Register"/>
+			<input type="submit" value="Register" class="btn btn-default" />
 		</div>
 	</form>
 </div>
