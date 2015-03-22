@@ -30,7 +30,7 @@ function checkIfGroupIsToBeMade(req, res) {
 			var group = new Group({
 				name: 'Generated ' + tGroup.interest + ' Group',
 				description: 'This group has been created by the Matchmaking system',
-				activity: tGroup.interest,
+				interest: tGroup.interest,
 				owner: users[0],
 				members: users
 			});

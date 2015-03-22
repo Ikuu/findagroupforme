@@ -48,7 +48,7 @@ describe('Group Controller Unit Tests:', function() {
 				},
 				body: {
 					name: 'Test Group',
-					activity: 'football',
+					interest: 'football',
 					description: 'This is a test group!',
 					venue_location: [-4.571489, 55.879622],
 					private: true
@@ -73,7 +73,7 @@ describe('Group Controller Unit Tests:', function() {
 			req = {
 				body: {
 					name: 'Test Group',
-					activity: 'football',
+					interest: 'football',
 					description: 'This is a test group!',
 					venue_location: [-4.571489, 55.879622]
 				}
@@ -175,7 +175,7 @@ describe('Group Controller Unit Tests:', function() {
 			req = {
 				body: {
 					name: 'Test Group',
-					activity: 'football',
+					interest: 'football',
 					description: 'This is a test groupz!',
 					venue_location: [-4.571489, 55.879622]
 				}
@@ -197,7 +197,7 @@ describe('Group Controller Unit Tests:', function() {
 				body: {
 					_id: groupId,
 					name: 'Test Group',
-					activity: 'football',
+					interest: 'football',
 					description: 'This is a test groupz!',
 					venue_location: [-4.571489, 55.879622]
 				}

@@ -3,14 +3,14 @@ var User = require('../../models/user');
 var Group = require('../../models/group');
 
 exports.index = function(req, res) {
-	User.find().populate('groups', 'name activity').exec(function (err, user) {
+	User.find().populate('groups', 'name interest').exec(function (err, user) {
 		if (err) return handleError(err);
 		res.send(user);
 	});
 };
 
 exports.findById = function(req, res) {
-	User.findOne({ _id: req.params.user_id }).populate('groups', 'name activity').exec(function (err, user) {
+	User.findOne({ _id: req.params.user_id }).populate('groups', 'name interest').exec(function (err, user) {
 		var noUserFound = (err || user === null);
 
 		if (noUserFound) {
@@ -81,16 +81,16 @@ exports.delete = function(req, res) {
 
 exports.findNewInterest = function(req, res) {
 	User.aggregate({ 
-		$match: { activities: { $in: req.user.activities } }
+		$match: { interests: { $in: req.user.interests } }
 	},
 	{
-		$unwind : "$activities"
+		$unwind : "$interests"
 	},
 	{ 
-		$match: { activities: { $nin: req.user.activities } }
+		$match: { interests: { $nin: req.user.interests } }
 	},
 	{
-		$group: { "_id": "$activities", count: { $sum: 1 } }
+		$group: { "_id": "$interests", count: { $sum: 1 } }
 	},
 	{
 		$sort: { count: -1 }
@@ -101,7 +101,7 @@ exports.findNewInterest = function(req, res) {
 
 // Strip Password
 exports.findLoggedInUser = function(req, res) {
-	User.findOne({_id: req.user._id}).populate('groups', 'name activity').exec(function (err, user) {
+	User.findOne({_id: req.user._id}).populate('groups', 'name interest').exec(function (err, user) {
 		if (err) return handleError(err);
 		res.send(user);
 	});

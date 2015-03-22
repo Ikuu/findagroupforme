@@ -1,21 +1,21 @@
 <div class="container">
 	<h2>Edit Group</h2>
 	<form class="form" method="post" ng-submit="editGroup()">
-		<div>
-			<label>Name:</label>
-			<input type="text" name="name" ng-model="group.name"/>
+		<div class="form-group">
+			<label>Name</label>
+			<input type="text" name="name" ng-model="group.name" class="form-control"/>
 		</div>
-		<div>
-			<label>Activity:</label>
-			<input type="text" name="activity" ng-model="group.activity"/>
+		<div class="form-group">
+			<label>Interest</label>
+			<input type="text" name="interest" ng-model="group.interest" class="form-control"/>
 		</div>
-		<div>
+		<div class="form-group">
 			<label>Private</label>
 			<input type="checkbox" name="private" ng-model="group.private">
 		</div>
-		<div>
-			<label>Description:</label>
-			<textarea type="text" rows="4" name="description" ng-model="group.description"/>
+		<div class="form-group">
+			<label>Description</label>
+			<textarea type="text" rows="4" name="description" ng-model="group.description" class="form-control"/>
 		</div>
 		<!-- This needs to be handled better -->
 		<div>
@@ -37,5 +37,9 @@
 	<span>None at present.</span>
 
 	<h2>Events</h2>
-	<span>None at present.</span>
+	<li ng-show="!group.events.length">None at the moment.</li>
+	<li ng-show="group.events.length" ng-repeat="event in group.events | orderBy:'date'">
+		<event-details></event-details>
+	</li>
+
 </div>

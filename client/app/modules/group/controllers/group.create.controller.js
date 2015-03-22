@@ -3,7 +3,7 @@ angular.module('app.group')
 		$scope.createGroup = function(){
 			Group.save({
 				name: $scope.name,
-				activity: $scope.activity,
+				interest: $scope.interest,
 				description: $scope.description,
 				venue_location: [$scope.locationLat, $scope.locationLong]
 			}).$promise.then(function(response){

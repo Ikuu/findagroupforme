@@ -17,7 +17,7 @@ var groupSchema = mongoose.Schema({
 		type: Boolean,
 		default: false
 	},
-	activity: String,
+	interest: String,
 	venue_location: [Number, Number],
 	owner: {type: ObjectId, ref: 'User'},
 	members: [{type: ObjectId, ref: 'User'}],

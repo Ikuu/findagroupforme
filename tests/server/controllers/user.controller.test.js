@@ -180,7 +180,7 @@ describe('UserController Unit Tests:', function() {
 						county: "United Kingdom"
 					},
 					email: "test@user.com",
-					activities: null,
+					interests: null,
 					password: "1234",
 					date_of_birth: "1980-11-24T18:22:54.062Z",
 					current_location: [-5.427094, 55.896154],

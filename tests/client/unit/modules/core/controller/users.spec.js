@@ -14,7 +14,7 @@ describe('Core.UsersController', function() {
     	"groups": [
       	{
       	  "_id": "547499888a46603c041a6b66",
-      	  "activity": "snowboarding",
+      	  "interest": "snowboarding",
       	  "name": "Glasgow Snowboard Club"
       	}
     	],	
@@ -29,7 +29,7 @@ describe('Core.UsersController', function() {
     	"twitter": {
     	  "photos": []
     	},
-    	"activities": [],
+    	"interests": [],
     	"date_registered": "2014-11-24T18:22:54.062Z"
     },
   	{
@@ -42,7 +42,7 @@ describe('Core.UsersController', function() {
   		"groups": [
   		  {
   		    "_id": "5473782d753bbfdc8b654471",
-  		    "activity": "golf",
+  		    "interest": "golf",
   		    "name": "Erskine Golf Club"
   		  }
   		],
@@ -51,7 +51,7 @@ describe('Core.UsersController', function() {
   		"twitter": {
   		  "photos": []
   		},
-  		"activities": [],
+  		"interests": [],
   		"date_registered": "2014-11-30T18:30:42.292Z",
   		"address": {
   		  "country": "United Kingdom",

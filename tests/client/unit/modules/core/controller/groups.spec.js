@@ -6,7 +6,7 @@ describe('Core.GroupsController', function() {
 	var returnedUsers = [{  
 		_id:"547499888a46603c041a6b66",
 		description:"This is a group for Snowboarding!",
-		activity:"snowboarding",
+		interest:"snowboarding",
 		name:"Glasgow Snowboard Club",
 		__v:0,
 		events:[  
@@ -33,7 +33,7 @@ describe('Core.GroupsController', function() {
 	},
 	{  
 		_id:"5473782d753bbfdc8b654471",
-		activity:"golf",
+		interest:"golf",
 		name:"Erskine Golf Club",
 		__v:18,
 		description:"Test.",
@@ -71,8 +71,8 @@ describe('Core.GroupsController', function() {
 		$controller('GroupsController', {$scope: $scope, Group: group});
 	}));
 
-	it('$scope.groups[0].activity should be Alexander Anderson', function() {
-		expect($scope.groups[0].activity).toBe("snowboarding");
+	it('$scope.groups[0].interest should be Alexander Anderson', function() {
+		expect($scope.groups[0].interest).toBe("snowboarding");
 	});
 
 	it("$scope.groups[1].members[0].name should be Alex", function() {

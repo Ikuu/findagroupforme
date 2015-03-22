@@ -1,17 +1,17 @@
 <div class="container">
 	<h2>{{user.username}}</h2>
 	<form class="form" method="post" ng-submit="editUser()">
-		<div>
-			<label>Name:</label>
-			<input type="text" name="name" ng-model="user.name"/>
+		<div class="form-group">
+			<label>Name</label>
+			<input type="text" name="name" ng-model="user.name" class="form-control" />
 		</div>
-		<div>
-			<label>Password:</label>
-			<input type="password" name="password" ng-model="user.password"/>
+		<div class="form-group">
+			<label>Password</label>
+			<input type="password" name="password" ng-model="user.password" class="form-control" />
 		</div>
-		<div>
-			<label>Email:</label>
-			<input type="text" name="email" ng-model="user.email"/>
+		<div class="form-group">
+			<label>Email</label>
+			<input type="text" name="email" ng-model="user.email" class="form-control" />
 		</div>
 		<div>
 			<label>Private</label>
@@ -23,13 +23,17 @@
 	</form>
 
 	<h2>Interests</h2>
-	<li ng-if="!user.activities.length">No interests.</li>
-	<li ng-repeat="interest in user.activities">{{interest}} - <a href="" ng-click="removeInterest(interest)" class="glyphicon glyphicon-trash"></a></li>
+	<li ng-if="!user.interests.length">No interests.</li>
+	<li ng-repeat="interest in user.interests">
+		{{interest}} - <a href="" ng-click="removeInterest(interest)" class="glyphicon glyphicon-trash"></a>
+	</li>
 	<button class="btn btn-primary" ng-click="addInterest()">Add</button>
 
 	<h2>Recommened Interest</h2>
 	<li ng-if="!recommenededInterests.length">No recommended interests.</li>
-	<li ng-repeat="interest in recommenededInterests"><a href="" ng-click="addRecommendedInterest(interest._id)">{{interest._id}}</a></li>
+	<li ng-repeat="interest in recommenededInterests">
+		<a href="" ng-click="addRecommendedInterest(interest._id)">{{interest._id}}</a>
+	</li>
 
 	<h2>Groups</h2>
 	<li ng-if="!user.groups.length">No Groups at the moment.</li>

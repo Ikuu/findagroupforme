@@ -1,16 +1,16 @@
 <h3>Create Event</h3>
 <form class="form" method="post" ng-submit="addEventButton(event)">
-	<div>
-		<label>Name:</label>
-		<input type="text" name="name" ng-model="event.name"/>
+	<div class="form-group">
+		<label>Name</label>
+		<input type="text" name="name" ng-model="event.name" class="form-control"/>
 	</div>
-	<div>
-		<label>Description:</label>
-		<input type="text" name="description" ng-model="event.description"/>
+	<div class="form-group">
+		<label>Description</label>
+		<input type="text" name="description" ng-model="event.description" class="form-control"/>
 	</div>
-	<div>
+	<div class="form-group">
 		<label>Date</label>
-		<input type="text" name="date" ng-model="event.date">
+		<input type="text" name="date" ng-model="event.date" class="form-control"/>
 	</div>
 	<div>
 		<label>Venue Location (Co-Ords):</label>

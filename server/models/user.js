@@ -31,7 +31,7 @@ var userSchema = mongoose.Schema({
 		type: Date,
 		default: Date.now
 	},
-	activities: [String],
+	interests: [String],
 	twitter: {
 		id: Number,
 		username: String,

@@ -12,10 +12,20 @@
 
       <div class="modal-body">
         <div>
-          <label>Street:</label><input type="text" name="address.street" ng-model="user.address.street"/><br />
-          <label>City:</label><input type="text" name="address.city" ng-model="user.address.city" /><br />
-          <label>Country:</label><input type="text" name="address.country" ng-model="user.address.country"/><br />
-          <label>Post Code:</label><input type="text" name="address.post_code" ng-model="user.address.post_code"/><br />
+          <div class="form-group">
+            <label>Street</label>
+            <input type="text" name="address.street" ng-model="user.address.street" class="form-control"/>
+          </div>
+          <div class="form-group">
+            <label>City</label>
+            <input type="text" name="address.city" ng-model="user.address.city"  class="form-control"/>
+          </div>
+          <div class="form-group">
+            <label>Country</label><input type="text" name="address.country" ng-model="user.address.country" class="form-control"/>
+          </div>
+          <div class="form-group">
+          <label>Post Code</label><input type="text" name="address.post_code" ng-model="user.address.post_code" class="form-control"/>
+          </div>
         </div>
       </div>
 

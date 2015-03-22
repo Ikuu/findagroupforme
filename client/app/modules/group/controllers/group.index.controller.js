@@ -1,50 +1,53 @@
-// Still need to remove $route.reload
 angular.module('app.group')
-.controller('GroupController', function($scope, $location, $routeParams, $route, Group, Title) { 
+.controller('GroupController', function($scope, $location, $routeParams, Group, Title) { 
 	$scope.private = false;
-	$scope.group = Group.get({ _id: $routeParams.id }, function(group) {
-		Title.set(group.name);
+	loadGroupDetails();
 
-		if (group.privateGroup) {
-			$scope.private = true; 
-		}
-		else {
-			$scope.map = {
-				center:{
-					latitude: group.venue_location[1],
-					longitude: group.venue_location[0]
-				},
-				zoom: 12
-			};
-	
-			$scope.groupMarker = {
-				id: 0,
-				options: {
-					title: group.name,
-					icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
-				},
-				coords: {
-					latitude: group.venue_location[1],
-					longitude: group.venue_location[0]
-				}
-			};
+	function loadGroupDetails() {
+		$scope.group = Group.get({ _id: $routeParams.id }, function(group) {
+			Title.set(group.name);
 
-			$scope.markerList = []
+			if (group.privateGroup) {
+				$scope.private = true; 
+			}
+			else {
+				$scope.map = {
+					center:{
+						latitude: group.venue_location[1],
+						longitude: group.venue_location[0]
+					},
+					zoom: 12
+				};
 
-			group.members.forEach(function(member) {
-				$scope.markerList.push({
-					id: member._id,
+				$scope.groupMarker = {
+					id: 0,
 					options: {
-						title: member.name
+						title: group.name,
+						icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
 					},
 					coords: {
-						latitude: member.home_location.coordinates[1],
-						longitude: member.home_location.coordinates[0],
+						latitude: group.venue_location[1],
+						longitude: group.venue_location[0]
 					}
+				};
+	
+				$scope.markerList = []
+	
+				group.members.forEach(function(member) {
+					$scope.markerList.push({
+						id: member._id,
+						options: {
+							title: member.name
+						},
+						coords: {
+							latitude: member.home_location.coordinates[1],
+							longitude: member.home_location.coordinates[0],
+						}
+					});
 				});
-			});
-		}
-	});
+			}
+		});
+	};
 
 	$scope.editButton = function() {
 		$location.path("/groups/"+$routeParams.id+"/edit");
@@ -64,7 +67,7 @@ angular.module('app.group')
 			}
 			else {
 				alert("You have joined the group!");
-				$route.reload();
+				loadGroupDetails();
 			}
 		});
 	};
@@ -82,10 +85,14 @@ angular.module('app.group')
 	};
 
 	$scope.addEventButton = function(event) {
-		Group.addEvent({_id: $routeParams.id, events: event});
+		Group.addEvent({_id: $routeParams.id, events: event}).$promise.then(function(response) {
+			loadGroupDetails();
+		});
 	};
 
 	$scope.removeEventButton = function(event_id) {
-		Group.removeEvent({_id: $routeParams.id, event_id: event_id});
+		Group.removeEvent({_id: $routeParams.id, event_id: event_id}).$promise.then(function(response) {
+			loadGroupDetails();
+		});
 	};
 });
