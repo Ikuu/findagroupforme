@@ -22,6 +22,16 @@
 		</div>
 	</form>
 
+	<h2>Address Book</h2>
+	<div>
+		{{user.address.street}} <br />
+		{{user.address.city}} <br />
+		{{user.address.country}} <br />
+		{{user.address.post_code}} <br />
+	</div>
+
+	<address-book></address-book>
+
 	<h2>Interests</h2>
 	<li ng-if="!user.interests.length">No interests.</li>
 	<li ng-repeat="interest in user.interests">
@@ -40,16 +50,6 @@
 	<div ng-repeat="group in user.groups">
 		<a href="./#/groups/{{group._id}}">{{group.name}}</a>
 	</div>
-
-	<h2>Address Book</h2>
-	<div>
-		{{user.address.street}} <br />
-		{{user.address.city}} <br />
-		{{user.address.country}} <br />
-		{{user.address.post_code}} <br />
-	</div>
-
-	<address-book></address-book>
 
 	<h2>Matchmaking Groups</h2>
 	<li ng-if="!match.length">Not Matchmaking</li>
