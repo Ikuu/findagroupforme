@@ -9,7 +9,6 @@ angular.module('app.core')
 	setInterval(loadUserDetails, 20000);
 
 	function loadUserDetails() {
-		console.log(1);
 		UserFactory.getUser().then(function success(response) {
 			$scope.loggedInUser = response.data;
 			if (response.data.username) {

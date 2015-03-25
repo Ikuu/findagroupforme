@@ -77,3 +77,4 @@ $RECYCLE.BIN/
 /server/config/auth.js
 server/config/db.js
 .idea/
+client/dist/app.min.js
