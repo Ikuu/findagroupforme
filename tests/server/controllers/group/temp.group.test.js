@@ -5,6 +5,7 @@ var should = require('should');
 var mongoose = require('mongoose');
 var TempGroupController = require('../../../../server/controllers/group/temp.group');
 var TempGroup = require('../../../../server/models/temp.group');
+var Group = require('../../../../server/models/group');
 
 var tempGroup, tempGroup2, req, res;
 
@@ -240,6 +241,7 @@ describe("Matchmaking Controller Unit Tests:", function() {
 
 	after(function(done) {
 		TempGroup.remove().exec();
+		Group.remove().exec();
 		done();
 	});
 });
