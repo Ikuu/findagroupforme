@@ -43,9 +43,15 @@ describe('User Model Unit Tests:', function(){
 
 	it('Should error when saving with no username', function(done) {
 		user.username = '';
-		return user.save(function(err) {
-			should.exist(err);
-			done();
+		user.validate(function(err) {
+			if (err) {
+				should.exist(err);
+				done();
+			}
+			else {
+				user.save();
+				done();
+			}
 		});
 	});
 

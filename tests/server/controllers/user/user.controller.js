@@ -51,7 +51,7 @@ describe('UserController Unit Tests:', function() {
 			UserController.add(req, res);
 	
 			setTimeout(function() {
-				res._body.message.should.be.exactly("Validation failed")
+				res._body.error.should.be.exactly("could not add user")
 				done();
 			}, 200);
 		});
@@ -241,7 +241,6 @@ describe('UserController Unit Tests:', function() {
 			UserController.updateAddress(req, res);
 	
 			setTimeout(function() {
-				console.log(res._body);
 				res._body.error.should.be.exactly('address missing');
 				done();
 			}, 200);

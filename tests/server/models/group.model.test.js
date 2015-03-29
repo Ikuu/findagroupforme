@@ -21,13 +21,13 @@ describe('Group Model Unit Tests:', function() {
 	});
 
 	it('Should begin with no Groups', function(done) {
-		Group.find({}, function(err, groups){
+		Group.find({}, function(err, groups) {
 			groups.should.have.length(0);
 			done();
 		});
 	});
 
-	it('Should save', function(done){
+	it('Should save', function(done) {
 		group.save(done);
 	});
 
@@ -41,9 +41,15 @@ describe('Group Model Unit Tests:', function() {
 
 	it('Should error when saving with no name', function(done) {
 		group.name = '';
-		return group.save(function(err) {
-			should.exist(err);
-			done();
+		group.validate(function(err) {
+			if (err) {
+				should.exist(err);
+				done();
+			}
+			else {
+				group.save();
+				done();
+			}
 		});
 	});
 

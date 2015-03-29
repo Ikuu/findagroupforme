@@ -30,6 +30,9 @@ exports.findById = function(req, res) {
 };
 
 exports.add = function(req, res) {
+	if (!req.body) {
+		return res.send({ error: "could not add user" });
+	}
 	var userToAdd = new User(req.body);
 	User.create(userToAdd, function(err, user) {
 		if (err || user === null) return res.send(err);

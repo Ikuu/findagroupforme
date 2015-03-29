@@ -6,7 +6,8 @@ exports.markAsViewed = function(req, res) {
 	var update = { $set: { "messages.$.viewed": true } };
 
 	User.update(query, update, function(err, user) {
-		var msgNotFound = (err || user === 0);
+		console.log(user);
+		var msgNotFound = (err || user.nModified === 0);
 		if (msgNotFound) return res.send({ error: "message does not exist" });
 		return res.send({ message: "message has been marked as viewed" });
 	});
@@ -17,7 +18,7 @@ exports.markAsUnviewed = function(req, res) {
 	var update = { $set: { "messages.$.viewed": false } };
 
 	User.update(query, update, function(err, user) {
-		var msgNotFound = (err || user === 0);
+		var msgNotFound = (err || user.nModified === 0);
 		if (msgNotFound) return res.send({ error: "message does not exist" });
 		return res.send({ message: "message has been marked as unviewed" });
 	});

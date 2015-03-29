@@ -6,8 +6,8 @@ var User 			=	require('../../models/user');
 var TempGroup 		=	require('../../models/temp.group');
 
 var removeOldEntries = schedule.scheduleJob('0 * * * *', function() {
-	console.log('Deleting Old TempGroups');
 	var cutOffDate = new Date();
+	console.log('Deleting Old TempGroups @ ' + cutOffDate);
 	cutOffDate.setDate(cutOffDate.getDate() - 7);
 	var query = { date_created: { $lte: cutOffDate } };
 
@@ -20,23 +20,9 @@ var removeOldEntries = schedule.scheduleJob('0 * * * *', function() {
 	});
 });
 
-// Not used
-exports.find = function(req, res) {
-	var homeCoords = { type: "Point", coordinates: [-4.427356, 55.896058] };
-	var filter = {};
-	var options = { spherical: true, query: filter };
-
-	Matchmaking.geoNear(homeCoords, options, function(err, results, stats) {
-		var noMatches = (err || results === null || results.length === 0);
-		if (noMatches) {
-			return res.send({ message: "no match" });
-		}
-		return res.send({ results: results, stats: stats });
-	});
-};
-
 exports.findAllMatchesForUser = function(req, res) {
 	Matchmaking.find({ user_id: req.user._id }).exec(function(err, matches) {
+		if (err) return res.send({ error: 'could not retrieve current matchmaking entries'});
 		return res.send(matches);
 	});
 };
@@ -45,11 +31,11 @@ exports.deleteMatch = function(req, res) {
 	Matchmaking.findOne({ _id: req.params.id }).exec(function(err, match) {
 		var invalidMatch = (err || match === null);
 		if (invalidMatch) {
-			return res.send({ error: 'could not remove entry '});
+			return res.send({ error: 'could not remove entry' });
 		}
 		else {
 			match.remove();
-			return res.send({ message: 'Matchmaking entry removed.' });
+			return res.send({ message: 'matchmaking entry removed' });
 		}
 	});
 };
@@ -64,7 +50,7 @@ exports.findMatch = function(req, res) {
 	};
 
 	var filter = { interest: req.body.interest, pending: false };
-	var options = { spherical: true, maxDistance: MAX_DISTANCE, query: filter };
+	var options = { maxDistance: MAX_DISTANCE, spherical: true, query: filter };
 	var users = []; 
 
 	var newMatch = new Matchmaking({
@@ -78,7 +64,7 @@ exports.findMatch = function(req, res) {
 
 	Matchmaking.create(newMatch, function(err, match) {
 		Matchmaking.geoNear(coords, options, function(err, results, stats) {
-			var noMatch = (results === null || results.length < GROUP_SIZE);
+			var noMatch = (results === null || GROUP_SIZE > results.length);
 	
 			if (noMatch) {
 				return res.send({ message: "not enough matches to make group" });
@@ -114,16 +100,5 @@ exports.findMatch = function(req, res) {
 				 });
 			}
 		});
-	});
-};
-
-// Need button to reject and remove from matchmaking.
-exports.testFunc = function(req, res) {
-	TempGroup.findByIdAndRemove(req.params.id, function(err, group) {
-		if (err || group === null) return res.send({ message: "something wrong" });
-		else {
-			group.remove(); // to trigger middleware
-			res.send('made');
-		}
 	});
 };

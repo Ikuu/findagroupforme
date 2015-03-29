@@ -4,6 +4,7 @@ require('../../config');
 var should = require('should');
 var mongoose = require('mongoose');
 var Matchmaking = require('../../../server/models/matchmaking');
+var TempGroup = require('../../../server/models/temp.group');
 
 var matchmaking;
 
@@ -34,9 +35,15 @@ describe('Matchmaking Model Unit Tests:', function() {
 
 	it('Should error when saving with no user_id', function(done) {
 		matchmaking.user_id = '';
-		return matchmaking.save(function(err) {
-			should.exist(err);
-			done();
+		matchmaking.validate(function(err) {
+			if (err) {
+				should.exist(err);
+				done();
+			}
+			else {
+				matchmaking.save();
+				done();
+			}
 		});
 	});
 
@@ -46,6 +53,7 @@ describe('Matchmaking Model Unit Tests:', function() {
 
 	after(function(done) {
 		Matchmaking.remove().exec();
+		TempGroup.remove().exec();
 		done();
 	});
 });

@@ -1,15 +1,15 @@
 // Code needs to be cleaned-up
-
 var _ 				=	require('underscore');
 var Group			=	require('../../models/group');
 var Matchmaking		=	require('../../models/matchmaking');
 var TempGroup 		=	require('../../models/temp.group');
 var User			=	require('../../models/user');
 
-
 exports.findById = function(req, res) {
 	TempGroup.findById(req.params.id).exec(function(err, tempGroup) {
-		if (err || tempGroup === null) return res.send({ message: "error" });
+		var tempGroupNotFound = (err || tempGroup === null);
+
+		if (tempGroupNotFound) return res.send({ error: "temp group not found" });
 		return res.send(tempGroup);
 	});
 };
@@ -19,10 +19,10 @@ function checkIfGroupIsToBeMade(req, res) {
 		var makeGroup = 0;
 		var users = [];
 
-		_.each(tGroup.users, function(data) {
-			if (data.accepted === true) {
+		_.each(tGroup.users, function(user) {
+			if (user.accepted === true) {
 				makeGroup++;
-				users.push(data.user_id);
+				users.push(user.user_id);
 			}
 		});
 
@@ -50,6 +50,8 @@ function checkIfGroupIsToBeMade(req, res) {
 
 			TempGroup.remove({ '_id': req.params.id }).exec(function(err) {
 			});
+
+			return res.send({ message: 'group formed' });
 		}
 		else {
 			//console.log('group not made.');
@@ -62,8 +64,14 @@ exports.acceptInvite = function(req, res) {
 	var update = { $set: { "users.$.accepted": 'true' } };
 
 	TempGroup.update(query, update, function(err, tempGroup) {
-		checkIfGroupIsToBeMade(req, res);
-		return res.send({ message: "PLACEHOLDER MESSAGE - PLEASE CHANGE" });
+		var tempGroupNotFound = (err || tempGroup.n === 0);
+		if (tempGroupNotFound) {
+			return res.send({ error: 'tempgroup not found'});
+		}
+		else {
+			checkIfGroupIsToBeMade(req, res);
+			return res.send({ message: "invite accepted" });		
+		}
 	});
 };
 
@@ -72,6 +80,8 @@ exports.declineInvite = function(req, res) {
 	var update = { $set: { "users.$.accepted": 'false' } };
 
 	TempGroup.update(query, update, function(err, tempGroup) {
-		return res.send({ message: "PLACEHOLDER MESSAGE - PLEASE CHANGE" });
+		var tempGroupNotFound = (err || tempGroup.n === 0);
+		if (tempGroupNotFound) return res.send({ error: 'invite could not be declined' });
+		return res.send({ message: "invite declined" });
 	});
 };
