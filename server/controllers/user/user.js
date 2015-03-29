@@ -4,7 +4,7 @@ var Group = require('../../models/group');
 
 exports.index = function(req, res) {
 	User.find().populate('groups', 'name interest').exec(function (err, user) {
-		if (err) return handleError(err);
+		if (err) return res.send({ error: "could not return users" });
 		res.send(user);
 	});
 };
@@ -57,18 +57,25 @@ exports.update = function(req, res) {
 };
 
 exports.updateAddress = function(req, res) {
-	var update = {
-		"address": req.body.address,
-		"home_location": {
-			type: "Point",
-			coordinates: [req.body.home_location[0], req.body.home_location[1]]
-		}
-	};
+	var addressError = (Object.keys(req.body.address).length === 0 || !req.body.address);
+	var locationError = (Object.keys(req.body.home_location).length === 0 || !req.body.home_location);
+	if (addressError || locationError) {
+		return res.send({ error: "address missing" });
+	}
+	else {
+		var update = {
+			"address": req.body.address,
+			"home_location": {
+				type: "Point",
+				coordinates: [req.body.home_location[0], req.body.home_location[1]]
+			}
+		};
 
-	User.findByIdAndUpdate(req.user._id, update, function(err) {
-		if (err) return res.send({ "error": err });
-		return res.send({ message: "address has been updated" });
-	})
+		User.findByIdAndUpdate(req.user._id, update, function(err) {
+			if (err) return res.send({ "error": err });
+			return res.send({ message: "address has been updated" });
+		});
+	}
 };
 
 exports.delete = function(req, res) {

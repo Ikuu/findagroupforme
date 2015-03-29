@@ -1,10 +1,10 @@
 'use strict';
 
-require('../../config');
+require('../../../config');
 var should = require('should');
 var mongoose = require('mongoose');
-var MatchmakingController = require('../../../server/controllers/group/matchmaking');
-var Matchmaking = require('../../../server/models/matchmaking');
+var MatchmakingController = require('../../../../server/controllers/group/matchmaking');
+var Matchmaking = require('../../../../server/models/matchmaking');
 
 var match, req, res;
 

@@ -1,5 +1,4 @@
 // Needs to be cleaned up
-
 var _ 				=	require('underscore');
 var schedule 		=	require('node-schedule');
 var Matchmaking 	=	require('../../models/matchmaking');
@@ -63,7 +62,6 @@ exports.findMatch = function(req, res) {
 		type: req.user.home_location.type,
 		coordinates: req.user.home_location.coordinates
 	};
-	console.log(coords);
 
 	var filter = { interest: req.body.interest, pending: false };
 	var options = { spherical: true, maxDistance: MAX_DISTANCE, query: filter };

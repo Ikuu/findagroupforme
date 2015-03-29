@@ -1,10 +1,10 @@
 'use strict';
 
-require('../../config');
+require('../../../config');
 var should = require('should');
 var mongoose = require('mongoose');
-var GroupController = require('../../../server/controllers/group');
-var User = require('../../../server/models/user');
+var GroupController = require('../../../../server/controllers/group');
+var User = require('../../../../server/models/user');
 
 var user, user2, groupId, req, res, eventId;
 
