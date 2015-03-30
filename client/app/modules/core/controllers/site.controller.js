@@ -16,5 +16,5 @@ angular.module('app.core')
 				$scope.numberOfMessages = response.data.messages.length;
 			}
 		});
-	};
+	}
 });

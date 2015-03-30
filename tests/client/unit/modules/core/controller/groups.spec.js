@@ -25,10 +25,10 @@ describe('Core.GroupsController', function() {
 				]
 			}
 		],
-		venue_location:[  
-			55.879622,
-			-4.371489
-		],
+		location: {
+			type:'Point',
+			coordinates:[ 55.879622, -4.371489]
+		},
 		date_created:"2014-11-25T15:00:24.855Z"
 	},
 	{  
@@ -52,10 +52,10 @@ describe('Core.GroupsController', function() {
 				]
 			}
 		],
-		venue_location:[  
-			55.916752,
-			-4.504116
-		],
+		location: {
+			type:'Point',
+			coordinates:[ 55.916752, -4.504116]
+		},
 		date_created:"2014-11-24T18:25:49.748Z"
 	}]
 

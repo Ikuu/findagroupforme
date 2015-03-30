@@ -7,7 +7,7 @@ angular.module('app.core')
 		User.getSignedInUser({}, function(user) {
 			$scope.user = user;
 		});
-	};
+	}
 
 	$scope.deleteMessage = function(messageId) {
 		$http.delete('/api/message/delete/' + messageId).success(function(response) {

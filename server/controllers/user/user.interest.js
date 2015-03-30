@@ -9,7 +9,7 @@ exports.addInterest = function(req, res) {
 };
 
 exports.removeInterest = function(req, res) {
-	var interestQuery = { $pull: { 'interests' : req.params.interest } }
+	var interestQuery = { $pull: { 'interests' : req.params.interest } };
 	User.update({ _id: req.user._id }, interestQuery, function(err, user) {
 		if (err) return res.send({ error: "item could not be deleted." });
 		return res.send({ message: "item deleted" });

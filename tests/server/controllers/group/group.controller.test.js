@@ -3,7 +3,7 @@
 require('../../../config');
 var should = require('should');
 var mongoose = require('mongoose');
-var GroupController = require('../../../../server/controllers/group');
+var GroupController = require('../../../../server/controllers/group/group');
 var User = require('../../../../server/models/user');
 
 var user, user2, groupId, req, res, eventId;
@@ -50,7 +50,10 @@ describe('Group Controller Unit Tests:', function() {
 					name: 'Test Group',
 					interest: 'football',
 					description: 'This is a test group!',
-					venue_location: [-4.571489, 55.879622],
+					location: {
+						type: 'Point',
+						coordinates: [-4.571489, 55.879622]
+					},
 					private: true
 				}
 			};
@@ -75,7 +78,10 @@ describe('Group Controller Unit Tests:', function() {
 					name: 'Test Group',
 					interest: 'football',
 					description: 'This is a test group!',
-					venue_location: [-4.571489, 55.879622]
+					location: {
+						type: 'Point',
+						coordinates: [-4.571489, 55.879622]
+					}
 				}
 			};
 	
@@ -177,7 +183,10 @@ describe('Group Controller Unit Tests:', function() {
 					name: 'Test Group',
 					interest: 'football',
 					description: 'This is a test groupz!',
-					venue_location: [-4.571489, 55.879622]
+					location: {
+						type: 'Point',
+						coordinates: [-4.571489, 55.879622]
+					}
 				}
 			};
 	
@@ -199,7 +208,10 @@ describe('Group Controller Unit Tests:', function() {
 					name: 'Test Group',
 					interest: 'football',
 					description: 'This is a test groupz!',
-					venue_location: [-4.571489, 55.879622]
+					location: {
+						type: 'Point',
+						coordinates: [-4.571489, 55.879622]
+					}
 				}
 			};
 	

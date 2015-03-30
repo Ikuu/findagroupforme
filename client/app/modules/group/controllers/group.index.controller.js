@@ -13,8 +13,8 @@ angular.module('app.group')
 			else {
 				$scope.map = {
 					center:{
-						latitude: group.venue_location[1],
-						longitude: group.venue_location[0]
+						latitude: group.location.coordinates[1],
+						longitude: group.location.coordinates[0]
 					},
 					zoom: 12
 				};
@@ -26,12 +26,12 @@ angular.module('app.group')
 						icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
 					},
 					coords: {
-						latitude: group.venue_location[1],
-						longitude: group.venue_location[0]
+						latitude: group.location.coordinates[1],
+						longitude: group.location.coordinates[0]
 					}
 				};
 	
-				$scope.markerList = []
+				$scope.markerList = [];
 	
 				group.members.forEach(function(member) {
 					$scope.markerList.push({
@@ -47,7 +47,7 @@ angular.module('app.group')
 				});
 			}
 		});
-	};
+	}
 
 	$scope.editButton = function() {
 		$location.path("/groups/"+$routeParams.id+"/edit");

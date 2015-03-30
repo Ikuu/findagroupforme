@@ -57,7 +57,7 @@ function checkIfGroupIsToBeMade(req, res) {
 			//console.log('group not made.');
 		}
 	});
-};
+}
 
 exports.acceptInvite = function(req, res) {
 	var query = { _id: req.params.id, "users.user_id": req.user._id };

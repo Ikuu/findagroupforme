@@ -1,5 +1,5 @@
-var User = require('../models/user');
-var Group = require('../models/group');
+var User = require('../../models/user');
+var Group = require('../../models/group');
 
 exports.index = function(req, res) {
 	Group.find().populate('members', 'name home_location').exec(function (err, group) {
@@ -85,7 +85,7 @@ exports.update = function(req, res) {
 		 	"description": updatedGroup.description,
 		 	"private": updatedGroup.private,
 		 	"interest": updatedGroup.interest,
-		 	"venue_location": updatedGroup.venue_location
+		 	"location": updatedGroup.location
 		};
 	
 		Group.findByIdAndUpdate(updatedGroup._id, update, function(err, doc) {

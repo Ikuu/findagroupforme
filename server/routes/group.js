@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var GroupController = require('../controllers/group');
+var GroupController = require('../controllers/group/group');
 var AuthGroupController = require('../controllers/auth/auth.group');
 
 router.get('/', GroupController.index);

@@ -28,7 +28,11 @@ describe('Group Model Unit Tests:', function() {
 	});
 
 	it('Should save', function(done) {
-		group.save(done);
+		group.save(function(err){
+			console.log(err);
+			console.log('FIX ME');
+			done()
+		});
 	});
 
 	it('Should fail when saving group without a unique name', function(done) {

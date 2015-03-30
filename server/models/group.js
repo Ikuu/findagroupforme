@@ -18,7 +18,10 @@ var groupSchema = mongoose.Schema({
 		default: false
 	},
 	interest: String,
-	venue_location: [Number, Number],
+	location: {
+		type: { type: String },
+		coordinates: [Number, Number]
+	},
 	owner: {type: ObjectId, ref: 'User'},
 	members: [{type: ObjectId, ref: 'User'}],
 	posts: [{
@@ -35,17 +38,10 @@ var groupSchema = mongoose.Schema({
 		name: String,
 		description: String,
 		date: Date,
-		location: [Number, Number],
 		members_attending: [String]
 	}]
 });
 
-groupSchema.pre('save', function (next) {
-	next();
-});
-
-groupSchema.pre('remove', function (next) {
-	next();
-});
+groupSchema.index({ location: '2dsphere' });
 
 module.exports = mongoose.model('Group', groupSchema);

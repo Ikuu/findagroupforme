@@ -9,7 +9,7 @@ angular.module('app.user')
 		User.getSignedInUser({}, function(user) {
 			$scope.user = user;
 		});	
-	};
+	}
 
 	Matchmaking.findCurrentSearches({}, function(data) {
 		$scope.match = data;
