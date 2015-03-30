@@ -19,8 +19,17 @@ var groupSchema = mongoose.Schema({
 	},
 	interest: String,
 	location: {
-		type: { type: String },
-		coordinates: [Number, Number]
+		type: {
+			type: String,
+			default: 'Point'
+		},
+		coordinates: [{
+			type: Number,
+			default: -1
+		},{
+			type: Number,
+			default: 1
+		}]
 	},
 	owner: {type: ObjectId, ref: 'User'},
 	members: [{type: ObjectId, ref: 'User'}],

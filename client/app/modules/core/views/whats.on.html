@@ -1,0 +1,25 @@
+<div class="container">
+	<h2>Results</h2>
+	<div ng-repeat="result in results">
+		<h4>{{result.obj.name}}</h4>
+		Distance: {{result.dis}}m<br />
+		Interest: {{result.obj.interest}}<br />
+		Event: {{result.obj.events}}
+	</div>
+
+	<h3>Map</h3>
+	<ui-gmap-google-map center='map.center' zoom='map.zoom'>
+		<ui-gmap-marker
+			idKey='userMarker.id'
+			icon='userMarker.options.icon'
+			options="userMarker.options"
+			coords='userMarker.coords'>
+		</ui-gmap-marker>
+
+		<ui-gmap-marker
+				idKey="eventMarkerList.id"
+				options="eventMarkerList.options"
+				coords="eventMarkerList.coords">
+			</ui-gmap-marker>
+	</ui-gmap-google-map>
+</div>

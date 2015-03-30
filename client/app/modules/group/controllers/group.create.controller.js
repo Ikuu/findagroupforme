@@ -1,3 +1,4 @@
+// FIX ME - Co-Ordinates
 angular.module('app.group')
 .controller('GroupCreateController', function($scope, $location, Group) {
 		$scope.createGroup = function(){
@@ -7,7 +8,7 @@ angular.module('app.group')
 				description: $scope.description,
 				location: {
 					type: 'Point',
-					coordinates: [$scope.locationLat, $scope.locationLong]
+					coordinates: [-1, 1]
 				}
 			}).$promise.then(function(response){
 				alert("Group has been added!");

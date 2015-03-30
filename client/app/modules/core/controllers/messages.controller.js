@@ -11,7 +11,7 @@ angular.module('app.core')
 
 	$scope.deleteMessage = function(messageId) {
 		$http.delete('/api/message/delete/' + messageId).success(function(response) {
-			if (response.message === 'message was deleted.') {
+			if (response.message === 'message was deleted') {
 				getUserDetails();
 			}
 		});

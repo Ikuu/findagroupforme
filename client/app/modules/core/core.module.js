@@ -34,6 +34,10 @@ angular.module('app.core', ['ngRoute'])
 			templateUrl: '/app/modules/core/views/match.index.html',
 			controller: 'MatchController'
 		})
+		.when('/whatson', {
+			templateUrl: '/app/modules/core/views/whats.on.html',
+			controller: 'WhatsOnController'
+		})
 		// To handle Facebook Login
 		.when('/_=_', {
 			redirectTo: '/'

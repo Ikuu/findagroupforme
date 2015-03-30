@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var GroupController = require('../controllers/group/group');
+var PublicEventsController = require('../controllers/group/public.events');
 var AuthGroupController = require('../controllers/auth/auth.group');
 
 router.get('/', GroupController.index);
@@ -16,4 +17,5 @@ router.delete('/:group_id/removeUser', AuthGroupController.checkIfLoggedIn, Grou
 router.put('/:group_id/event', AuthGroupController.hasGroupPermission, GroupController.addEventToGroup);
 router.delete('/:group_id/event/:event_id', AuthGroupController.hasGroupPermission, GroupController.removeEventFromGroup);
 
+router.get('/public/events', AuthGroupController.checkIfLoggedIn, PublicEventsController.findPublicEvent);
 module.exports = router;
