@@ -2,8 +2,10 @@ var User = require('../../models/user');
 var Group = require('../../models/group');
 var mongoose = require('mongoose');
 var moment = require('moment');
+var _ = require('underscore');
 
 exports.findPublicEvent = function(req, res) {
+	console.log(req.query.user_location);
 	var locationMissing = (req.user.home_location === null || req.user.home_location === undefined);
 	if (locationMissing) return res.send({ error: 'missing location' });
 

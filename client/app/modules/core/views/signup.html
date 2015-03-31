@@ -21,8 +21,21 @@
 			<label>Privacy: </label>
 			<input type="checkbox" name="privacy" ng-model="user.privacy"/>
 		</div>
+
+		<h3>Location!</h3>
+		<span>Drag the pin to select your current location!</span>
+		<ui-gmap-google-map center='map.center' zoom='map.zoom'>
+			<ui-gmap-marker
+				idKey='userMarker.id'
+				icon='userMarker.options.icon'
+				options='userMarker.options'
+				events='userMarker.events'
+				coords='userMarker.coords'>
+			</ui-gmap-marker>
+		</ui-gmap-google-map>
+
 		<div>
-			<input type="submit" value="Register" class="btn btn-default" />
+			<input type="submit" value="Register" class="btn btn-primary" />
 		</div>
 	</form>
 </div>

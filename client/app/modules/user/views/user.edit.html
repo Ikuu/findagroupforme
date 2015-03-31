@@ -17,20 +17,22 @@
 			<label>Private</label>
 			<input type="checkbox" name="private" ng-model="user.private">
 		</div>
+
+		<h3>Location!</h3>
+		<span>Drag the pin to select your current location!</span>
+		<ui-gmap-google-map center='map.center' zoom='map.zoom'>
+			<ui-gmap-marker
+				idKey='userMarker.id'
+				icon='userMarker.options.icon'
+				options='userMarker.options'
+				events='userMarker.events'
+				coords='userMarker.coords'>
+			</ui-gmap-marker>
+		</ui-gmap-google-map>
 		<div>
 			 <button class="btn btn-primary" type="submit">Save</button>
 		</div>
 	</form>
-
-	<h2>Address Book</h2>
-	<div>
-		{{user.address.street}} <br />
-		{{user.address.city}} <br />
-		{{user.address.country}} <br />
-		{{user.address.post_code}} <br />
-	</div>
-
-	<address-book></address-book>
 
 	<h2>Interests</h2>
 	<li ng-if="!user.interests.length">No interests.</li>

@@ -12,14 +12,16 @@
 		<ui-gmap-marker
 			idKey='userMarker.id'
 			icon='userMarker.options.icon'
-			options="userMarker.options"
+			options='userMarker.options'
+			events='userMarker.events'
 			coords='userMarker.coords'>
 		</ui-gmap-marker>
 
 		<ui-gmap-marker
-				idKey="eventMarkerList.id"
-				options="eventMarkerList.options"
-				coords="eventMarkerList.coords">
-			</ui-gmap-marker>
+			data-ng-repeat="marker in eventMarkerList"
+			idKey="marker.id"
+			options="marker.options"
+			coords="marker.coords">
+		</ui-gmap-marker>
 	</ui-gmap-google-map>
 </div>

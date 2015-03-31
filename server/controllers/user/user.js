@@ -33,7 +33,9 @@ exports.add = function(req, res) {
 	if (!req.body) {
 		return res.send({ error: "could not add user" });
 	}
+
 	var userToAdd = new User(req.body);
+
 	User.create(userToAdd, function(err, user) {
 		if (err || user === null) return res.send(err);
 		return res.send(user);
@@ -45,38 +47,18 @@ exports.update = function(req, res) {
 		return res.send({ error: "could not update user." });
 	}
 	else {
+		console.log(req.body);
 		var update = {
 			"name": req.body.name,
 			"email": req.body.email,
 			"password": req.body.password,
-			"private": req.body.private
+			"private": req.body.private,
+			"home_location": req.body.home_location
 		};
 
 		User.findByIdAndUpdate(req.user._id, update, function(err) {
 			if (err) return res.send({ "error": err });
 			return res.send({ message: "User has been updated" });
-		});
-	}
-};
-
-exports.updateAddress = function(req, res) {
-	var addressError = (Object.keys(req.body.address).length === 0 || !req.body.address);
-	var locationError = (Object.keys(req.body.home_location).length === 0 || !req.body.home_location);
-	if (addressError || locationError) {
-		return res.send({ error: "address missing" });
-	}
-	else {
-		var update = {
-			"address": req.body.address,
-			"home_location": {
-				type: "Point",
-				coordinates: [req.body.home_location[0], req.body.home_location[1]]
-			}
-		};
-
-		User.findByIdAndUpdate(req.user._id, update, function(err) {
-			if (err) return res.send({ "error": err });
-			return res.send({ message: "address has been updated" });
 		});
 	}
 };

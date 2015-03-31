@@ -8,6 +8,28 @@ angular.module('app.user')
 	function getUserDetails(){
 		User.getSignedInUser({}, function(user) {
 			$scope.user = user;
+
+			$scope.map = {
+				center: $scope.user.home_location.coordinates,
+				zoom: 12
+			};
+
+			$scope.userMarker = {
+				id: 0,
+				options: {
+					title: "You!",
+					icon: {
+						url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+					},
+					draggable: true
+				},
+				events: {
+					dragend: function(marker, eventName, args) {
+						$scope.user.home_location.coordinates = [marker.getPosition().lng(), marker.getPosition().lat()];
+					}
+				},
+				coords: $scope.user.home_location.coordinates
+			};
 		});	
 	}
 
@@ -42,45 +64,13 @@ angular.module('app.user')
 			name: $scope.user.name,
 			password: $scope.user.password,
 			email: $scope.user.email,
-			private: $scope.user.private
+			private: $scope.user.private,
+			home_location: $scope.user.home_location
 		}).$promise.then(function(response) {
 			if (response.message === "User has been updated") {
 				alert("Profile Updated!");
 
 				getUserDetails();
-			}
-		});
-	};
-
-	$scope.verifyAddress = function() {
-		var address = $scope.user.address.street + " " + $scope.user.address.city + " " + $scope.user.address.post_code + " " + $scope.user.address.country;
-		geocoder = new google.maps.Geocoder();
-		geocoder.geocode({ 'address': address }, function(results, status) {
-			if (status == google.maps.GeocoderStatus.OK) {
-				$scope.userCoords = [];
-				$scope.userCoords[0] = results[0].geometry.location.D;
-				$scope.userCoords[1] = results[0].geometry.location.k;
-				$scope.addressNotVerified = false;
-
-				$scope.$apply();
-			}
-			else {
-				$scope.addressNotVerified = true;
-				console.log("error, display somehow");
-			}
-		});
-	};
-
-	$scope.saveAddress = function() {
-		User.updateAddress({
-			_id: $scope.user._id,
-			address: $scope.user.address,
-			home_location: $scope.userCoords
-		}).$promise.then(function(response) {
-			if (response.message === "address has been updated") {
-				alert("Address Updated!");
-				getUserDetails();
-				$('#addressBookModal').modal('hide');
 			}
 		});
 	};

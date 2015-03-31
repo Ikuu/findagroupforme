@@ -1,41 +1,44 @@
 angular.module('app.core')
 .controller('WhatsOnController', function($scope, Title, $http) {
 	Title.set("What's On!");
-	$scope.results;
+	var user_location;
+	// write function to grab data that allows passing a variable, find geolocation and pass
+	// write support for no location.
 
-	$http.get('./api/groups/public/events').success(function(response) {
+	$http.get('./api/groups/public/events', { params: { user_location: user_location } }).success(function(response) {
 		$scope.results = response.results;
-
-		// Need to filter events here - use Moment.js
+		$scope.eventMarkerList = [];
 
 		$scope.map = {
-			center:{
-				latitude: response.user.coordinates[1],
-				longitude: response.user.coordinates[0]
-			},
+			center: response.user.coordinates,
 			zoom: 12
 		};
 
 		$scope.userMarker = {
 			id: 0,
 			options: {
-				title: "You!"
+				title: "You!",
+				icon: {
+					url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+				},
+				draggable: true
 			},
-			coords: {
-				latitude: response.user.coordinates[1],
-				longitude: response.user.coordinates[0]
-			}
+			events: {
+				dragend: function(marker, eventName, args) {
+					console.log(marker.getPosition());
+				}
+			},
+			coords: response.user
 		};
 
-		$scope.eventMarkerList = {
-			id: response.results[0].obj.events[0]._id,
-			options: {
-				title: response.results[0].obj.events[0].name + response.results[0].obj.events[0].date
-			},
-			coords: {
-				latitude: response.results[0].obj.location.coordinates[1],
-				longitude: response.results[0].obj.location.coordinates[0],
-			}
-		};
-	});
+		response.results.forEach(function(result) {
+			$scope.eventMarkerList.push({
+				id: result.obj.events[0]._id,
+				options: {
+					title: result.obj.events[0].name + ' @ ' + result.obj.events[0].date
+				},
+				coords: result.obj.location.coordinates
+			});
+		});
+	});	
 });
