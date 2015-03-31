@@ -47,7 +47,6 @@ exports.update = function(req, res) {
 		return res.send({ error: "could not update user." });
 	}
 	else {
-		console.log(req.body);
 		var update = {
 			"name": req.body.name,
 			"email": req.body.email,

@@ -20,15 +20,7 @@
 		<div ng-repeat="member in group.members">
 			<a href="./#/user/{{member._id}}">{{member.name}}</a>
 		</div>
-		
-		<h3>Events</h3>
-		<li ng-show="!group.events.length">None at the moment.</li>
-		<li ng-show="group.events.length" ng-repeat="event in group.events | orderBy:'date'">
-			<event-details></event-details>
-		</li>
-
-		<event-create></event-create>
-		
+				
 		<h3>Map</h3>
 		<ui-gmap-google-map center='map.center' zoom='map.zoom'>
 			<ui-gmap-marker
@@ -45,5 +37,13 @@
 				coords="marker.coords">
 			</ui-gmap-marker>
 		</ui-gmap-google-map>
+
+		<h3>Events</h3>
+		<li ng-show="!group.events.length">None at the moment.</li>
+		<li ng-show="group.events.length" ng-repeat="event in group.events | orderBy:'date'">
+			<event-details></event-details>
+		</li>
+		<event-create></event-create>
+		
 	</div>
 </div>

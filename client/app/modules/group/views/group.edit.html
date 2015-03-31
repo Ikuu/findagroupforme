@@ -17,14 +17,20 @@
 			<label>Description</label>
 			<textarea type="text" rows="4" name="description" ng-model="group.description" class="form-control"/>
 		</div>
-		<!-- This needs to be handled better -->
+
+		<h3>Location!</h3>
+		<span>Drag the pin to select the groups location!</span>
+		<ui-gmap-google-map center='map.center' zoom='map.zoom'>
+			<ui-gmap-marker
+				idKey='groupMarker.id'
+				icon='groupMarker.options.icon'
+				options='groupMarker.options'
+				events='groupMarker.events'
+				coords='groupMarker.coords'>
+			</ui-gmap-marker>
+		</ui-gmap-google-map>
 		<div>
-			<label>Venue Location (Co-Ords):</label>
-			<input type="text" name="latitude" ng-model="group.location.coordinates[0]"/>
-			<input type="text" name="longitude" ng-model="group.location.coordinates[1]"/>
-		</div>
-		<div>
-			 <button class="btn btn-primary" type="submit">Add</button>
+			 <button class="btn btn-primary" type="submit">Save</button>
 		</div>
 	</form>
 

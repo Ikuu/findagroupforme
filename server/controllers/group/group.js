@@ -38,7 +38,6 @@ exports.findById = function(req, res) {
 };
 
 exports.add = function(req, res) {
-	console.log(req.body);
 	var userObjectMissing = (req.user === undefined || req.user === null);
 	var bodyObjectMissing = (req.body === undefined || req.body === null);
 

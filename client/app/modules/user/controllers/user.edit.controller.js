@@ -69,7 +69,6 @@ angular.module('app.user')
 		}).$promise.then(function(response) {
 			if (response.message === "User has been updated") {
 				alert("Profile Updated!");
-
 				getUserDetails();
 			}
 		});
