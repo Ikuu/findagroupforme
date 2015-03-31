@@ -17,6 +17,5 @@ angular.module('app.core')
 
 	$scope.checkForMessages = function() {
 		loadUserDetails();
-		console.log('load');
 	};
 });

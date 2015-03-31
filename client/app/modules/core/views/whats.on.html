@@ -6,29 +6,9 @@
 	</p>
 	<button class="btn btn-primary">Use Current Location</button>
 
-	<h2>Events</h2>
-	<div ng-repeat="result in results">
-		<h4>{{result.obj.name}}</h4>
-		Distance: {{result.dis}}m<br />
-		Interest: {{result.obj.interest}}<br />
-		Event: {{result.obj.events}}
+	<event-map ng-show='results'></event-map>
+	<div ng-show="!results">
+		<h3>No Results</h3>
+		<p>Sorry! Nothing is going on in your area today!</p>	
 	</div>
-
-	<h3>Map</h3>
-	<ui-gmap-google-map center='map.center' zoom='map.zoom'>
-		<ui-gmap-marker
-			idKey='userMarker.id'
-			icon='userMarker.options.icon'
-			options='userMarker.options'
-			events='userMarker.events'
-			coords='userMarker.coords'>
-		</ui-gmap-marker>
-
-		<ui-gmap-marker
-			data-ng-repeat="marker in eventMarkerList"
-			idKey="marker.id"
-			options="marker.options"
-			coords="marker.coords">
-		</ui-gmap-marker>
-	</ui-gmap-google-map>
 </div>

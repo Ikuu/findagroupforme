@@ -1,0 +1,27 @@
+<h2>Events</h2>
+<div ng-repeat="result in results">
+	<h4>{{result.obj.name}}</h4>
+	Title: {{result.obj.events[0].name}}<br />
+	Date: {{result.obj.events[0].date | date: 'medium'}}<br />
+	Distance: {{result.dis}}m<br />
+	Interest: {{result.obj.interest}}<br />
+	Description: {{result.obj.events[0].description}}<br />
+</div>
+
+<h3>Map</h3>
+<ui-gmap-google-map center='map.center' zoom='map.zoom'>
+	<ui-gmap-marker
+		idKey='userMarker.id'
+		icon='userMarker.options.icon'
+		options='userMarker.options'
+		events='userMarker.events'
+		coords='userMarker.coords'>
+	</ui-gmap-marker>
+
+	<ui-gmap-marker
+		data-ng-repeat="marker in eventMarkerList"
+		idKey="marker.id"
+		options="marker.options"
+		coords="marker.coords">
+	</ui-gmap-marker>
+</ui-gmap-google-map>

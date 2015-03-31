@@ -4,19 +4,36 @@ var mongoose = require('mongoose');
 var moment = require('moment');
 var _ = require('underscore');
 
+var currentTime = moment();
+var today = moment().startOf('day');
+var tomorrow = moment(today).add(1, 'days').add(1, 'hour');
+
+// Filters out events that aren't today.
+function filterEvents(results) {
+	_.each(results, function(r, index) {
+		var events = [];
+		_.each(r.obj.events, function(e) {
+			var eventIsToday = (e.date >= currentTime.toDate());
+			var eventNotTomorrow = (e.date < tomorrow.toDate());
+
+			if (eventIsToday && eventNotTomorrow) {
+				events.push(e);
+			}
+		});
+
+		r.obj.events = events;
+		results[index] = r;
+	});
+
+	return results;
+}
+
 exports.findPublicEvent = function(req, res) {
 	//console.log(req.query.user_location);
 	var locationMissing = (req.user.home_location === null || req.user.home_location === undefined);
 	if (locationMissing) return res.send({ error: 'missing location' });
 
-	var currentTime = moment();
-	var today = moment().startOf('day');
-	var tomorrow = moment(today).add(1, 'days').add(1, 'hour');
-
-	var coords = { 
-		type: req.user.home_location.type,
-		coordinates: req.user.home_location.coordinates
-	};
+	var coords = req.user.home_location;
 
 	var query = {
 		private: false,
@@ -29,6 +46,9 @@ exports.findPublicEvent = function(req, res) {
 	Group.geoNear(coords, options, function(err, results, stats) {
 		var noResults = (err || results === null || results.length === 0);
 		if (noResults) return res.send({ error: "no events found" });
+
+		results = filterEvents(results);
+
 		return res.send({user: req.user.home_location, results: results });
 	});
 };

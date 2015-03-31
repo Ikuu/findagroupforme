@@ -2,16 +2,16 @@ angular.module('app.core')
 .controller('WhatsOnController', function($scope, Title, $http) {
 	$scope.$parent.checkForMessages();
 	Title.set("What's On!");
-	var user_location;
+	var user_location = [];
+
 	// write function to grab data that allows passing a variable, find geolocation and pass
 	// write support for no location.
-
-	$http.get('./api/groups/public/events', { params: { user_location: user_location } }).success(function(response) {
-		$scope.results = response.results;
+	function loadMapDetails(mapData) {
+		$scope.results = mapData.results;
 		$scope.eventMarkerList = [];
 
 		$scope.map = {
-			center: response.user.coordinates,
+			center: mapData.user.coordinates,
 			zoom: 12
 		};
 
@@ -29,10 +29,10 @@ angular.module('app.core')
 					console.log(marker.getPosition());
 				}
 			},
-			coords: response.user
+			coords: mapData.user
 		};
 
-		response.results.forEach(function(result) {
+		mapData.results.forEach(function(result) {
 			$scope.eventMarkerList.push({
 				id: result.obj.events[0]._id,
 				options: {
@@ -41,5 +41,11 @@ angular.module('app.core')
 				coords: result.obj.location.coordinates
 			});
 		});
+	}
+
+	$http.get('./api/groups/public/events',{ params: { user_location: user_location } }).success(function(response) {
+		if (!response.error) {
+			loadMapDetails(response);
+		}
 	});	
 });
