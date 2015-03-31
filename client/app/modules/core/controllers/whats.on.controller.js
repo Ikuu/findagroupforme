@@ -1,5 +1,6 @@
 angular.module('app.core')
 .controller('WhatsOnController', function($scope, Title, $http) {
+	$scope.$parent.checkForMessages();
 	Title.set("What's On!");
 	var user_location;
 	// write function to grab data that allows passing a variable, find geolocation and pass

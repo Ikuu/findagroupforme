@@ -4,6 +4,7 @@ angular.module('app.group')
 	loadGroupDetails();
 
 	function loadGroupDetails() {
+		$scope.$parent.checkForMessages();
 		$scope.group = Group.get({ _id: $routeParams.id }, function(group) {
 			Title.set(group.name);
 

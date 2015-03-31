@@ -1,6 +1,7 @@
 //ngDisabled to 'hide' button https://docs.angularjs.org/api/ng/directive/ngDisabled
 angular.module('app.core')
 .controller('MatchController', function($scope, Title, $routeParams, $http, $location) {
+	$scope.$parent.checkForMessages();
 	Title.set('Matchmaking Group');
 
 	$http.get('/api/tempGroup/'+$routeParams.id).success(function(response) {

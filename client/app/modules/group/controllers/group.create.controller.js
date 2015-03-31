@@ -1,6 +1,8 @@
 // FIX ME - Co-Ordinates
 angular.module('app.group')
-.controller('GroupCreateController', function($scope, $location, Group) {
+.controller('GroupCreateController', function(Title, $scope, $location, Group) {
+	$scope.$parent.checkForMessages();
+	Title.set('Create Group');
 	// Ficticious FaGfM Office
 	var group_location = {
 		type: 'Point',

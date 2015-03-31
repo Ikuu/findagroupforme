@@ -1,10 +1,12 @@
 angular.module('app.group')
-.controller('GroupEditController', function($scope, $location, $routeParams, Group) {
+.controller('GroupEditController', function($scope, $location, $routeParams, Group, Title) {
 	// Might want a call like Settings, so can see if User can access a group
 	getGroupDetails();
 
 	function getGroupDetails() {
+		$scope.$parent.checkForMessages();
 		Group.get({ _id: $routeParams.id }, function(group) {
+			Title.set('Editing ' + group.name);
 			$scope.group = group;
 
 			$scope.map = {

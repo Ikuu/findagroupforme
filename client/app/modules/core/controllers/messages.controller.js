@@ -4,6 +4,8 @@ angular.module('app.core')
 	getUserDetails();
 
 	function getUserDetails() {
+		$scope.$parent.checkForMessages();
+
 		User.getSignedInUser({}, function(user) {
 			$scope.user = user;
 		});
