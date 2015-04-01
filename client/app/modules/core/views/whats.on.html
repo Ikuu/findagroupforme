@@ -5,10 +5,24 @@
 		or you can click the button and search based on your current location! This feature works best with mobile devices.
 	</p>
 	<button class="btn btn-primary" ng-click="currentLocationEvents()">Use Current Location</button>
-
-	<event-map ng-show='showMap'></event-map>
-	<div ng-show="!showMap">
+	<button class="btn btn-success" ng-click="resetLocation()">Reset Location</button>
+	
+	<div ng-show="noEvents">
 		<h3>No Results</h3>
 		<p>Sorry! Nothing is going on in your area today!</p>	
 	</div>
+
+	<div ng-show="!noEvents">
+		<h2>Events</h2>
+		<div ng-repeat="result in results | orderBy: 'dis'">
+			<h4>{{result.obj.name}} | {{result.obj.interest}} | {{result.dis | number : 0}}m</h4>
+			<p ng-repeat="event in result.obj.events | orderBy: 'date'">
+				Title: {{event.name}}<br />
+				Date: {{event.date | date: 'medium'}}<br />
+				Description: {{event.description}}<br />
+			</p>
+		</div>
+	</div>
+
+	<event-map></event-map>
 </div>

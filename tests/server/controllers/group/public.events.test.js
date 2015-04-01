@@ -11,7 +11,7 @@ var group, group2, req, res, eventTime, eventTimeFuture, user;
 
 describe('Public Event Controller Unit Tests:', function() {
 	before(function(done) {
-		eventTime = moment().add(2, 'hours');
+		eventTime = moment().add(2, 'minutes');
 		eventTimeFuture = moment(eventTime).add(2, 'days');
 
 		user = new User({
@@ -68,6 +68,9 @@ describe('Public Event Controller Unit Tests:', function() {
 				user: {
 					_id: user._id,
 					home_location: user.home_location
+				},
+				query: {
+					user_location: undefined
 				}
 			};
 			res = {_body: null, render: function() { 'noop'; }};
@@ -76,7 +79,7 @@ describe('Public Event Controller Unit Tests:', function() {
 			PublicEventController.findPublicEvent(req, res);
 	
 			setTimeout(function() {
-				res._body.error.should.be.exactly('no events found');
+				res._body.message.should.be.exactly('no events found');
 				done();
 			}, 200);
 		});
@@ -88,6 +91,9 @@ describe('Public Event Controller Unit Tests:', function() {
 					user: {
 						_id: user._id,
 						home_location: user.home_location
+					},
+					query: {
+						user_location: undefined
 					}
 				};
 				res = {_body: null, render: function() { 'noop'; }};
