@@ -4,10 +4,10 @@
 		Find out what's going on near you today! By default the site uses your saved location,
 		or you can click the button and search based on your current location! This feature works best with mobile devices.
 	</p>
-	<button class="btn btn-primary">Use Current Location</button>
+	<button class="btn btn-primary" ng-click="currentLocationEvents()">Use Current Location</button>
 
-	<event-map ng-show='results'></event-map>
-	<div ng-show="!results">
+	<event-map ng-show='showMap'></event-map>
+	<div ng-show="!showMap">
 		<h3>No Results</h3>
 		<p>Sorry! Nothing is going on in your area today!</p>	
 	</div>

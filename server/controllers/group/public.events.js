@@ -29,11 +29,19 @@ function filterEvents(results) {
 }
 
 exports.findPublicEvent = function(req, res) {
-	//console.log(req.query.user_location);
+	var coords;
 	var locationMissing = (req.user.home_location === null || req.user.home_location === undefined);
 	if (locationMissing) return res.send({ error: 'missing location' });
 
-	var coords = req.user.home_location;
+	if (req.query.user_location) {
+		coords = {
+			type: 'Point',
+			coordinates: [Number(req.query.user_location[0]), Number(req.query.user_location[1])]
+		};
+	}
+	else {
+		coords = req.user.home_location;
+	}
 
 	var query = {
 		private: false,
@@ -49,6 +57,6 @@ exports.findPublicEvent = function(req, res) {
 
 		results = filterEvents(results);
 
-		return res.send({user: req.user.home_location, results: results });
+		return res.send({user: coords, results: results });
 	});
 };

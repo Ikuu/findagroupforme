@@ -1,11 +1,24 @@
+// Might want to show map even if no results, just so they know it's working.
 angular.module('app.core')
 .controller('WhatsOnController', function($scope, Title, $http) {
 	$scope.$parent.checkForMessages();
+	$scope.showMap = false;
 	Title.set("What's On!");
+	getMapDetails();
 	var user_location = [];
 
-	// write function to grab data that allows passing a variable, find geolocation and pass
-	// write support for no location.
+	function getMapDetails(location) {
+		$http.get('./api/groups/public/events',{ params: { user_location: user_location } }).success(function(response) {
+			if (!response.error) {
+				loadMapDetails(response);
+				$scope.showMap = true;
+			}
+			else {
+				$scope.showMap = false;
+			}
+		});		
+	}
+
 	function loadMapDetails(mapData) {
 		$scope.results = mapData.results;
 		$scope.eventMarkerList = [];
@@ -21,12 +34,6 @@ angular.module('app.core')
 				title: "You!",
 				icon: {
 					url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
-				},
-				draggable: true
-			},
-			events: {
-				dragend: function(marker, eventName, args) {
-					console.log(marker.getPosition());
 				}
 			},
 			coords: mapData.user
@@ -43,9 +50,24 @@ angular.module('app.core')
 		});
 	}
 
-	$http.get('./api/groups/public/events',{ params: { user_location: user_location } }).success(function(response) {
-		if (!response.error) {
-			loadMapDetails(response);
+	$scope.currentLocationEvents = function() {
+		var options = {
+			enableHighAccuracy: true,
+			timeout: 5000,
+			maximumAge: 0
+		};
+
+		function success(pos) {
+			var crd = pos.coords;
+
+			user_location = [crd.longitude, crd.latitude];
+			getMapDetails(user_location);
 		}
-	});	
+
+		function error(err) {
+			console.warn('ERROR(' + err.code + '): ' + err.message);
+		}
+
+		navigator.geolocation.getCurrentPosition(success);	
+	};
 });
