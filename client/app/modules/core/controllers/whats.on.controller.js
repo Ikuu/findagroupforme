@@ -30,6 +30,13 @@ angular.module('app.core')
 				title: "You!",
 				icon: {
 					url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+				},
+				draggable: true
+			},
+			events: {
+				dragend: function(marker, eventName, args) {
+					$scope.map.center.coordinates = [marker.getPosition().lng(), marker.getPosition().lat()];
+					getMapDetails($scope.map.center.coordinates);
 				}
 			},
 			coords: mapData.user
