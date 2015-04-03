@@ -3,41 +3,43 @@ angular.module('app.core', ['ngRoute'])
 	$routeProvider
 		.when('/', {
 			templateUrl: '/app/modules/core/views/home.html',
-			controller: 'HomeController'
-			// Probably want a resolve somewhere in here to prevent $scope 'blinking'
+			controller: 'HomeController',
+			controllerAs: 'vm'
 		})
 		.when('/404',{
 			templateUrl: '/app/modules/core/views/404.html',
-			controller: '404Controller'
+			controller: '404Controller',
+			controllerAs: 'vm'
 		})
 		.when('/login', {
 			templateUrl: '/app/modules/core/views/login.html',
-			controller: 'LoginController'
+			controller: 'LoginController',
+			controllerAs: 'vm'
 		})
 		.when('/about', {
 			templateUrl: '/app/modules/core/views/about.html',
-			controller: 'AboutController'
+			controller: 'AboutController',
+			controllerAs: 'vm'
 		})
 		.when('/signup', {
 			templateUrl: '/app/modules/core/views/signup.html',
-			controller: 'SignupController'
+			controller: 'SignupController',
+			controllerAs: 'vm'
 		})
 		.when('/messages', {
 			templateUrl: '/app/modules/core/views/messages.html',
-			controller: 'MessagesController'
+			controller: 'MessagesController',
+			controllerAs: 'vm'
 		})
 		.when('/matchmaking', {
 			templateUrl: '/app/modules/core/views/matchmaking.html',
-			controller: 'MatchmakingController'
+			controller: 'MatchmakingController',
+			controllerAs: 'vm'
 		})
 		.when('/match/:id', {
 			templateUrl: '/app/modules/core/views/match.index.html',
 			controller: 'MatchController',
 			controllerAs: 'vm'
-		})
-		.when('/whatson', {
-			templateUrl: '/app/modules/core/views/whats.on.html',
-			controller: 'WhatsOnController'
 		})
 		// To handle Facebook Login
 		.when('/_=_', {

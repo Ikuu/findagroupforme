@@ -1,5 +1,12 @@
-angular.module('app.core')
-.controller('GroupsController', function($scope, Group, Title) {
-	Title.set('Groups');
-	$scope.groups = Group.query();
-});
+(function() {
+	angular
+		.module('app.core')
+		.controller('GroupsController', GroupsController);
+
+	function GroupsController(Group, Title) {
+		var vm = this;
+		vm.groups = Group.query();
+
+		Title.set('Groups');
+	}
+})();

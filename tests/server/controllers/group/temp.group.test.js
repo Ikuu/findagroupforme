@@ -9,7 +9,7 @@ var Group = require('../../../../server/models/group');
 
 var tempGroup, tempGroup2, req, res;
 
-describe("Matchmaking Controller Unit Tests:", function() {
+describe("Temp.Group Controller Unit Tests:", function() {
 	before(function(done) {
 		tempGroup = new TempGroup({
 			interest: 'soccer',
@@ -164,7 +164,11 @@ describe("Matchmaking Controller Unit Tests:", function() {
 					id: tempGroup._id 
 				},
 				user: {
-					_id: '54bd693719aee30000967768'
+					_id: '54bd693719aee30000967768',
+					home_location: {
+						type: 'Point',
+						coordinates: [-4.442632675170898, 55.89529870636083]
+					}
 				}
 			};
 			res = {_body: null, render: function() { 'noop'; }};
@@ -184,7 +188,11 @@ describe("Matchmaking Controller Unit Tests:", function() {
 					id: tempGroup2._id 
 				},
 				user: {
-					_id: '54bd693719aee30000967768'
+					_id: '54bd693719aee30000967768',
+					home_location: {
+						type: 'Point',
+						coordinates: [-4.442632675170898, 55.89529870636083]
+					}
 				}
 			};
 			res = {_body: null, render: function() { 'noop'; }};

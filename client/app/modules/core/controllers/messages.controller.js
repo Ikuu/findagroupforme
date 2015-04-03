@@ -1,17 +1,20 @@
 (function() {
 	angular
 		.module('app.core')
-		.controller('MessagesController', function($scope, $routeParams, User, Title, $http) {
-		Title.set('Messages');
-		$scope.deleteMessage = deleteMessage;
-		$scope.markAsUnviewed = markAsUnviewed;
-		$scope.markAsUnviewed = markAsViewed;
+		.controller('MessagesController', MessagesController);
 
+	function MessagesController($routeParams, User, Title, $http) {
+		var vm = this;
+		vm.deleteMessage = deleteMessage;
+		vm.markAsUnviewed = markAsUnviewed;
+		vm.markAsViewed = markAsViewed;
+
+		Title.set('Messages');
 		getUserDetails();
 	
 		function getUserDetails() {
 			User.getSignedInUser({}, function(user) {
-				$scope.user = user;
+				vm.user = user;
 			});
 		}
 	
@@ -34,5 +37,5 @@
 				getUserDetails();
 			});
 		}
-	});
+	}
 })();

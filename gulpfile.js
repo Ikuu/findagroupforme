@@ -5,15 +5,16 @@ var concat = require('gulp-concat');
 var jshint = require('gulp-jshint');
 var plumber = require('gulp-plumber');
 var ngAnnotate = require('gulp-ng-annotate');
+var paths = require('./gulp.config.json');
 
 gulp.task('lint', function(){
-	return gulp.src('client/app/**/*.js')
+	return gulp.src(paths.js)
 		.pipe(jshint())
 		.pipe(jshint.reporter('default'));
 });
 
 gulp.task('angular', function(){
-	return gulp.src('client/app/**/*.js')
+	return gulp.src(paths.js)
 		.pipe(plumber())
 		.pipe(concat('app.min.js'))
 		.pipe(ngAnnotate())

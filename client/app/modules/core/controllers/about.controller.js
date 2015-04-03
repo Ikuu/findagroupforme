@@ -5,7 +5,7 @@
 		.module('app.core')
 		.controller('AboutController', AboutController);	
 
-	function AboutController($scope, Title) {
+	function AboutController(Title) {
 		Title.set('About');
 	}
 })();

@@ -1,4 +1,6 @@
 (function() {
+	'use strict';
+
 	angular
 		.module('app', [
 			'ngRoute', 
@@ -6,9 +8,13 @@
 			'ngMessages',
 			'ngSanitize', 
 			'google-maps'.ns(),
+
+			// Modules
 			'app.core',
 			'app.user',
-			'app.group'
+			'app.group',
+			'app.whatson',
+			'app.settings'
 		])
 		.config(config)
 		.run(run);
@@ -18,7 +24,7 @@
 	}
 	
 	function run($rootScope) {
-		$rootScope.$on('$routeChangeSuccess', function (){
+		$rootScope.$on('$routeChangeSuccess', function (event, current, previous){
 			$rootScope.$broadcast('checkForMessage');
 		});
 	}

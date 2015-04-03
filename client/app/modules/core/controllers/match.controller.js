@@ -5,28 +5,31 @@
 
 	function MatchController(Title, $routeParams, $http, $location) {
 		var vm = this;
-		vm.acceptedByDate
+		vm.acceptedByDate;
 		vm.acceptButton = acceptButton;
 		vm.declineButton = declineButton;
 		vm.tempGroup = [];
+		
 		Title.set('Matchmaking Group');
-
 		retrieveMatchDetails();
 
 		function acceptButton() {
-			$http.post('/api/tempGroup/invite/accept/'+ $routeParams.id).success(function(response) {
+			$http.post('/api/tempGroup/invite/accept/'+ $routeParams.id)
+			.success(function(response) {
 				retrieveMatchDetails();	
 			});
 		}
 	
 		function declineButton() {
-			$http.post('/api/tempGroup/invite/decline/'+ $routeParams.id).success(function(response) {
+			$http.post('/api/tempGroup/invite/decline/'+ $routeParams.id)
+			.success(function(response) {
 				retrieveMatchDetails();
 			});
 		}
 
 		function retrieveMatchDetails() {
-			$http.get('/api/tempGroup/'+$routeParams.id).success(function(response) {
+			$http.get('/api/tempGroup/'+$routeParams.id)
+			.success(function(response) {
 				if (response.message === "error") {
 					$location.path('/');
 				}

@@ -1,6 +1,7 @@
-// Rename to settings. Also need to have some feedback on the changes the user has made.
-angular.module('app.user')
-.controller('UserEditController', function($scope, $routeParams, User, $location, Title, Matchmaking, $http) {
+(function() {
+	// Rename to settings. Also need to have some feedback on the changes the user has made.
+angular.module('app.settings')
+.controller('SettingsController', function($scope, $routeParams, User, $location, Title, Matchmaking, $http) {
 	Title.set('Edit Settings');
 	$scope.addressNotVerified =  true;
 	getUserDetails();
@@ -97,3 +98,4 @@ angular.module('app.user')
 		});
 	};
 });
+})();

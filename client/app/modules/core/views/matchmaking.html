@@ -2,7 +2,7 @@
 	<h2>Matchmaking</h2>
 	<p>Use our matchmaking service to find a group for your interest!</p>
 
-	<form class="form" method="post" ng-submit="findMatchmakingGroup(interest)">
+	<form class="form" method="post" ng-submit="vm.findMatchmakingGroup(interest)">
 		<div class="form-group">
 			<label>Interest</label>
 			<input type="text" name="name" ng-model="interest" class="form-control"/>
@@ -13,5 +13,5 @@
 	</form>
 
 	<h2>Results</h2>
-	<p>{{message}}</p>
+	<p>{{vm.message}}</p>
 </div>

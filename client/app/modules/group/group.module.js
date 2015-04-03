@@ -3,7 +3,8 @@ angular.module('app.group', ['ngRoute'])
 	$routeProvider
 		.when('/groups', {
 			templateUrl: '/app/modules/core/views/groups.html',
-			controller: 'GroupsController'
+			controller: 'GroupsController',
+			controllerAs: 'vm'
 		})
 		.when('/groups/:id', {
 			templateUrl: '/app/modules/group/views/group.index.html',

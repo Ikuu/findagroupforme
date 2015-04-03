@@ -1,0 +1,17 @@
+<h3>Map</h3>
+<ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom'>
+	<ui-gmap-marker
+		idKey='vm.userMarker.id'
+		icon='vm.userMarker.options.icon'
+		options='vm.userMarker.options'
+		events='vm.userMarker.events'
+		coords='vm.userMarker.coords'>
+	</ui-gmap-marker>
+
+	<ui-gmap-marker
+		data-ng-repeat="marker in vm.eventMarkerList"
+		idKey="marker.id"
+		options="marker.options"
+		coords="marker.coords">
+	</ui-gmap-marker>
+</ui-gmap-google-map>

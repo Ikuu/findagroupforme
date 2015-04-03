@@ -1,16 +1,18 @@
 (function() {
 	'use strict';
+
 	angular
-		.module('app.core')
+		.module('app.whatson')
 		.controller('WhatsOnController', WhatsOnController);
 
-	function WhatsOnController($scope, Title, $http) {
-		$scope.currentLocationEvents = currentLocationEvents;
-		$scope.eventMarkerList = [];
-		$scope.map;
-		$scope.noEvents = true;
-		$scope.resetLocation = resetLocation;
-		$scope.results;
+	function WhatsOnController(Title, $http) {
+		var vm = this;
+		vm.currentLocationEvents = currentLocationEvents;
+		vm.eventMarkerList = [];
+		vm.map;
+		vm.noEvents = true;
+		vm.resetLocation = resetLocation;
+		vm.results;
 		var user_location = []; 
 		
 		Title.set("What's On!");
@@ -19,20 +21,20 @@
 		function getMapDetails(location) {
 			$http.get('./api/groups/public/events',{ params: { user_location: location } }).success(function(response) {
 				loadMapDetails(response);
-				response.message ? $scope.noEvents = true : $scope.noEvents = false; 
+				response.message ? vm.noEvents = true : vm.noEvents = false;
 			});		
 		}
 	
 		function loadMapDetails(mapData) {
-			$scope.results = mapData.results;
-			$scope.eventMarkerList = [];
+			vm.results = mapData.results;
+			vm.eventMarkerList = [];
 	
-			$scope.map = {
+			vm.map = {
 				center: mapData.user.coordinates,
 				zoom: 12
 			};
 	
-			$scope.userMarker = {
+			vm.userMarker = {
 				id: 0,
 				options: {
 					title: "You!",
@@ -43,8 +45,8 @@
 				},
 				events: {
 					dragend: function(marker, eventName, args) {
-						$scope.map.center.coordinates = [marker.getPosition().lng(), marker.getPosition().lat()];
-						getMapDetails($scope.map.center.coordinates);
+						vm.map.center.coordinates = [marker.getPosition().lng(), marker.getPosition().lat()];
+						getMapDetails(vm.map.center.coordinates);
 					}
 				},
 				coords: mapData.user
@@ -52,7 +54,7 @@
 	
 			if (mapData.results) {
 				mapData.results.forEach(function(result) {
-					$scope.eventMarkerList.push({
+					vm.eventMarkerList.push({
 						id: result.obj.events[0]._id,
 						options: {
 							title: result.obj.events[0].name + ' @ ' + result.obj.events[0].date

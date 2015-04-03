@@ -10,11 +10,19 @@ var group, group2;
 describe('Group Model Unit Tests:', function() {
 	before(function(done) {
 		group = new Group({
-			name: "Football Group"
+			name: "Football Group",
+			location: {
+				coordinates: [-4.4436173, 55.8610314],
+				type: "Point"
+			}
 		});
 
 		group2 = new Group({
-			name: "Football Group"
+			name: "Football Group",
+			location: {
+				coordinates: [-4.4436173, 55.8610314],
+				type: "Point"
+			}
 		});
 
 		done();
@@ -29,8 +37,6 @@ describe('Group Model Unit Tests:', function() {
 
 	it('Should save', function(done) {
 		group.save(function(err){
-			console.log(err);
-			console.log('FIX ME');
 			done()
 		});
 	});
