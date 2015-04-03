@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html ng-app="app" ng-controller="SiteController">
+<html ng-app="app">
 <head>
   <base href="/">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{Title.get()}}</title>
+  <title ng-bind>{{Title.get()}}</title>
   <link rel="icon" type="image/png" href="favicon.png"/>
   <link href="./assets/stylesheets/bootstrap.min.css" rel="stylesheet">
   <link href="./assets/stylesheets/bootstrap-social.css" rel="stylesheet">
@@ -33,7 +33,6 @@
   <script src='//maps.googleapis.com/maps/api/js?key=AIzaSyDmjchYXf3-iJaxbIrFR7xKMtjdmbw265Q'></script>
   <script src="/assets/libs/lodash.js"></script>
   <script src="/assets/libs/angular-google-maps.min.js"></script>
-
 
   <!-- Angular App -->
   <script src="./dist/app.min.js"></script>

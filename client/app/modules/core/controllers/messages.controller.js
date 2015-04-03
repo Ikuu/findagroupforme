@@ -1,33 +1,38 @@
-angular.module('app.core')
-.controller('MessagesController', function($scope, $routeParams, User, Title, $http) {
-	Title.set('Messages');
-	getUserDetails();
+(function() {
+	angular
+		.module('app.core')
+		.controller('MessagesController', function($scope, $routeParams, User, Title, $http) {
+		Title.set('Messages');
+		$scope.deleteMessage = deleteMessage;
+		$scope.markAsUnviewed = markAsUnviewed;
+		$scope.markAsUnviewed = markAsViewed;
 
-	function getUserDetails() {
-		$scope.$parent.checkForMessages();
-
-		User.getSignedInUser({}, function(user) {
-			$scope.user = user;
-		});
-	}
-
-	$scope.deleteMessage = function(messageId) {
-		$http.delete('/api/message/delete/' + messageId).success(function(response) {
-			if (response.message === 'message was deleted') {
+		getUserDetails();
+	
+		function getUserDetails() {
+			User.getSignedInUser({}, function(user) {
+				$scope.user = user;
+			});
+		}
+	
+		function deleteMessage(messageId) {
+			$http.delete('/api/message/delete/' + messageId).success(function(response) {
+				if (response.message === 'message was deleted') {
+					getUserDetails();
+				}
+			});
+		}
+	
+		function markAsViewed(messageId) {
+			$http.post('/api/message/viewed/' + messageId).success(function(response) {
 				getUserDetails();
-			}
-		});
-	};
-
-	$scope.markAsViewed = function(messageId) {
-		$http.post('/api/message/viewed/' + messageId).success(function(response) {
-			getUserDetails();
-		});
-	};
-
-	$scope.markAsUnviewed = function(messageId) {
-		$http.post('/api/message/unviewed/' + messageId).success(function(response) {
-			getUserDetails();
-		});
-	};
-});
+			});
+		}
+	
+		function markAsUnviewed(messageId) {
+			$http.post('/api/message/unviewed/' + messageId).success(function(response) {
+				getUserDetails();
+			});
+		}
+	});
+})();

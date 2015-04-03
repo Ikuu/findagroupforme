@@ -4,7 +4,6 @@ angular.module('app.group')
 	getGroupDetails();
 
 	function getGroupDetails() {
-		$scope.$parent.checkForMessages();
 		Group.get({ _id: $routeParams.id }, function(group) {
 			Title.set('Editing ' + group.name);
 			$scope.group = group;

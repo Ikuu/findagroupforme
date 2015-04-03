@@ -1,13 +1,13 @@
 <div class="container">
-	<h1>Matchmaking Temp Group - {{id}}</h1>
-	<p>Interest: {{tempGroup.interest}}</p>
-	<p>Temp Group Expires: {{acceptedByDate | date: 'short'}}</p>
+	<h1>Matchmaking Temp Group - {{vm.tempGroup._id}}</h1>
+	<p>Interest: {{vm.tempGroup.interest}}</p>
+	<p>Temp Group Expires: {{vm.acceptedByDate | date: 'short'}}</p>
 
 	<h2>Users</h2>
-	<ul ng-repeat="user in tempGroup.users">
+	<ul ng-repeat="user in vm.tempGroup.users">
 		<li>{{user.user_id}} - Accepted Status: {{user.accepted}}</li>
 	</ul>
 
-	<button ng-click="acceptButton()" class="btn btn-success">Accept</button>
-	<button ng-click="declineButton()" class="btn btn-danger">Decline</button>
+	<button ng-click="vm.acceptButton()" class="btn btn-success">Accept</button>
+	<button ng-click="vm.declineButton()" class="btn btn-danger">Decline</button>
 </div>

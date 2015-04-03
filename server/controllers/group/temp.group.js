@@ -1,4 +1,5 @@
 // Code needs to be cleaned-up
+// need to change default co-ords
 var _ 				=	require('underscore');
 var Group			=	require('../../models/group');
 var Matchmaking		=	require('../../models/matchmaking');
@@ -32,9 +33,16 @@ function checkIfGroupIsToBeMade(req, res) {
 				description: 'This group has been created by the Matchmaking system',
 				interest: tGroup.interest,
 				owner: users[0],
-				members: users
+				members: users,
+				location: {
+					type: 'Point',
+					coordinates: [req.user.home_location.coordinates[0], req.user.home_location.coordinates[1]]
+				}
 			});
-			group.save();
+			group.save(function(err) {
+				console.log(err);
+				// probably want rest of code in here, if err then don't do anything else.
+			});
 
 			var userQuery = { '_id': { $in: users } };
 			var userMessage = "A group has been formed, <a href=\'./#/groups/" + group._id + "\'>click here<\/a> to view more.";
@@ -51,10 +59,11 @@ function checkIfGroupIsToBeMade(req, res) {
 			TempGroup.remove({ '_id': req.params.id }).exec(function(err) {
 			});
 
+			// might want to pass group details here
 			return res.send({ message: 'group formed' });
 		}
 		else {
-			//console.log('group not made.');
+			return res.send({ message: "invite accepted" });
 		}
 	});
 }
@@ -69,8 +78,7 @@ exports.acceptInvite = function(req, res) {
 			return res.send({ error: 'tempgroup not found'});
 		}
 		else {
-			checkIfGroupIsToBeMade(req, res);
-			return res.send({ message: "invite accepted" });		
+			checkIfGroupIsToBeMade(req, res);		
 		}
 	});
 };

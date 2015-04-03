@@ -1,6 +1,5 @@
 angular.module('app.core')
 .controller('MatchmakingController', function($scope, Title, Matchmaking) {
-	$scope.$parent.checkForMessages();
 	Title.set('Matchmaking');
 	$scope.message = "Search for a group first!";
 

@@ -1,32 +1,40 @@
-//ngDisabled to 'hide' button https://docs.angularjs.org/api/ng/directive/ngDisabled
-angular.module('app.core')
-.controller('MatchController', function($scope, Title, $routeParams, $http, $location) {
-	$scope.$parent.checkForMessages();
-	Title.set('Matchmaking Group');
+(function() {
+	angular
+		.module('app.core')
+		.controller('MatchController', MatchController);
 
-	$http.get('/api/tempGroup/'+$routeParams.id).success(function(response) {
-		if (response.message === "error") {
-			$location.path('/');
+	function MatchController(Title, $routeParams, $http, $location) {
+		var vm = this;
+		vm.acceptedByDate
+		vm.acceptButton = acceptButton;
+		vm.declineButton = declineButton;
+		vm.tempGroup = [];
+		Title.set('Matchmaking Group');
+
+		retrieveMatchDetails();
+
+		function acceptButton() {
+			$http.post('/api/tempGroup/invite/accept/'+ $routeParams.id).success(function(response) {
+				retrieveMatchDetails();	
+			});
+		}
+	
+		function declineButton() {
+			$http.post('/api/tempGroup/invite/decline/'+ $routeParams.id).success(function(response) {
+				retrieveMatchDetails();
+			});
 		}
 
-		$scope.tempGroup = response;
-		$scope.acceptedByDate = new Date(response.date_created);
-		$scope.acceptedByDate.setDate($scope.acceptedByDate.getDate() + 7);
-	});
-
-	$scope.acceptButton = function() {
-		$http.post('/api/tempGroup/invite/accept/'+ $routeParams.id).success(function(response) {
+		function retrieveMatchDetails() {
 			$http.get('/api/tempGroup/'+$routeParams.id).success(function(response) {
-				$scope.tempGroup = response;
-			});
-		});
-	};
+				if (response.message === "error") {
+					$location.path('/');
+				}
 
-	$scope.declineButton = function() {
-		$http.post('/api/tempGroup/invite/decline/'+ $routeParams.id).success(function(response) {
-			$http.get('/api/tempGroup/'+$routeParams.id).success(function(response) {
-				$scope.tempGroup = response;
+				vm.tempGroup = response;
+				vm.acceptedByDate = new Date(response.date_created);
+				vm.acceptedByDate.setDate(vm.acceptedByDate.getDate() + 7);
 			});
-		});
-	};
-});
+		}
+	}
+})();

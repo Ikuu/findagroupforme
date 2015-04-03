@@ -32,7 +32,8 @@ angular.module('app.core', ['ngRoute'])
 		})
 		.when('/match/:id', {
 			templateUrl: '/app/modules/core/views/match.index.html',
-			controller: 'MatchController'
+			controller: 'MatchController',
+			controllerAs: 'vm'
 		})
 		.when('/whatson', {
 			templateUrl: '/app/modules/core/views/whats.on.html',

@@ -1,5 +1,11 @@
-angular.module('app.core')
-.controller('404Controller', function($scope, Title) {
-	$scope.$parent.checkForMessages();
-	Title.set('404 Error');
-});
+(function() {
+	'use strict';
+
+	angular
+		.module('app.core')
+		.controller('404Controller', Controller);
+
+	function Controller($scope, Title) {
+		Title.set('404 Error');
+	}
+})();

@@ -1,7 +1,6 @@
 angular.module('app.user')
 .controller('UserController', function($scope, $routeParams, User, Title) {
 	$scope.private = false;
-	$scope.$parent.checkForMessages();
 	
 	User.get({ _id: $routeParams.id }, function(user) {
 		$scope.user = user;

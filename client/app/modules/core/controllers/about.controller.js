@@ -1,5 +1,11 @@
-angular.module('app.core')
-.controller('AboutController', function($scope, Title) {
-	$scope.$parent.checkForMessages();
-	Title.set('About');
-});
+(function() {
+	'use strict';
+	
+	angular
+		.module('app.core')
+		.controller('AboutController', AboutController);	
+
+	function AboutController($scope, Title) {
+		Title.set('About');
+	}
+})();
