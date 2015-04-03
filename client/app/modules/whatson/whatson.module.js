@@ -2,7 +2,8 @@
 	'use strict';
 
 	angular
-		.module('app.whatson', ['ngRoute', 'google-maps'.ns()]);
+		.module('app.whatson', ['ngRoute', 'google-maps'.ns()])
+		.config(config);
 
 	function config($routeProvider) {
 		$routeProvider

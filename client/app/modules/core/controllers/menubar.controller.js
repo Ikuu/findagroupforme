@@ -8,7 +8,7 @@
 	function MenuBarController($scope, UserFactory, Title) {
 		$scope.loggedIn = false;
 		$scope.Title = Title;
-		
+
 		loadUserDetails();
 		$scope.$on('checkForMessage', loadUserDetails);
 	

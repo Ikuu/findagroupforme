@@ -24,14 +24,14 @@
 	}
 	
 	function run($rootScope) {
-		$rootScope.$on('$routeChangeSuccess', function (event, current, previous){
+		$rootScope.$on('$routeChangeSuccess', function(event, current, previous) {
 			$rootScope.$broadcast('checkForMessage');
 		});
 	}
 	
 	function interceptor($location, $q) {
 		return {
-			'responseError': function (response) {
+			'responseError': function(response) {
 				if (response.status === 401) {
 					$location.url('/login');
 				}

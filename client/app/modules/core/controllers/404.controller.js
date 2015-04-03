@@ -7,7 +7,5 @@
 
 	function Controller(Title, User) {
 		Title.set('404 Error');
-
-		console.log(User.query());
 	}
 })();
