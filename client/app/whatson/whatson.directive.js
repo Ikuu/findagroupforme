@@ -8,7 +8,7 @@
 	function eventMap() {
 		return {
 			restrict: 'E',
-			templateUrl: '/app/modules/whatson/event-map.html'
+			templateUrl: '/app/whatson/event-map.html'
 		};
 	}
 })();

@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-		.module('app.core')
+		.module('app.registration')
 		.controller('LoginController', LoginController);
 
 	function LoginController(Title) {

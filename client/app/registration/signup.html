@@ -1,0 +1,41 @@
+<div class="container">
+	<h1>Sign Up</h1>
+	<form class="form" method="post" ng-submit="vm.createUser()">
+		<div class="form-group">
+			<label>Username</label>
+			<input type="text" name="username" ng-model="vm.user.username" class="form-control"/>
+		</div>
+		<div class="form-group">
+			<label>Name</label>
+			<input type="text" name="name" ng-model="vm.user.name" class="form-control"/>
+		</div>
+		<div class="form-group">
+			<label>Password</label>
+			<input type="password" name="password" ng-model="vm.user.password" class="form-control"/>
+		</div>
+		<div class="form-group">
+			<label>Email</label>
+			<input type="text" name="email" ng-model="vm.user.email" class="form-control"/>
+		</div>
+		<div class=>
+			<label>Privacy: </label>
+			<input type="checkbox" name="privacy" ng-model="vm.user.privacy"/>
+		</div>
+
+		<h3>Location!</h3>
+		<span>Drag the pin to select your current location!</span>
+		<ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom'>
+			<ui-gmap-marker
+				idKey='vm.userMarker.id'
+				icon='vm.userMarker.options.icon'
+				options='vm.userMarker.options'
+				events='vm.userMarker.events'
+				coords='vm.userMarker.coords'>
+			</ui-gmap-marker>
+		</ui-gmap-google-map>
+
+		<div>
+			<input type="submit" value="Register" class="btn btn-primary" />
+		</div>
+	</form>
+</div>

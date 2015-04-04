@@ -13,13 +13,15 @@
 			'app.core',
 			'app.user',
 			'app.group',
+			'app.matchmaking',
 			'app.whatson',
+			'app.registration',
 			'app.settings'
 		])
 		.config(config)
 		.run(run);
 	
-	function config($locationProvider, $routeProvider, $httpProvider) {
+	function config($httpProvider) {
 		$httpProvider.interceptors.push(interceptor);
 	}
 	

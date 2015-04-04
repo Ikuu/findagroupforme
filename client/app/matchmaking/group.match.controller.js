@@ -1,9 +1,11 @@
 (function() {
-	angular
-		.module('app.core')
-		.controller('MatchController', MatchController);
+	'use strict';
 
-	function MatchController(Title, $routeParams, $http, $location) {
+	angular
+		.module('app.matchmaking')
+		.controller('GroupMatchController', GroupMatchController);
+
+	function GroupMatchController(Title, $routeParams, $http, $location) {
 		var vm = this;
 		vm.acceptedByDate;
 		vm.acceptButton = acceptButton;

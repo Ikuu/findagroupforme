@@ -4,10 +4,12 @@ angular.module('app.user', ['ngRoute'])
 		// User Routes
 		.when('/users', {
 			templateUrl: '/app/modules/core/views/users.html',
-			controller: 'UsersController'
+			controller: 'UsersController',
+			controllerAs: 'vm'
 		})
 		.when('/user/:id', {
 			templateUrl: '/app/modules/user/views/user.index.html',
-			controller: 'UserController'
+			controller: 'UserController',
+			controllerAs: 'vm'
 		});
 });

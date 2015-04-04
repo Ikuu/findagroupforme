@@ -1,6 +1,8 @@
 (function() {
+	'use strict';
+	
 	angular
-		.module('app.core')
+		.module('app.matchmaking')
 		.controller('MatchmakingController', MatchmakingController);
 
 	function MatchmakingController(Title, Matchmaking) {

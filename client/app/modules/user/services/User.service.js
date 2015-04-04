@@ -14,10 +14,6 @@ angular.module('app.user')
 			isArray: true,
 			url: '/api/groups/add/mm'
 		},
-		updateAddress : {
-			method: 'PUT',
-			url: 'api/users/address/update'
-		},
 		addInterest: {
 			method: 'POST',
 			params: { interest: '@interest' },

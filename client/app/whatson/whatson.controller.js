@@ -45,6 +45,7 @@
 				},
 				events: {
 					dragend: function(marker, eventName, args) {
+						console.log(marker); // debugging marker going invis
 						vm.map.center.coordinates = [marker.getPosition().lng(), marker.getPosition().lat()];
 						getMapDetails(vm.map.center.coordinates);
 					}
