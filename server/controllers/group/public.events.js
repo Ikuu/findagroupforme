@@ -32,7 +32,10 @@ exports.findPublicEvent = function(req, res) {
 	var locationMissing = (req.user.home_location === null || req.user.home_location === undefined);
 	if (locationMissing) return res.send({ error: 'missing location' });
 
-	var coords;
+	var coords = {
+		type: 'Point',
+		coordinates: []
+	};
 	var query = {
 		private: false,
 		members: { $nin: [req.user._id] },
@@ -42,13 +45,10 @@ exports.findPublicEvent = function(req, res) {
 
 	var userPassedLocation = (req.query.user_location !== null && req.query.user_location !== undefined)
 	if (userPassedLocation) {
-		coords = {
-			type: 'Point',
-			coordinates: [Number(req.query.user_location[0]), Number(req.query.user_location[1])]
-		};
+		coords.coordinates = [Number(req.query.user_location[0]), Number(req.query.user_location[1])];
 	}
 	else {
-		coords = req.user.home_location;
+		coords.coordinates = req.user.home_location.coordinates;
 	}
 
 	Group.geoNear(coords, options, function(err, results, stats) {
