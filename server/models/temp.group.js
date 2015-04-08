@@ -1,5 +1,5 @@
 // Temporary Group For Matchmaking.
-var _ 				=	require('underscore');
+var _ 				=	require('lodash');
 var mongoose 		=	require('mongoose');
 var Matchmaking 	=	require('./matchmaking');
 var ObjectId 		=	mongoose.Schema.Types.ObjectId;

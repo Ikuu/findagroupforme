@@ -54,7 +54,7 @@
 			};
 	
 			if (mapData.results) {
-				mapData.results.forEach(function(result) {
+				_.each(mapData.results, function(result) {
 					vm.eventMarkerList.push({
 						id: result.obj.events[0]._id,
 						options: {

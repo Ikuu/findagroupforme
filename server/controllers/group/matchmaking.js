@@ -1,5 +1,5 @@
 // Needs to be cleaned up
-var _ 				=	require('underscore');
+var _ 				=	require('lodash');
 var schedule 		=	require('node-schedule');
 var Matchmaking 	=	require('../../models/matchmaking');
 var User 			=	require('../../models/user');

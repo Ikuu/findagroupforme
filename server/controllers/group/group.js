@@ -1,6 +1,6 @@
 var User = require('../../models/user');
 var Group = require('../../models/group');
-var _ = require('underscore');
+var _ = require('lodash');
 
 exports.index = function(req, res) {
 	Group.find()

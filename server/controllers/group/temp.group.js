@@ -1,6 +1,6 @@
 // Code needs to be cleaned-up
 // need to change default co-ords
-var _ 				=	require('underscore');
+var _ 				=	require('lodash');
 var Group			=	require('../../models/group');
 var Matchmaking		=	require('../../models/matchmaking');
 var TempGroup 		=	require('../../models/temp.group');

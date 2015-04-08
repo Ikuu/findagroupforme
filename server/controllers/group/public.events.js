@@ -2,7 +2,7 @@ var User = require('../../models/user');
 var Group = require('../../models/group');
 var mongoose = require('mongoose');
 var moment = require('moment');
-var _ = require('underscore');
+var _ = require('lodash');
 
 var currentTime = moment();
 var today = moment().startOf('day');
