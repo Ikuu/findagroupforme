@@ -1,0 +1,36 @@
+<div class="container">
+	<h2>Create A Group</h2>
+	<form class="form" method="post" ng-submit="vm.createGroup()">
+		<div class="form-group">
+			<label>Name</label>
+			<input type="text" name="name" ng-model="vm.name" class="form-control" />
+		</div>
+		<div class="form-group">
+			<label>Interest</label>
+			<input type="text" name="interest" ng-model="vm.interest" class="form-control" />
+		</div>
+		<div class="form-group">
+			<label>Private</label>
+			<input type="checkbox" name="private" ng-model="vm.private">
+		</div>
+		<div class="form-group">
+			<label>Description:</label>
+			<textarea type="text" rows="4" name="description" ng-model="vm.description" class="form-control" />
+		</div>
+
+		<h3>Location!</h3>
+		<span>Drag the pin to select the groups location!</span>
+		<ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom'>
+			<ui-gmap-marker
+				idKey='vm.groupMarker.id'
+				icon='vm.groupMarker.options.icon'
+				options='vm.groupMarker.options'
+				events='vm.groupMarker.events'
+				coords='vm.groupMarker.coords'>
+			</ui-gmap-marker>
+		</ui-gmap-google-map>
+		<div>
+			 <button class="btn btn-primary" type="submit">Add</button>
+		</div>
+	</form>
+</div>

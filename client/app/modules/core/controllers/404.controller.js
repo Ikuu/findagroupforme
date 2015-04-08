@@ -5,7 +5,7 @@
 		.module('app.core')
 		.controller('404Controller', Controller);
 
-	function Controller(Title, User) {
+	function Controller(Title) {
 		Title.set('404 Error');
 	}
 })();

@@ -3,14 +3,18 @@ var User = require('../../models/user');
 var Group = require('../../models/group');
 
 exports.index = function(req, res) {
-	User.find().populate('groups', 'name interest').exec(function (err, user) {
+	User.find()
+	.populate('groups', 'name interest')
+	.exec(function (err, user) {
 		if (err) return res.send({ error: "could not return users" });
 		res.send(user);
 	});
 };
 
 exports.findById = function(req, res) {
-	User.findOne({ _id: req.params.user_id }).populate('groups', 'name interest').exec(function (err, user) {
+	User.findOne({ _id: req.params.user_id })
+	.populate('groups', 'name interest')
+	.exec(function (err, user) {
 		var noUserFound = (err || user === null);
 
 		if (noUserFound) {
@@ -92,7 +96,10 @@ exports.findNewInterest = function(req, res) {
 
 // Strip Password
 exports.findLoggedInUser = function(req, res) {
-	User.findOne({_id: req.user._id}).populate('groups', 'name interest').exec(function (err, user) {
+	User
+	.findOne({_id: req.user._id})
+	.populate('groups', 'name interest')
+	.exec(function (err, user) {
 		if (err) return handleError(err);
 		res.send(user);
 	});

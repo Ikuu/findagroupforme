@@ -15,7 +15,7 @@
 		var vm = this;
 		vm.createUser = createUser;
 		vm.map = {
-			center: home_location,
+			center: home_location.coordinates,
 			zoom: 12
 		};
 		vm.userMarker = {

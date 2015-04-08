@@ -40,7 +40,6 @@ exports.deleteMatch = function(req, res) {
 	});
 };
 
-// Main Function called
 exports.findMatch = function(req, res) {
 	var GROUP_SIZE = 2;
 	var MAX_DISTANCE = 10000;
@@ -92,8 +91,7 @@ exports.findMatch = function(req, res) {
 				var userMessage = "A group has been found for "+ req.body.interest +", <a href=\'./#/match/" + newTempGroup._id + "\'>click here<\/a> for more information.";
 				var userUpdate = { $push : { 'messages': { sender: 'The Matchmaking Service', 'text': userMessage } } };
 				User.update(userQuery, userUpdate, { multi: true }, function(err) {});
-	
-				// Probably want to return an object here, or more.
+
 				return res.send({ 
 					message: "temp group has been made, and messages sent.",
 					group: newTempGroup

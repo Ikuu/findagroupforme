@@ -1,11 +1,15 @@
 var User = require('../../models/user');
 var Group = require('../../models/group');
+var _ = require('underscore');
 
 exports.index = function(req, res) {
-	Group.find().populate('members', 'name home_location').exec(function (err, group) {
+	Group.find()
+	.populate('members', 'name home_location')
+	.populate('owner', 'username name')
+	.exec(function (err, group) {
 		if (err || group === null) {
-            return handleError(err);
-        }
+			return handleError(err);
+		}
 		return res.send(group);
 	});
 };
@@ -13,15 +17,17 @@ exports.index = function(req, res) {
 exports.findById = function(req, res) {
 	var userInGroup = false;
 
-	Group.findOne({_id: req.params.group_id}).populate('members', 'name home_location').exec(function(err, group) {
+	Group.findOne({_id: req.params.group_id})
+	.populate('members', 'name home_location')
+	.populate('owner', 'username name')
+	.exec(function(err, group) {
 		if (err || group === null) return res.send({error: "group could not be found."});
 
 		if (group.private) {
-			for (var i = 0; i < group.members.length; i++) {
-				if (group.members[i]._id.equals(req.user._id)) {
-					userInGroup = true;
-				}
-			}
+			_.each(group.members, function(member) {
+				if (member._id.equals(req.user._id)) userInGroup = true;
+			});
+
 		}
 
 		if (userInGroup || !group.private) {
@@ -52,7 +58,9 @@ exports.add = function(req, res) {
 		newGroup.owner = req.user._id;
 		newGroup.members.push(req.user._id);
 	
-		User.findOne({_id: req.user._id}).exec(function(err, user) {
+		User
+		.findOne({_id: req.user._id})
+		.exec(function(err, user) {
 			if (err || user === null) return res.send(err);
 			user.groups.push(newGroup._id);
 			user.save(function(err){
@@ -81,11 +89,11 @@ exports.update = function(req, res) {
 	else {
 		var updatedGroup = new Group(req.body);
 		var update = {
-		 	"name": updatedGroup.name,
-		 	"description": updatedGroup.description,
-		 	"private": updatedGroup.private,
-		 	"interest": updatedGroup.interest,
-		 	"location": updatedGroup.location
+			"name": updatedGroup.name,
+			"description": updatedGroup.description,
+			"private": updatedGroup.private,
+			"interest": updatedGroup.interest,
+			"location": updatedGroup.location
 		};
 	
 		Group.findByIdAndUpdate(updatedGroup._id, update, function(err, doc) {
@@ -117,7 +125,9 @@ exports.addUserToGroup = function(req, res) {
 		user.groups.push(req.params.group_id);
 		user.save();
 
-		Group.findOne({_id: req.params.group_id}).exec(function(err, group) {
+		Group
+		.findOne({_id: req.params.group_id})
+		.exec(function(err, group) {
 			if (err || group === null) return res.send({error: "group does not exist."});
 			group.members.push(req.user._id);
 			group.save();

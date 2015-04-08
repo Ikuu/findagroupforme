@@ -1,0 +1,13 @@
+<div class="container">
+	<h2>Messages</h2>
+	<ul class="list-group">
+		<li class="list-group-item" ng-repeat="message in vm.user.messages | orderBy: 'date'">
+			<text ng-bind-html="message.text"></text> - Sent On: {{message.date  | date: 'medium'}} - Sent By: {{message.sender}} - Viewed: {{message.viewed}}
+			<p>
+				<a href="" ng-click="vm.deleteMessage(message._id)">Delete Message</a> -
+				<a href="" ng-click="vm.markAsViewed(message._id)">Mark As Viewed</a> - 
+				<a href="" ng-click="vm.markAsUnviewed(message._id)">Mark As Unviewed</a>
+			</p>
+		</li>
+	</ul>
+</div>

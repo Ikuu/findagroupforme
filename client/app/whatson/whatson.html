@@ -7,12 +7,12 @@
 	<button class="btn btn-primary" ng-click="vm.currentLocationEvents()">Use Current Location</button>
 	<button class="btn btn-success" ng-click="vm.resetLocation()">Reset Location</button>
 	
-	<div ng-show="noEvents">
+	<div ng-show="vm.noEvents">
 		<h3>No Results</h3>
 		<p>Sorry! Nothing is going on in your area today!</p>	
 	</div>
 
-	<div ng-show="!noEvents">
+	<div ng-show="!vm.noEvents">
 		<h2>Events</h2>
 		<div ng-repeat="result in vm.results | orderBy: 'dis'">
 			<h4>{{result.obj.name}} | {{result.obj.interest}} | {{result.dis | number : 0}}m</h4>

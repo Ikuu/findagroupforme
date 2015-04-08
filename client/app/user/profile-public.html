@@ -1,0 +1,17 @@
+<h2>{{vm.user.username}}</h2>
+<p>
+	Name: {{vm.user.name}}</br>
+	Email: {{vm.user.email}}</br>
+	Date Registered: {{vm.user.date_registered | date:'dd/MM/yyyy'}}
+</p>
+
+<h2>Groups</h2>
+<li ng-show="!vm.user.groups.length">No Groups at the moment.</li>
+<div ng-repeat="group in vm.user.groups">
+	<a href="./#/groups/{{group._id}}">{{group.name}}</a>
+</div>
+
+<h2>Interests</h2>
+<li ng-repeat="interest in vm.user.interests">
+	{{interest}}
+</li>

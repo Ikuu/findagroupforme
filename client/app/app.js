@@ -6,14 +6,15 @@
 			'ngRoute', 
 			'ngResource', 
 			'ngMessages',
-			'ngSanitize', 
-			'google-maps'.ns(),
+			'ngSanitize',
 
 			// Modules
 			'app.core',
+			'app.home',
 			'app.user',
 			'app.group',
 			'app.matchmaking',
+			'app.messages',
 			'app.whatson',
 			'app.registration',
 			'app.settings'

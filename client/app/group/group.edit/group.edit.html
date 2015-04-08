@@ -1,0 +1,51 @@
+<div class="container">
+	<h2>Edit Group</h2>
+	<form class="form" method="post" ng-submit="vm.editGroup()">
+		<div class="form-group">
+			<label>Name</label>
+			<input type="text" name="name" ng-model="vm.group.name" class="form-control"/>
+		</div>
+		<div class="form-group">
+			<label>Interest</label>
+			<input type="text" name="interest" ng-model="vm.group.interest" class="form-control"/>
+		</div>
+		<div class="form-group">
+			<label>Private</label>
+			<input type="checkbox" name="private" ng-model="vm.group.private">
+		</div>
+		<div class="form-group">
+			<label>Description</label>
+			<textarea type="text" rows="4" name="description" ng-model="vm.group.description" class="form-control"/>
+		</div>
+
+		<h3>Location!</h3>
+		<span>Drag the pin to select the groups location!</span>
+		<ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom'>
+			<ui-gmap-marker
+				idKey='vm.groupMarker.id'
+				icon='vm.groupMarker.options.icon'
+				options='vm.groupMarker.options'
+				events='vm.groupMarker.events'
+				coords='vm.groupMarker.coords'>
+			</ui-gmap-marker>
+		</ui-gmap-google-map>
+		<div>
+			 <button class="btn btn-primary" type="submit">Save</button>
+		</div>
+	</form>
+
+	<h2>Members</h2>
+	<div ng-repeat="member in vm.group.members">
+		<a href="#/user/{{member._id}}">{{member.name}}</a> - Remove From Group
+	</div>
+
+	<h2>Posts</h2>
+	<span>None at present.</span>
+
+	<h2>Events</h2>
+	<li ng-show="!vm.group.events.length">None at the moment.</li>
+	<li ng-show="vm.group.events.length" ng-repeat="event in vm.group.events | orderBy:'date'">
+		<event-details></event-details>
+	</li>
+
+</div>
