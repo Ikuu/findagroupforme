@@ -12,12 +12,20 @@ describe('Group Controller Unit Tests:', function() {
 	before(function(done) {
 		user = new User({
 			username: "Ikuu",
-			name: "Test User"
+			name: "Test User",
+			home_location: {
+				type: "Point",
+				coordinates: [-4.356888757324214, 55.899691421659476]
+			}
 		});
 
 		user2 = new User({
 			username: "Test User",
-			name: "Test User"
+			name: "Test User",
+			home_location: {
+				type: "Point",
+				coordinates: [-4.356888757324214, 55.899691421659476]
+			}
 		});
 
 		user.save();

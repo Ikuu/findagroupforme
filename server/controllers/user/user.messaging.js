@@ -24,13 +24,11 @@ exports.markAsUnviewed = function(req, res) {
 };
 
 exports.deleteMessage = function(req, res) {
-	console.log(req.params);
 	User.findOne({ _id: req.user._id }).exec(function(err, user) {
 		try {
 			user.messages.id(req.params.id).remove();
 		}
 		catch(err) {
-			console.log(err);
 			return res.send({ error: 'could not delete message' });
 		}
 		

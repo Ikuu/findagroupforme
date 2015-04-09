@@ -15,7 +15,11 @@ describe('UserMessagingController Unit Tests:', function() {
 			messages: [{
 				sender: "The Testing Service",
 				text: "This is a test message."
-			}]
+			}],
+			home_location: {
+				type: "Point",
+				coordinates: [-4.356888757324214, 55.899691421659476]
+			}
 		});
 
 		user.save();
