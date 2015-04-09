@@ -7,12 +7,14 @@
 
 	function WhatsOnController(Title, $http) {
 		var vm = this;
+
 		vm.currentLocationEvents = currentLocationEvents;
 		vm.eventMarkerList = [];
-		vm.map;
+		vm.map = {};
 		vm.noEvents = true;
 		vm.resetLocation = resetLocation;
 		vm.results;
+		
 		var user_location = []; 
 		
 		Title.set("What's On!");
@@ -45,8 +47,8 @@
 				},
 				events: {
 					dragend: function(marker, eventName, args) {
-						console.log(marker); // debugging marker going invis
 						vm.map.center.coordinates = [marker.getPosition().lng(), marker.getPosition().lat()];
+						vm.userMarker.coords = [marker.getPosition().lng(), marker.getPosition().lat()];
 						getMapDetails(vm.map.center.coordinates);
 					}
 				},

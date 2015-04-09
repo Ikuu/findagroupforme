@@ -6,20 +6,28 @@ var should = require('should');
 var User = require('../../../../server/models/user');
 var UserController = require('../../../../server/controllers/user/user');
 
-var interestUser, interestUser2, req, res, userID;
+var interestUser, interestUser2, req, res, userID, apiKey;
 
 describe('UserController Unit Tests:', function() {
 	before(function(done) {
 		interestUser = new User({
 			username: "Test User #1",
 			name: "Test User #1",
-			interests: ["football", "basketball", "rugby", "golf"]
+			interests: ["football", "basketball", "rugby", "golf"],
+			home_location: {
+				type: "Point",
+				coordinates: [-4.356888757324214, 55.899691421659476]
+			}
 		});
 
 		interestUser2 = new User({
 			username: "Test User #2",
 			name: "Test User #2",
-			interests: ["football", "basketball", "tennis", "golf"]
+			interests: ["football", "basketball", "tennis", "golf"],
+			home_location: {
+				type: "Point",
+				coordinates: [-4.356888757324214, 55.899691421659476]
+			}
 		});
 
 		interestUser.save();
@@ -235,6 +243,146 @@ describe('UserController Unit Tests:', function() {
 	
 			setTimeout(function() {
 				res._body.username.should.be.exactly("TestUser01");
+				done();
+			}, 200);
+		});
+	});
+
+	describe("generatePublicApiKey Unit Tests", function() {
+		it("should generate a new public api key", function(done) {
+			req = {
+				user: {
+					_id: userID
+				},
+				body: {
+					api: {
+						project: "Test Application"
+					}
+				}
+			};
+			res = {_body: null, render: function() { 'noop'; } };
+			res.send = function (body) { res._body = body; };
+	
+			UserController.generatePublicApiKey(req, res);
+	
+			setTimeout(function() {
+				apiKey = res._body.api.key; // create a copy for future tests
+				res._body.should.have.property('api');
+				res._body.api.project.should.be.exactly('Test Application');
+				done();
+			}, 200);
+		});
+
+		it("should not change api entry if user already has generated key", function(done) {
+			req = {
+				user: {
+					_id: userID
+				},
+				body: {
+					api: {
+						project: "Test Application"
+					}
+				}
+			};
+			res = {_body: null, render: function() { 'noop'; } };
+			res.send = function (body) { res._body = body; };
+	
+			UserController.generatePublicApiKey(req, res);
+	
+			setTimeout(function() {
+				res._body.should.have.property('api');
+				res._body.api.key.should.be.exactly(apiKey);
+				res._body.api.project.should.be.exactly('Test Application');
+				done();
+			}, 200);
+		});
+	});
+
+	describe("generateNewPublicApiKey Unit Tests", function() {
+		it("should generate a new public api key", function(done) {
+			req = {
+				user: {
+					_id: userID
+				}
+			};
+			res = {_body: null, render: function() { 'noop'; } };
+			res.send = function (body) { res._body = body; };
+	
+			UserController.generateNewPublicApiKey(req, res);
+	
+			setTimeout(function() {
+				res._body.api.key.should.not.equal(apiKey);
+				res._body.api.project.should.be.exactly('Test Application');
+				done();
+			}, 200);
+		});
+
+		it("should fail generate a new public api key if user doesn't have key", function(done) {
+			req = {
+				user: {
+					_id: interestUser2._id
+				}
+			};
+			res = {_body: null, render: function() { 'noop'; } };
+			res.send = function (body) { res._body = body; };
+	
+			UserController.generateNewPublicApiKey(req, res);
+	
+			setTimeout(function() {
+				res._body.error.should.be.exactly('no key present');
+				done();
+			}, 200);
+		});
+	});
+
+	describe('deletePublicApyKey Unit Tests', function() {
+		it("should delete public api key", function(done) {
+			req = {
+				user: {
+					_id: userID
+				}
+			};
+			res = {_body: null, render: function() { 'noop'; } };
+			res.send = function (body) { res._body = body; };
+	
+			UserController.deletePublicApiKey(req, res);
+	
+			setTimeout(function() {
+				res._body.api.should.be.an.Object;
+				done();
+			}, 200);
+		});
+
+		it("should fail to delete public api key if not present", function(done) {
+			req = {
+				user: {
+					_id: interestUser2._id
+				}
+			};
+			res = {_body: null, render: function() { 'noop'; } };
+			res.send = function (body) { res._body = body; };
+	
+			UserController.deletePublicApiKey(req, res);
+	
+			setTimeout(function() {
+				res._body.api.should.be.an.Object;
+				done();
+			}, 200);
+		});
+
+		it("should fail to delete public api key if not present", function(done) {
+			req = {
+				user: {
+					_id: 'interestUser2._id'
+				}
+			};
+			res = {_body: null, render: function() { 'noop'; } };
+			res.send = function (body) { res._body = body; };
+	
+			UserController.deletePublicApiKey(req, res);
+	
+			setTimeout(function() {
+				res._body.error.should.be.exactly("could not find user");
 				done();
 			}, 200);
 		});

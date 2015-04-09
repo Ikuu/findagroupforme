@@ -43,7 +43,7 @@ exports.findPublicEvent = function(req, res) {
 	};
 	var options = { spherical: true, maxDistance: 10000, query: query};
 
-	var userPassedLocation = (req.query.user_location !== null && req.query.user_location !== undefined)
+	var userPassedLocation = (req.query.user_location !== null && req.query.user_location !== undefined);
 	if (userPassedLocation) {
 		coords.coordinates = [Number(req.query.user_location[0]), Number(req.query.user_location[1])];
 	}

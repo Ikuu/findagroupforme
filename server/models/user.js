@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
+var hat = require('hat');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
-// Might want gender, move social networks into their own array
+// Might want move social networks into their own array
 var userSchema = mongoose.Schema({
 	name: {
 		type: String,
@@ -54,8 +55,7 @@ var userSchema = mongoose.Schema({
 		type: { type: String },
 		coordinates: [Number, Number]
 	},
-	current_location: [Number, Number],
-	groups: [{type: ObjectId, ref: 'Group'}],
+	groups: [{ type: ObjectId, ref: 'Group' }],
 	private: {
 		type: Boolean,
 		default: false
@@ -71,8 +71,30 @@ var userSchema = mongoose.Schema({
 			type: Boolean,
 			default: false
 		}
-	}]
+	}],
+	api: {
+		key: String,
+		project: String,
+		date_added: Date
+	}
 });
+
+userSchema.methods.generateApiKey = function(projectName, callback) {
+	if (this.api.key === undefined) {
+		this.api = {
+			key: hat(),
+			project: projectName,
+			date_added: Date.now()
+		};
+
+		return this.save(callback);
+	}
+}
+
+userSchema.methods.generateNewApiKey = function(callback) {
+	this.api.key = hat();
+	return callback;
+}
 
 userSchema.index({ home_location: '2dsphere' });
 

@@ -15,6 +15,7 @@ var user = require('./routes/user');
 var userMessaging = require('./routes/user.messaging');
 var match = require('./routes/match');
 var tempGroup = require('./routes/temp.group');
+var publicApi = require('./routes/public.api');
 
 var dbConfig = require('./config/db');
 
@@ -46,6 +47,7 @@ app.use('/api/users/', user);
 app.use('/api/message', userMessaging);
 app.use('/api/match/', match);
 app.use('/api/tempGroup', tempGroup);
+app.use('/publicApi/', publicApi);
 require('./routes/auth.js')(app, passport);
 
 // Start App.
