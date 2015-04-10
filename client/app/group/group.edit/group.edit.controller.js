@@ -13,9 +13,9 @@
 		vm.groupMarker = {};
 		vm.map = {};
 
-		getGroupDetails();
+		loadGroupDetails();
 
-		function getGroupDetails() {
+		function loadGroupDetails() {
 			Group.get({ _id: $routeParams.id }, function(group) {
 				Title.set('Editing ' + group.name);
 				vm.group = group;
@@ -48,7 +48,7 @@
 			Group.update(vm.group).$promise.then(function(response) {
 				if (response.message == "group has been updated.") {
 					alert("updated");
-					getGroupDetails();
+					loadGroupDetails();
 				}
 			});
 		}

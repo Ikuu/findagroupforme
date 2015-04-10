@@ -5,7 +5,8 @@
 	.module('app.group', [
 		'ngRoute',
 		'ngResource',
-		'google-maps'.ns()
+		'google-maps'.ns(),
+		'ui.bootstrap.datetimepicker'
 	])
 	.config(config);
 
