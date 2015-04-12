@@ -8,10 +8,10 @@ module.exports = function(){
 			User.findOne({username: loginName}, function(err, user){
 				if (err) return handleError(err);
 				if (!user){
-					return done (null, false, {message: 'incorrect username.'});
+					return done (null, false, { message: 'incorrect username.' });
 				}
 				if (user.password != loginPass){
-					return done (null, false, {message: 'incorrect password'});
+					return done (null, false, { message: 'incorrect password' });
 				}
 				return done(null, user);
 			});

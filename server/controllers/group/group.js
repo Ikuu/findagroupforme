@@ -4,12 +4,12 @@ var _ = require('lodash');
 
 exports.index = function(req, res) {
 	Group.find()
-	.populate('members', 'name home_location')
-	.populate('owner', 'username name')
-	.exec(function (err, group) {
-		if (err || group === null) {
-			return handleError(err);
-		}
+		.populate('members', 'name home_location')
+		.populate('owner', 'username name')
+		.exec(function (err, group) {
+			if (err || group === null) {
+				return handleError(err);
+			}
 		return res.send(group);
 	});
 };

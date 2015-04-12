@@ -49,6 +49,7 @@
 					dragend: function(marker, eventName, args) {
 						vm.map.center.coordinates = [marker.getPosition().lng(), marker.getPosition().lat()];
 						vm.userMarker.coords = [marker.getPosition().lng(), marker.getPosition().lat()];
+						
 						getMapDetails(vm.map.center.coordinates);
 					}
 				},
@@ -89,9 +90,7 @@
 		}
 
 		function resetLocation() {
-			if (user_location.length !== 0) {
-				getMapDetails();
-			}
+			getMapDetails();
 		}
 	}
 })();
