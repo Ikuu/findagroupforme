@@ -12,25 +12,26 @@ exports.index = function(req, res) {
 };
 
 exports.findById = function(req, res) {
-	User.findOne({ _id: req.params.user_id })
-	.populate('groups', 'name interest')
-	.exec(function (err, user) {
-		var noUserFound = (err || user === null);
-
-		if (noUserFound) {
-			return res.send({error: "_id supplied was not valid."});
-		}
-		else if (user.private && !user._id.equals(req.user._id)) {
-			return res.send({
-				_id: user._id,
-				username: user.username,
-				private: user.private
-			});
-		}
-		else {
-			return res.send(user);
-		}
-	});
+	User
+		.findOne({ _id: req.params.user_id })
+		.populate('groups', 'name interest')
+		.exec(function (err, user) {
+			var noUserFound = (err || user === null);
+	
+			if (noUserFound) {
+				return res.send({error: "_id supplied was not valid."});
+			}
+			else if (user.private && !user._id.equals(req.user._id)) {
+				return res.send({
+					_id: user._id,
+					username: user.username,
+					private: user.private
+				});
+			}
+			else {
+				return res.send(user);
+			}
+		});
 };
 
 exports.add = function(req, res) {

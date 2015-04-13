@@ -2,6 +2,9 @@ var User = require('../../models/user');
 
 exports.generatePublicApiKey = function(req, res) {
 	User.findOne({ _id: req.user._id }).exec(function(err, user) {
+		if (req.body.api.project === undefined) {
+			return res.send({ error: 'missing project name' });
+		}
 		user.generateApiKey(req.body.api.project);
 		return res.send(user);
 	});
