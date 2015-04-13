@@ -1,12 +1,7 @@
 var User = require('../../models/user');
 var Group = require('../../models/group');
 
-// user - returns user details STRIP PASSWORD and LOCATION
-// user/id - returns user
-// group - returns groups
-// group/id - returns group
-// me - returns your details, more detailed
-
+// remove this
 exports.index = function(req, res) {
 	res.send('1');
 };
@@ -59,6 +54,44 @@ exports.findGroup = function(req, res) {
 			}
 			else {
 				return res.send(group);
+			}
+		});
+};
+
+// return logged in user
+exports.apiUserProfile = function(req, res) {
+	User
+		.findOne({ "api.key": req.header.api_key })
+		.populate('groups', 'name interest')
+		.select("-password -facebook -google -twitter")
+		.exec(function(err, user) {
+			var userNotFound = (err || user === null);
+			if (userNotFound) return res.send({ error: "user not found" });
+			return res.send(user);			
+		});
+};
+
+// return logged in users groups
+exports.apiUserGroups = function(req, res) {
+	User
+		.findOne({ "api.key": req.header.api_key })
+		.exec(function(err, user) {
+			if (err || user === null) return res.send({ error: "user not found"});
+			apiUserGroupsHelper(req, res, user._id)
+		});
+};
+
+function apiUserGroupsHelper(req, res, userId) {
+	Group
+		.find({ members: { $in: [userId] } })
+		.populate('members', 'username')
+		.exec(function(err, groups) {
+			var groupNotFound = (err || groups === null || groups.length === 0);
+			if (groupNotFound) {
+				return res.send({ error: "user has no groups" });
+			}
+			else {
+				return res.send(groups);
 			}
 		});
 };

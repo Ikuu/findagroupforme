@@ -167,23 +167,6 @@ describe("PublicApiController Unit Tests", function() {
 			}, 200);			
 		});
 
-		it("should return error as group is private", function(done) {
-			req = {
-				params: {
-					group_id: group._id
-				}
-			};
-			res = {_body: null, render: function() { 'noop'; } };
-			res.send = function (body) { res._body = body; };
-	
-			PublicApiController.findGroup(req, res);
-	
-			setTimeout(function() {
-				res._body.private.should.be.exactly(false);
-				done();
-			}, 200);
-		});
-
 		it("should fail to return group with invalid id", function(done) {
 			req = {
 				params: {
@@ -197,6 +180,98 @@ describe("PublicApiController Unit Tests", function() {
 	
 			setTimeout(function() {
 				res._body.error.should.be.exactly('invalid group id');
+				done();
+			}, 200);
+		});
+	});
+
+	describe("APIUser Unit Tests", function() {
+		it("should return user with username Ikuu", function(done) {
+			req = {
+				header: {
+					api_key: user.api.key
+				}
+			};
+			res = {_body: null, render: function() { 'noop'; } };
+			res.send = function (body) { res._body = body; };
+
+			PublicApiController.apiUserProfile(req, res);
+	
+			setTimeout(function() {
+				res._body.username.should.be.exactly('Ikuu');
+				res._body.groups[0].interest.should.be.exactly('judo');
+				should.not.exist(res._body.password);
+				done();
+			}, 200);			
+		});
+
+		it("should return error if no user found", function(done) {
+			req = {
+				header: {
+					api_key: 'notarealkey'
+				}
+			};
+			res = {_body: null, render: function() { 'noop'; } };
+			res.send = function (body) { res._body = body; };
+
+			PublicApiController.apiUserProfile(req, res);
+	
+			setTimeout(function() {
+				res._body.error.should.be.exactly('user not found');
+				done();
+			}, 200);			
+		});
+	});
+
+	describe("APIUserGroups Unit Tests", function() {
+		it("should return groups for username Ikuu", function(done) {
+			req = {
+				header: {
+					api_key: user.api.key
+				}
+			};
+			res = {_body: null, render: function() { 'noop'; } };
+			res.send = function (body) { res._body = body; };
+	
+			PublicApiController.apiUserGroups(req, res);
+	
+			setTimeout(function() {
+				res._body.length.should.be.exactly(2);
+				res._body[0].interest.should.be.exactly('judo');
+				done();
+			}, 200);
+		});
+
+		it("should return error if user has no groups", function(done) {
+			req = {
+				header: {
+					api_key: user2.api.key
+				}
+			};
+			res = {_body: null, render: function() { 'noop'; } };
+			res.send = function (body) { res._body = body; };
+	
+			PublicApiController.apiUserGroups(req, res);
+	
+			setTimeout(function() {
+				res._body.error.should.be.exactly('user has no groups');
+				done();
+			}, 200);
+		});
+
+		it("should return error if api key is invalid", function(done) {
+			req = {
+				header: {
+					api_key: 'user2.api.key'
+				}
+			};
+			res = {_body: null, render: function() { 'noop'; } };
+			res.send = function (body) { res._body = body; };
+	
+			PublicApiController.apiUserGroups(req, res);
+	
+			setTimeout(function() {
+				res._body.error.should.be.exactly('user not found');
 				done();
 			}, 200);
 		});

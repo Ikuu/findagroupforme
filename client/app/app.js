@@ -17,7 +17,8 @@
 			'app.messages',
 			'app.whatson',
 			'app.registration',
-			'app.settings'
+			'app.settings',
+			'app.publicApi'
 		])
 		.config(config)
 		.run(run);

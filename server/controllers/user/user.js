@@ -3,18 +3,20 @@ var User = require('../../models/user');
 var Group = require('../../models/group');
 
 exports.index = function(req, res) {
-	User.find()
-	.populate('groups', 'name interest')
-	.exec(function (err, user) {
-		if (err) return res.send({ error: "could not return users" });
-		res.send(user);
-	});
+	User
+		.find()
+		.populate('groups', 'name interest')
+		.exec(function (err, user) {
+			if (err) return res.send({ error: "could not return users" });
+			res.send(user);
+		});
 };
 
 exports.findById = function(req, res) {
 	User
 		.findOne({ _id: req.params.user_id })
 		.populate('groups', 'name interest')
+		.select('-password')
 		.exec(function (err, user) {
 			var noUserFound = (err || user === null);
 	
