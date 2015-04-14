@@ -20,7 +20,6 @@ exports.generateNewPublicApiKey = function(req, res) {
 		}
 
 		user.generateNewApiKey();
-		user.save();
 		return res.send(user);
 	});
 };

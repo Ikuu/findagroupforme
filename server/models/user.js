@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var hat = require('hat');
+var uuid = require('node-uuid');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
 // Might want move social networks into their own array
@@ -82,7 +82,7 @@ var userSchema = mongoose.Schema({
 userSchema.methods.generateApiKey = function(projectName, callback) {
 	if (this.api.key === undefined) {
 		this.api = {
-			key: hat(),
+			key: uuid.v4(),
 			project: projectName,
 			date_added: Date.now()
 		};
@@ -92,8 +92,8 @@ userSchema.methods.generateApiKey = function(projectName, callback) {
 }
 
 userSchema.methods.generateNewApiKey = function(callback) {
-	this.api.key = hat();
-	return callback;
+	this.api.key = uuid.v4();
+	return this.save(callback);
 }
 
 userSchema.index({ home_location: '2dsphere' });
