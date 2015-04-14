@@ -40,7 +40,6 @@ function checkIfGroupIsToBeMade(req, res) {
 				}
 			});
 			group.save(function(err) {
-				console.log(err);
 				// probably want rest of code in here, if err then don't do anything else.
 			});
 

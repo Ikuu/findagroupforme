@@ -10,7 +10,8 @@ exports.index = function(req, res) {
 exports.findAllUsers = function(req, res) {
 	User
 		.find()
-		.select("-password -home_location -api -facebook -google -twitter")
+		.where('private').equals(false)
+		.select("-password -home_location -api -facebook -google -twitter -messages")
 		.populate('groups', 'name interest')
 		.exec(function(err, users) {
 			var noUsers = (err || users.length === 0 || users === null);
@@ -23,11 +24,12 @@ exports.findAllUsers = function(req, res) {
 exports.findUser = function(req, res) {
 	User
 		.findOne({ _id: req.params.user_id })
+		.where('private').equals(false)
 		.populate('groups', 'name interest')
-		.select("-password -home_location -api -facebook -google -twitter")
+		.select("-password -home_location -api -facebook -google -twitter -messages")
 		.exec(function(err, user) {
 			var userNotFound = (err || user === null);
-			if (userNotFound) return res.send({ error: "user does not exist" });
+			if (userNotFound) return res.send({ error: "user does not exist, or is private" });
 			return res.send(user);			
 		});
 };
@@ -37,6 +39,7 @@ exports.findAllGroups = function(req, res) {
 	Group
 		.find()
 		.populate('members', 'username')
+		.populate('owner', 'username')
 		.exec(function(err, groups) {
 			return res.send(groups);
 		});
@@ -47,10 +50,11 @@ exports.findGroup = function(req, res) {
 	Group
 		.findOne({ _id: req.params.group_id })
 		.populate('members', 'username')
+		.populate('owner', 'username')
 		.exec(function(err, group) {
 			var groupNotFound = (err || group === null);
 			if (groupNotFound) {
-				return res.send({ error: "invalid group id" });
+				return res.send({ error: "group not found or is private" });
 			}
 			else {
 				return res.send(group);
@@ -61,7 +65,7 @@ exports.findGroup = function(req, res) {
 // return logged in user
 exports.apiUserProfile = function(req, res) {
 	User
-		.findOne({ "api.key": req.header.api_key })
+		.findOne({ _id: req.apiUser._id })
 		.populate('groups', 'name interest')
 		.select("-password -facebook -google -twitter")
 		.exec(function(err, user) {
@@ -73,17 +77,8 @@ exports.apiUserProfile = function(req, res) {
 
 // return logged in users groups
 exports.apiUserGroups = function(req, res) {
-	User
-		.findOne({ "api.key": req.header.api_key })
-		.exec(function(err, user) {
-			if (err || user === null) return res.send({ error: "user not found"});
-			apiUserGroupsHelper(req, res, user._id)
-		});
-};
-
-function apiUserGroupsHelper(req, res, userId) {
 	Group
-		.find({ members: { $in: [userId] } })
+		.find({ members: { $in: [ req.apiUser._id ] } })
 		.populate('members', 'username')
 		.exec(function(err, groups) {
 			var groupNotFound = (err || groups === null || groups.length === 0);

@@ -126,7 +126,7 @@ describe("PublicApiController Unit Tests", function() {
 			PublicApiController.findUser(req, res);
 	
 			setTimeout(function() {
-				res._body.error.should.be.exactly('user does not exist');
+				res._body.error.should.be.exactly('user does not exist, or is private');
 				done();
 			}, 200);
 		});
@@ -179,7 +179,7 @@ describe("PublicApiController Unit Tests", function() {
 			PublicApiController.findGroup(req, res);
 	
 			setTimeout(function() {
-				res._body.error.should.be.exactly('invalid group id');
+				res._body.error.should.be.exactly('group not found or is private');
 				done();
 			}, 200);
 		});
@@ -190,6 +190,9 @@ describe("PublicApiController Unit Tests", function() {
 			req = {
 				header: {
 					api_key: user.api.key
+				},
+				apiUser: {
+					_id: user._id
 				}
 			};
 			res = {_body: null, render: function() { 'noop'; } };
@@ -209,6 +212,9 @@ describe("PublicApiController Unit Tests", function() {
 			req = {
 				header: {
 					api_key: 'notarealkey'
+				},
+				apiUser: {
+					_id: 'user._id'
 				}
 			};
 			res = {_body: null, render: function() { 'noop'; } };
@@ -228,6 +234,9 @@ describe("PublicApiController Unit Tests", function() {
 			req = {
 				header: {
 					api_key: user.api.key
+				},
+				apiUser: {
+					_id: user._id
 				}
 			};
 			res = {_body: null, render: function() { 'noop'; } };
@@ -246,6 +255,9 @@ describe("PublicApiController Unit Tests", function() {
 			req = {
 				header: {
 					api_key: user2.api.key
+				},
+				apiUser: {
+					_id: 'user._id'
 				}
 			};
 			res = {_body: null, render: function() { 'noop'; } };
@@ -255,23 +267,6 @@ describe("PublicApiController Unit Tests", function() {
 	
 			setTimeout(function() {
 				res._body.error.should.be.exactly('user has no groups');
-				done();
-			}, 200);
-		});
-
-		it("should return error if api key is invalid", function(done) {
-			req = {
-				header: {
-					api_key: 'user2.api.key'
-				}
-			};
-			res = {_body: null, render: function() { 'noop'; } };
-			res.send = function (body) { res._body = body; };
-	
-			PublicApiController.apiUserGroups(req, res);
-	
-			setTimeout(function() {
-				res._body.error.should.be.exactly('user not found');
 				done();
 			}, 200);
 		});
