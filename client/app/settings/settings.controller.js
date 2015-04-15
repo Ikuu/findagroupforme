@@ -51,6 +51,21 @@ angular.module('app.settings')
 		});
 	};
 
+	$scope.changePassword = function() {
+		User.changePassword({
+			currentPassword: $scope.currentPassword,
+			newPassword: $scope.newPassword
+		}).$promise.then(function(response) {
+			if (response.error) {
+				alert(response.error);
+			}
+			else {
+				$scope.currentPassword = '';
+				$scope.newPassword = '';
+			}
+		});
+	};
+
 	$scope.deleteMatch = function(id) {
 		Matchmaking.deleteMatch({ _id: id }).$promise.then(function(response) {
 			Matchmaking.findCurrentSearches({}, function(data) {
@@ -63,7 +78,6 @@ angular.module('app.settings')
 		User.update({
 			_id: $scope.user._id,
 			name: $scope.user.name,
-			password: $scope.user.password,
 			email: $scope.user.email,
 			private: $scope.user.private,
 			home_location: $scope.user.home_location

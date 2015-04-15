@@ -23,6 +23,10 @@ angular.module('app.user')
 			method: 'DELETE',
 			params: { interest: '@interest' },
 			url: '/api/users/interest/remove/:interest'
+		},
+		changePassword: {
+			method: 'PUT',
+			url: '/api/users/password/update'
 		}
 	});
 });

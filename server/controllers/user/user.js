@@ -68,16 +68,30 @@ exports.update = function(req, res) {
 	}
 };
 
+
+function passwordValid(p) {
+	return (p === null || p === undefined || p.length === 0);
+}
+
 exports.changePassword = function(req, res) {
-	User
-		.findOne({ _id: req.user._id})
-		.exec(function(err, user) {
-			if (user.checkPassword(req.body.currentPassword)) {
-				user.changePassword(req.body.newPassword)
-				return res.send({ message: "password updated", user: user });
-			}
-			return res.send({ error: "passwords dont match", user: user });
-		});
+	var currPassword = req.body.currentPassword;
+	var newPassword = req.body.newPassword;
+	var passwordErr = (passwordValid(currPassword) || passwordValid(newPassword));
+	// Might want to move this validation to the Model.
+	if (passwordErr) {
+		return res.send({ error: "missing password" });
+	}
+	else {
+		User
+			.findOne({ _id: req.user._id})
+			.exec(function(err, user) {
+				if (user.checkPassword(currPassword)) {
+					user.changePassword(newPassword)
+					return res.send({ message: "password updated", user: user });
+				}
+				return res.send({ error: "current password is not correct", user: user });
+			});
+	}
 };
 
 exports.delete = function(req, res) {

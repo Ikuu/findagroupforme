@@ -1,14 +1,14 @@
 var mongoose = require('mongoose');
 var uuid = require('node-uuid');
-var ObjectId = mongoose.Schema.Types.ObjectId;
 var crypto = require('crypto');
+
+var ObjectId = mongoose.Schema.Types.ObjectId;
 var externalProviders = [
 	'twitter',
 	'facebook',
 	'google'
 ];
 
-// Might want move social networks into their own array
 var UserSchema = mongoose.Schema({
 	name: {
 		type: String,
@@ -91,7 +91,7 @@ var UserSchema = mongoose.Schema({
 });
 
 UserSchema.pre('save', function(next) {
-	if (!this.isNew || !this.requireValidation()) return next();
+	if (!this.isNew || this.skipValidation()) return next();
 	this.salt = this.makeSalt();
 	this.password = this.encryptPassword(this.password);
 	next();
@@ -119,8 +119,8 @@ UserSchema.methods.changePassword = function(newPassword) {
 
 // Checks to see if the account was created using an external provider (FaceBook
 // etc.)
-UserSchema.methods.requireValidation = function() {
-	return !~externalProviders.indexOf(this.strategy);
+UserSchema.methods.skipValidation = function() {
+	return ~externalProviders.indexOf(this.strategy);
 };
 
 UserSchema.methods.generateApiKey = function(projectName, callback) {

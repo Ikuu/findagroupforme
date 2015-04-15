@@ -6,10 +6,6 @@
 			<input type="text" name="name" ng-model="user.name" class="form-control" />
 		</div>
 		<div class="form-group">
-			<label>Password</label>
-			<input type="password" name="password" ng-model="user.password" class="form-control" />
-		</div>
-		<div class="form-group">
 			<label>Email</label>
 			<input type="text" name="email" ng-model="user.email" class="form-control" />
 		</div>
@@ -17,8 +13,27 @@
 			<label>Private</label>
 			<input type="checkbox" name="private" ng-model="user.private">
 		</div>
+		<div>
+			<button class="btn btn-primary" type="submit">Save</button>
+		</div>
+	</form>
 
-		<h3>Location!</h3>
+	<h2>Change Password</h2>
+	<form class="form" method="post" ng-submit="changePassword()">
+		<div class="form-group">
+			<label>Current Password</label>
+			<input type="password" name="password" ng-model="currentPassword" class="form-control" />
+		</div>
+		<div class="form-group">
+			<label>New Password</label>
+			<input type="password" name="password" ng-model="newPassword" class="form-control" />
+		</div>
+		<div>
+			<button class="btn btn-primary" type="submit">Save</button>
+		</div>
+	</form>
+
+	<h3>Location!</h3>
 		<span>Drag the pin to select your current location!</span>
 		<ui-gmap-google-map center='map.center' zoom='map.zoom'>
 			<ui-gmap-marker

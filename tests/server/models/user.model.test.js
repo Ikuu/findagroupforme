@@ -12,6 +12,7 @@ describe('User Model Unit Tests:', function(){
 		user = new User({
 			username: "Ikuu",
 			name: "Test User",
+			password: "1",
 			home_location: {
 				type: "Point",
 				coordinates: [-4.356888757324214, 55.899691421659476]
@@ -21,6 +22,7 @@ describe('User Model Unit Tests:', function(){
 		user2 = new User({
 			username: "Ikuu",
 			name: "Test User",
+			password: "1",
 			home_location: {
 				type: "Point",
 				coordinates: [-4.356888757324214, 55.899691421659476]

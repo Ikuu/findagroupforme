@@ -158,9 +158,7 @@ exports.removeUserFromGroup = function(req, res) {
 					.findOne({_id: req.params.group_id})
 					.exec(function(err, group) {
 						group.members.pull(req.user._id);
-						group.save(function(err) {
-							if (err) return handleError(err);
-						});
+						group.save();
 					});
 
 				return res.send({ message: "user removed from group." });
@@ -171,16 +169,17 @@ exports.removeUserFromGroup = function(req, res) {
 // Might want to add some verification that event object is setup correctly
 exports.addEventToGroup = function(req, res) {
 	Group
-		.findOne({_id: req.params.group_id})
+		.findOne({ _id: req.params.group_id })
 		.exec(function (err, group) {
+			var event = req.body.events;
 			var errorOrNull = (err || group === null);
-			var eventMissing = (req.body.events === undefined || req.body.events === null);
+			var eventMissing = (event === undefined || event === null);
 	
 			if (errorOrNull || eventMissing) {
 				return res.send({error: "could not add event"});
 			}
 	
-			group.events.push(req.body.events);
+			group.events.push(event);
 			group.save();
 			return res.send(group);
 		});
@@ -196,7 +195,7 @@ exports.removeEventFromGroup = function(req, res) {
 				return res.send({error: "could not remove event"});
 			}
 	
-			group.events.pull({_id: req.params.event_id});
+			group.events.pull({ _id: req.params.event_id });
 			group.save();
 			return res.send(group);
 		});

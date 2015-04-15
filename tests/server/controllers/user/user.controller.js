@@ -26,7 +26,7 @@ describe('UserController Unit Tests:', function() {
 			username: "Test User #2",
 			name: "Test User #2",
 			password: '1',
-			strategy: 'facebook',
+			strategy: 'local',
 			interests: ["football", "basketball", "tennis", "golf"],
 			home_location: {
 				type: "Point",

@@ -12,6 +12,7 @@ describe('UserMessagingController Unit Tests:', function() {
 		user = new User({
 			username: "Ikuu",
 			name: "Test User",
+			password: '1',
 			messages: [{
 				sender: "The Testing Service",
 				text: "This is a test message."

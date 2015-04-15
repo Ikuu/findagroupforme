@@ -11,7 +11,8 @@ describe('UserInterestController Unit Tests:', function() {
 	before(function(done) {
 		user = new User({
 			username: "Ikuu",
-			name: "Test User"
+			name: "Test User",
+			password: '1'
 		});
 
 		user.save();

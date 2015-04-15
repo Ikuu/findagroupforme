@@ -7,11 +7,12 @@ var PublicApiController = require('../../../../server/controllers/user/user.publ
 
 var apiUser, apiUser2, req, res, userID, apiKey;
 
-describe('PublicApiController Unit Tests:', function() {
+describe('User.PublicApiController Unit Tests:', function() {
 	before(function(done) {
 		apiUser = new User({
 			username: "Test User #1",
 			name: "Test User #1",
+			password: "1",
 			interests: ["football", "basketball", "rugby", "golf"],
 			home_location: {
 				type: "Point",
@@ -22,6 +23,7 @@ describe('PublicApiController Unit Tests:', function() {
 		apiUser2 = new User({
 			username: "Test User #2",
 			name: "Test User #2",
+			password: "1",
 			interests: ["football", "basketball", "tennis", "golf"],
 			home_location: {
 				type: "Point",
