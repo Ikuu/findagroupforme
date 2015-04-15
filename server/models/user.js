@@ -1,9 +1,15 @@
 var mongoose = require('mongoose');
 var uuid = require('node-uuid');
 var ObjectId = mongoose.Schema.Types.ObjectId;
+var crypto = require('crypto');
+var externalProviders = [
+	'twitter',
+	'facebook',
+	'google'
+];
 
 // Might want move social networks into their own array
-var userSchema = mongoose.Schema({
+var UserSchema = mongoose.Schema({
 	name: {
 		type: String,
 		required: true
@@ -34,10 +40,7 @@ var userSchema = mongoose.Schema({
 	twitter: {
 		id: Number,
 		username: String,
-		displayName: String,
-		photos: [{
-			value: String
-		}]
+		displayName: String
 	},
 	facebook: {
 		id: Number,
@@ -76,10 +79,51 @@ var userSchema = mongoose.Schema({
 		key: String,
 		project: String,
 		date_added: Date
+	},
+	salt: {
+		type: String,
+		default: ''
+	},
+	strategy: {
+		type: String,
+		default: 'local'
 	}
 });
 
-userSchema.methods.generateApiKey = function(projectName, callback) {
+UserSchema.pre('save', function(next) {
+	if (!this.isNew || !this.requireValidation()) return next();
+	this.salt = this.makeSalt();
+	this.password = this.encryptPassword(this.password);
+	next();
+});
+
+UserSchema.methods.makeSalt = function() {
+	return crypto.randomBytes(16).toString('base64');
+};
+
+UserSchema.methods.encryptPassword = function(password) {
+	return crypto
+		.createHmac('sha1', this.salt)
+		.update(password)
+		.digest('hex');
+};
+
+UserSchema.methods.checkPassword = function(password) {
+	return this.encryptPassword(password) === this.password;
+};
+
+UserSchema.methods.changePassword = function(newPassword) {
+	this.password = this.encryptPassword(newPassword);
+	this.save();
+}
+
+// Checks to see if the account was created using an external provider (FaceBook
+// etc.)
+UserSchema.methods.requireValidation = function() {
+	return !~externalProviders.indexOf(this.strategy);
+};
+
+UserSchema.methods.generateApiKey = function(projectName, callback) {
 	if (this.api.key === undefined) {
 		this.api = {
 			key: uuid.v4(),
@@ -89,13 +133,13 @@ userSchema.methods.generateApiKey = function(projectName, callback) {
 
 		return this.save(callback);
 	}
-}
+};
 
-userSchema.methods.generateNewApiKey = function(callback) {
+UserSchema.methods.generateNewApiKey = function(callback) {
 	this.api.key = uuid.v4();
 	return this.save(callback);
-}
+};
 
-userSchema.index({ home_location: '2dsphere' });
+UserSchema.index({ home_location: '2dsphere' });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('User', UserSchema);

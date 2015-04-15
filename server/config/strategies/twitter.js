@@ -28,6 +28,7 @@ module.exports = function(){
 						var newUser = new User();
 						newUser.name = profile._json.name;
 						newUser.username = profile.username;
+						newUser.strategy = 'twitter';
 
 						// If no location is provided, we set them to London
 						if (res.length === 0) {

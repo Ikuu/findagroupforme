@@ -12,16 +12,16 @@ exports.index = function(req, res) {
 		});
 };
 
+// add new route to save password
 exports.findById = function(req, res) {
 	User
 		.findOne({ _id: req.params.user_id })
 		.populate('groups', 'name interest')
-		.select('-password')
+		.select('')
 		.exec(function (err, user) {
 			var noUserFound = (err || user === null);
-	
 			if (noUserFound) {
-				return res.send({error: "_id supplied was not valid."});
+				return res.send({ error: "_id supplied was not valid." });
 			}
 			else if (user.private && !user._id.equals(req.user._id)) {
 				return res.send({
@@ -57,16 +57,27 @@ exports.update = function(req, res) {
 		var update = {
 			"name": req.body.name,
 			"email": req.body.email,
-			"password": req.body.password,
 			"private": req.body.private,
 			"home_location": req.body.home_location
 		};
 
-		User.findByIdAndUpdate(req.user._id, update, function(err) {
+		User.findOneAndUpdate({ _id: req.user._id }, update, function(err) {
 			if (err) return res.send({ "error": err });
 			return res.send({ message: "User has been updated" });
 		});
 	}
+};
+
+exports.changePassword = function(req, res) {
+	User
+		.findOne({ _id: req.user._id})
+		.exec(function(err, user) {
+			if (user.checkPassword(req.body.currentPassword)) {
+				user.changePassword(req.body.newPassword)
+				return res.send({ message: "password updated", user: user });
+			}
+			return res.send({ error: "passwords dont match", user: user });
+		});
 };
 
 exports.delete = function(req, res) {

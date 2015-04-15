@@ -3,12 +3,14 @@ var Group = require('../../models/group');
 var _ = require('lodash');
 
 exports.index = function(req, res) {
-	Group.find()
+	Group
+		.find()
 		.populate('members', 'name home_location')
 		.populate('owner', 'username name')
 		.exec(function (err, group) {
-			if (err || group === null) {
-				return handleError(err);
+			var groupNotFound =(err || group === null);
+			if (groupNotFound) {
+				return res.send({ error: 'no groups found' });
 			}
 		return res.send(group);
 	});
@@ -17,30 +19,30 @@ exports.index = function(req, res) {
 exports.findById = function(req, res) {
 	var userInGroup = false;
 
-	Group.findOne({_id: req.params.group_id})
-	.populate('members', 'name home_location')
-	.populate('owner', 'username name')
-	.exec(function(err, group) {
-		if (err || group === null) return res.send({error: "group could not be found."});
-
-		if (group.private) {
-			_.each(group.members, function(member) {
-				if (member._id.equals(req.user._id)) userInGroup = true;
-			});
-
-		}
-
-		if (userInGroup || !group.private) {
-			return res.send(group);
-		}
-		else {
-			return res.send({
-				id: group._id,
-				name: group.name,
-				privateGroup: true
-			});
-		}
-	});
+	Group
+		.findOne({_id: req.params.group_id})
+		.populate('members', 'name home_location')
+		.populate('owner', 'username name')
+		.exec(function(err, group) {
+			if (err || group === null) return res.send({error: "group could not be found."});
+	
+			if (group.private) {
+				_.each(group.members, function(member) {
+					if (member._id.equals(req.user._id)) userInGroup = true;
+				});
+			}
+	
+			if (userInGroup || !group.private) {
+				return res.send(group);
+			}
+			else {
+				return res.send({
+					id: group._id,
+					name: group.name,
+					privateGroup: true
+				});
+			}
+		});
 };
 
 exports.add = function(req, res) {
@@ -59,13 +61,13 @@ exports.add = function(req, res) {
 		newGroup.members.push(req.user._id);
 	
 		User
-		.findOne({_id: req.user._id})
-		.exec(function(err, user) {
-			if (err || user === null) return res.send(err);
-			user.groups.push(newGroup._id);
-			user.save(function(err){
+			.findOne({_id: req.user._id})
+			.exec(function(err, user) {
+				if (err || user === null) return res.send(err);
+				user.groups.push(newGroup._id);
+				user.save(function(err){
+				});
 			});
-		});
 	
 		Group.create(newGroup, function(err, group) {
 			if (err || group === null) return res.send({error: "unable to create group."});
@@ -120,72 +122,82 @@ exports.delete = function(req, res) {
 };
 
 exports.addUserToGroup = function(req, res) {
-	User.findOne({_id: req.user._id, groups: {"$nin" : [req.params.group_id]}}).exec(function(err, user) {
-		if (err || user === null) return res.send({error: "user already belongs to group."});
-		user.groups.push(req.params.group_id);
-		user.save();
+	User
+		.findOne({_id: req.user._id, groups: {"$nin" : [req.params.group_id]}})
+		.exec(function(err, user) {
+			if (err || user === null) return res.send({error: "user already belongs to group."});
+			user.groups.push(req.params.group_id);
+			user.save();
+	
+			Group
+				.findOne({_id: req.params.group_id})
+				.exec(function(err, group) {
+					if (err || group === null) return res.send({error: "group does not exist."});
+					group.members.push(req.user._id);
+					group.save();
+				});
 
-		Group
-		.findOne({_id: req.params.group_id})
-		.exec(function(err, group) {
-			if (err || group === null) return res.send({error: "group does not exist."});
-			group.members.push(req.user._id);
-			group.save();
+			return res.send({message: "user added to group."});	
 		});
-
-		return res.send({message: "user added to group."});	
-	});
 };
 
 exports.removeUserFromGroup = function(req, res) {
-	User.findOne({_id: req.user._id, groups: req.params.group_id}).exec(function(err, user) {
-		if (err || user === null) {
-			return res.send({ error: "user does not belong to group." });
-		}
-		else {
-			user.groups.pull(req.params.group_id);
-			user.save(function(err) {
-				if (err) return handleError(err);
-			});
-	
-			Group.findOne({_id: req.params.group_id}).exec(function(err, group) {
-				group.members.pull(req.user._id);
-				group.save(function(err) {
+	User
+		.findOne({_id: req.user._id, groups: req.params.group_id})
+		.exec(function(err, user) {
+			if (err || user === null) {
+				return res.send({ error: "user does not belong to group." });
+			}
+			else {
+				user.groups.pull(req.params.group_id);
+				user.save(function(err) {
 					if (err) return handleError(err);
 				});
-			});
-	
-			return res.send({ message: "user removed from group." });
-		}
+		
+				Group
+					.findOne({_id: req.params.group_id})
+					.exec(function(err, group) {
+						group.members.pull(req.user._id);
+						group.save(function(err) {
+							if (err) return handleError(err);
+						});
+					});
+
+				return res.send({ message: "user removed from group." });
+			}
 	});
 };
 
 // Might want to add some verification that event object is setup correctly
 exports.addEventToGroup = function(req, res) {
-	Group.findOne({_id: req.params.group_id}).exec(function (err, group) {
-		var errorOrNull = (err || group === null);
-		var eventMissing = (req.body.events === undefined || req.body.events === null);
-
-		if (errorOrNull || eventMissing) {
-			return res.send({error: "could not add event"});
-		}
-
-		group.events.push(req.body.events);
-		group.save();
-		return res.send(group);
-	});
+	Group
+		.findOne({_id: req.params.group_id})
+		.exec(function (err, group) {
+			var errorOrNull = (err || group === null);
+			var eventMissing = (req.body.events === undefined || req.body.events === null);
+	
+			if (errorOrNull || eventMissing) {
+				return res.send({error: "could not add event"});
+			}
+	
+			group.events.push(req.body.events);
+			group.save();
+			return res.send(group);
+		});
 };
 
 exports.removeEventFromGroup = function(req, res) {
-	Group.findOne({_id: req.params.group_id, 'events._id': req.params.event_id}).exec(function (err, group) {
-		var errorOrNull = (err || group === null);
-
-		if (errorOrNull) {
-			return res.send({error: "could not remove event"});
-		}
-
-		group.events.pull({_id: req.params.event_id});
-		group.save();
-		return res.send(group);
-	});
+	Group
+		.findOne({_id: req.params.group_id, 'events._id': req.params.event_id})
+		.exec(function (err, group) {
+			var errorOrNull = (err || group === null);
+	
+			if (errorOrNull) {
+				return res.send({error: "could not remove event"});
+			}
+	
+			group.events.pull({_id: req.params.event_id});
+			group.save();
+			return res.send(group);
+		});
 };

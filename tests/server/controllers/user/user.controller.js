@@ -6,13 +6,15 @@ var should = require('should');
 var User = require('../../../../server/models/user');
 var UserController = require('../../../../server/controllers/user/user');
 
-var interestUser, interestUser2, req, res, userID, apiKey;
+var interestUser, interestUser2, req, res, userID, apiKey, userPassword;
 
 describe('UserController Unit Tests:', function() {
 	before(function(done) {
 		interestUser = new User({
 			username: "Test User #1",
 			name: "Test User #1",
+			password: '1',
+			strategy: 'local',
 			interests: ["football", "basketball", "rugby", "golf"],
 			home_location: {
 				type: "Point",
@@ -23,6 +25,8 @@ describe('UserController Unit Tests:', function() {
 		interestUser2 = new User({
 			username: "Test User #2",
 			name: "Test User #2",
+			password: '1',
+			strategy: 'facebook',
 			interests: ["football", "basketball", "tennis", "golf"],
 			home_location: {
 				type: "Point",
@@ -69,15 +73,10 @@ describe('UserController Unit Tests:', function() {
 				body: {
 					name: "Test User",
 					username: "TestUser01",
-					address: {
-						street: "123 New Street",
-						city: "Glasgow",
-						post_code: "G2 4PP",
-						county: "United Kingdom"
-					},
 					private: true,
 					email: "test@user.com",
 					password: "1234",
+					strategy: 'local',
 					date_of_birth: "1980-11-24T18:22:54.062Z",
 					current_location: [-5.427094, 55.896154],
 					interests: ["football", "basketball"],
@@ -96,6 +95,7 @@ describe('UserController Unit Tests:', function() {
 				res._body.username.should.be.exactly("TestUser01");
 				res._body.should.have.property('_id');
 				userID = res._body._id;
+				userPassword = res._body.password;
 				done();
 			}, 200);
 		});		
@@ -156,6 +156,54 @@ describe('UserController Unit Tests:', function() {
 	
 			setTimeout(function() {
 				res._body.username.should.be.exactly("TestUser01");
+				done();
+			}, 200);
+		});
+	});
+
+	// Might want tests for blank password
+	describe("changePassword Unit Tests", function() {
+		it("should succesfully change the password", function(done) {
+			req = {
+				user: {
+					_id: userID
+				},
+				body: {
+					currentPassword: "1234",
+					newPassword: "apple"
+				}
+			};
+			res = {_body: null, render: function() { 'noop'; } };
+			res.send = function (body) { res._body = body; };
+	
+			UserController.changePassword(req, res);
+	
+			setTimeout(function() {
+				(userPassword === res._body.user.password).should.be.exactly(false);
+				res._body.message.should.be.exactly('password updated');
+				userPassword = res._body.user.password;
+				done();
+			}, 200);
+		});
+
+		it("should fail to change the password as original password is incorrect", function(done) {
+			req = {
+				user: {
+					_id: userID
+				},
+				body: {
+					currentPassword: 'orange',
+					newPassword: 'passs'
+				}
+			};
+			res = {_body: null, render: function() { 'noop'; } };
+			res.send = function (body) { res._body = body; };
+	
+			UserController.changePassword(req, res);
+	
+			setTimeout(function() {
+				(userPassword === res._body.user.password).should.be.exactly(true);
+				res._body.error.should.be.exactly('passwords dont match');
 				done();
 			}, 200);
 		});

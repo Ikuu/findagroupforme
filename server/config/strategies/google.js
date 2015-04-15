@@ -24,6 +24,7 @@ module.exports = function(){
 						newUser.username = profile._json.email;
 						newUser.name = profile.displayName;
 						newUser.email = profile._json.email;
+						newUser.strategy = 'google';
 						newUser.home_location = {
 							type: 'Point',
 							coordinates: [-0.125891, 51.506200]

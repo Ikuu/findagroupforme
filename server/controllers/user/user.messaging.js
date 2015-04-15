@@ -24,17 +24,19 @@ exports.markAsUnviewed = function(req, res) {
 };
 
 exports.deleteMessage = function(req, res) {
-	User.findOne({ _id: req.user._id }).exec(function(err, user) {
-		try {
-			user.messages.id(req.params.id).remove();
-		}
-		catch(err) {
-			return res.send({ error: 'could not delete message' });
-		}
-		
-		user.save(function(err) {
-			if (err) return res.send({ error: 'could not delete message' });
-			return res.send({ message: 'message was deleted' });
+	User
+		.findOne({ _id: req.user._id })
+		.exec(function(err, user) {
+			try {
+				user.messages.id(req.params.id).remove();
+			}
+			catch(err) {
+				return res.send({ error: 'could not delete message' });
+			}
+			
+			user.save(function(err) {
+				if (err) return res.send({ error: 'could not delete message' });
+				return res.send({ message: 'message was deleted' });
+			});
 		});
-	});
 };

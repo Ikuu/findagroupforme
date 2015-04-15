@@ -29,6 +29,7 @@ module.exports = function() {
 						newUser.name = profile.displayName;
 						newUser.username = profile.displayName;
 						newUser.email = profile._json.email;
+						newUser.strategy = 'facebook';
 
 						if (res.length === 0) {
 							newUser.home_location = {
