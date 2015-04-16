@@ -18,6 +18,12 @@
 		function acceptButton() {
 			$http.post('/api/tempGroup/invite/accept/'+ $routeParams.id)
 			.success(function(response) {
+				if (response.message === "group formed") {
+					$location.path('/groups/' + response.group._id);
+				}
+				if (response.error === "tempgroup not found") {
+					$location.path('/');
+				}
 				retrieveMatchDetails();	
 			});
 		}
@@ -25,6 +31,9 @@
 		function declineButton() {
 			$http.post('/api/tempGroup/invite/decline/'+ $routeParams.id)
 			.success(function(response) {
+				if (response.error === "tempgroup not found") {
+					$location.path('/');
+				}				
 				retrieveMatchDetails();
 			});
 		}

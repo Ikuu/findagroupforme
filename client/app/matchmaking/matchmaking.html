@@ -8,7 +8,7 @@
 			<input type="text" name="name" ng-model="interest" class="form-control"/>
 		</div>
 		<div>
-			 <button class="btn btn-block btn-success" type="submit">Start Matchmaking!</button>
+			 <button class="btn btn-block btn-success" ng-disabled="!interest" type="submit">Start Matchmaking!</button>
 		</div>
 	</form>
 

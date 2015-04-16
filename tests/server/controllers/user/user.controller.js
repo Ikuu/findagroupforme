@@ -92,10 +92,10 @@ describe('UserController Unit Tests:', function() {
 			UserController.add(req, res);
 	
 			setTimeout(function() {
-				res._body.username.should.be.exactly("TestUser01");
-				res._body.should.have.property('_id');
-				userID = res._body._id;
-				userPassword = res._body.password;
+				res._body.user.username.should.be.exactly("TestUser01");
+				res._body.user.should.have.property('_id');
+				userID = res._body.user._id;
+				userPassword = res._body.user.password;
 				done();
 			}, 200);
 		});		
@@ -203,7 +203,7 @@ describe('UserController Unit Tests:', function() {
 	
 			setTimeout(function() {
 				(userPassword === res._body.user.password).should.be.exactly(true);
-				res._body.error.should.be.exactly('passwords dont match');
+				res._body.error.should.be.exactly('current password is incorrect');
 				done();
 			}, 200);
 		});

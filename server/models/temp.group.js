@@ -1,13 +1,17 @@
 // Temporary Group For Matchmaking.
-var _ 				=	require('lodash');
+var _ 					=	require('lodash');
 var mongoose 		=	require('mongoose');
-var Matchmaking 	=	require('./matchmaking');
+var Matchmaking =	require('./matchmaking');
 var ObjectId 		=	mongoose.Schema.Types.ObjectId;
 
 var tempGroupSchema = mongoose.Schema({
 	interest: String,
 	users: [{
 		user_id: ObjectId,
+		location: {
+			type: { type: String },
+			coordinates: [Number, Number]
+		},
 		accepted: {
 			type: Boolean,
 			default: false

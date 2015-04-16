@@ -1,9 +1,9 @@
 // Needs to be cleaned up
-var _ 				=	require('lodash');
+var _ 					=	require('lodash');
 var schedule 		=	require('node-schedule');
-var Matchmaking 	=	require('../../models/matchmaking');
-var User 			=	require('../../models/user');
-var TempGroup 		=	require('../../models/temp.group');
+var Matchmaking =	require('../../models/matchmaking');
+var User 				=	require('../../models/user');
+var TempGroup 	=	require('../../models/temp.group');
 
 var removeOldEntries = schedule.scheduleJob('0 * * * *', function() {
 	var cutOffDate = new Date();
@@ -63,8 +63,8 @@ exports.findMatch = function(req, res) {
 
 	Matchmaking.create(newMatch, function(err, match) {
 		Matchmaking.geoNear(coords, options, function(err, results, stats) {
+			console.log(results);
 			var noMatch = (results === null || GROUP_SIZE > results.length);
-	
 			if (noMatch) {
 				return res.send({ message: "not enough matches to make group" });
 			}
@@ -76,7 +76,13 @@ exports.findMatch = function(req, res) {
 	
 				_.each(results, function(doc) {
 					users.push(doc.obj.user_id);
-					newTempGroup.users.push({ user_id: doc.obj.user_id });
+					newTempGroup.users.push({
+						user_id: doc.obj.user_id,
+						location: {
+							type: doc.obj.location.type,
+							coordinates: [doc.obj.location.coordinates[0], doc.obj.location.coordinates[1]]
+						} 
+					});
 				});
 	
 				// Might be able to move this out, or into a function

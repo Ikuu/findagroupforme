@@ -5,6 +5,7 @@ var should = require('should');
 var mongoose = require('mongoose');
 var MatchmakingController = require('../../../../server/controllers/group/matchmaking');
 var Matchmaking = require('../../../../server/models/matchmaking');
+var User = require('../../../../server/models/user');
 
 var match, match2, req, res;
 
@@ -162,6 +163,7 @@ describe("Matchmaking Controller Unit Tests:", function() {
 
 	after(function(done) {
 		Matchmaking.remove().exec();
+		User.remove().exec();
 		done();
 	});
 });

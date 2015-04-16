@@ -1,11 +1,10 @@
-// Needs to forward if everything is fine.
 (function() {
 	'use strict';
 	angular
 		.module('app.registration')
 		.controller('SignupController', SignupController);
 
-	function SignupController(Title, User) {
+	function SignupController(Title, User, $location) {
 		// Ficticious FaGfM Office
 		var home_location = {
 			type: 'Point',
@@ -46,8 +45,13 @@
 				privacy: vm.user.privacy,
 				home_location: home_location
 			}).$promise.then(function(response) {
-				console.log(response);
-				alert("Signed up!");
+				if (response.error) {
+					console.log(response.error);
+					alert("Error Signing Up!");
+				}
+				else {
+					$location.path('/login');
+				}
 			});
 		}
 	}

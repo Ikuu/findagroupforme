@@ -13,6 +13,9 @@
 		<datetimepicker data-ng-model="event.date"></datetimepicker>
 	</div>
 	<div>
-		 <button class="btn btn-primary" type="submit">Add</button>
+		 <button 
+		 	class="btn btn-primary"
+		 	ng-disabled="!event.date || !event.name || !event.description"
+		 	type="submit">Add</button>
 	</div>
 </form>

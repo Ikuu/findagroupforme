@@ -44,8 +44,8 @@ exports.add = function(req, res) {
 	var userToAdd = new User(req.body);
 
 	User.create(userToAdd, function(err, user) {
-		if (err || user === null) return res.send(err);
-		return res.send(user);
+		if (err || user === null) return res.send({ error: err });
+		return res.send({ message: "user added", user: user });
 	});
 };
 
@@ -89,7 +89,7 @@ exports.changePassword = function(req, res) {
 					user.changePassword(newPassword)
 					return res.send({ message: "password updated", user: user });
 				}
-				return res.send({ error: "current password is not correct", user: user });
+				return res.send({ error: "current password is incorrect", user: user });
 			});
 	}
 };
