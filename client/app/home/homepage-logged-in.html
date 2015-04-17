@@ -1,3 +1,29 @@
-<h1>Home</h1>
-<h2>Hello {{loggedInUser.username}}</h2>
-<p>This should be like Twitter home page.</p>
+<h2>Hello {{vm.user.username}}!</h2>
+<p>Click on the Red Pin to view a group, or the Blue pin to see your profile.</p>
+<ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom'>
+  <ui-gmap-marker
+    idKey='vm.userMarker.id'
+    icon='vm.userMarker.options.icon'
+    click='vm.userMarker.options.link'
+    options='vm.userMarker.options'
+    coords='vm.userMarker.coords'>
+  </ui-gmap-marker>
+  <ui-gmap-marker
+    data-ng-repeat="marker in vm.groupMarkerList"
+    idKey="marker.id"
+    options="marker.options"
+    click="marker.options.link"
+    coords="marker.coords">
+  </ui-gmap-marker>
+</ui-gmap-google-map>
+
+<h2>What's On Today!</h2>
+<p>See what's happening today in the groups you're part of.</p>
+<div ng-repeat="group in vm.user.groups">
+  <h3 ng-show="group.events.length > 0">{{group.name}}</h3>
+  <p ng-repeat="event in group.events | orderBy: 'date'">
+    Title: {{event.name}}<br />
+    Date: {{event.date | date: 'medium'}}<br />
+    Description: {{event.description}}<br />
+  </p>
+</div>

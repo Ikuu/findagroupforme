@@ -12,6 +12,7 @@
 </div>
 
 <h2>Interests</h2>
+<li ng-show="!vm.user.interests.length">No Interests at the moment.</li>
 <li ng-repeat="interest in vm.user.interests">
 	{{interest}}
 </li>

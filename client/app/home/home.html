@@ -1,4 +1,4 @@
 <div class="container">
-	<homepage-logged-out ng-if="loggedIn == false"></homepage-logged-out>
-    <homepage-logged-in ng-if="loggedIn == true"></homepage-logged-in>
+  <homepage-logged-out ng-if="!vm.user"></homepage-logged-out>
+  <homepage-logged-in ng-if="vm.user"></homepage-logged-in>
 </div>
