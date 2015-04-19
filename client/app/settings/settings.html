@@ -56,9 +56,9 @@
   </li>
   <button class="btn btn-primary" ng-click="vm.addInterest()">Add</button>
 
-  <h2>Recommened Interest</h2>
-  <li ng-if="!vm.recommenededInterests.length">No recommended interests.</li>
-  <li ng-repeat="interest in vm.recommenededInterests">
+  <h2>Recommend Interest</h2>
+  <li ng-if="!vm.recommendedInterests.length">No recommended interests.</li>
+  <li ng-repeat="interest in vm.recommendedInterests">
     <a href="" ng-click="vm.addRecommendedInterest(interest._id)">{{interest._id}}</a>
   </li>
 

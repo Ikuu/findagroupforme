@@ -5,6 +5,7 @@
     .module('app.settings')
     .controller('SettingsController', SettingsController);
 
+  // Re-organise functions and add comments
   function SettingsController($routeParams, User, $location, Title, Matchmaking, $http) {
     var vm = this;
     vm.addressNotVerified = true;
@@ -18,7 +19,7 @@
     vm.addRecommendedInterest = addRecommendedInterest;
     vm.addInterest = addInterest;
     vm.removeInterest = removeInterest;
-    vm.recommenededInterests = [];
+    vm.recommendedInterests = [];
 
     vm.changePassword = changePassword;
     vm.currentPassword = '';
@@ -26,15 +27,20 @@
 
     Title.set('Settings');
     getUserDetails();
+    loadRecommendedInterests();
+    loadMatchmakingEntries();
 
-    // Move to a function
-    Matchmaking.findCurrentSearches({}, function(data) {
-      vm.match = data;
-    });
+    function loadMatchmakingEntries() {
+      Matchmaking.findCurrentSearches({}, function(data) {
+        vm.match = data;
+      });
+    }
 
-    $http.get('/api/users/interest/find').success(function(response) {
-      vm.recommenededInterests = response;
-    });
+    function loadRecommendedInterests() {
+      $http.get('/api/users/interest/find').success(function(response) {
+        vm.recommendedInterests = response;
+      });
+    }
 
     function getUserDetails() {
       User.getSignedInUser({}, function(user) {
@@ -82,9 +88,7 @@
     function addRecommendedInterest(interest) {
       User.addInterest({ interest: interest }).$promise.then(function(response) {
         getUserDetails();
-        $http.get('/api/users/interest/find').success(function(response) {
-          vm.recommenededInterests = response;
-        });
+        loadRecommendedInterests();
       });
     }
 
@@ -93,10 +97,7 @@
       if (interest !== null) {
         User.addInterest({ interest: interest }).$promise.then(function(response) {
           getUserDetails();
-  
-          $http.get('/api/users/interest/find').success(function(response) {
-            vm.recommenededInterests = response;
-          });
+          loadRecommendedInterests();
         });
       }     
     }
@@ -104,10 +105,7 @@
     function removeInterest(interest) {
       User.removeInterest({ interest: interest }).$promise.then(function(response) {
         getUserDetails();
-
-        $http.get('/api/users/interest/find').success(function(response) {
-          vm.recommenededInterests = response;
-        });
+        loadRecommendedInterests();
       });
     }
 
@@ -129,9 +127,7 @@
 
     function deleteMatch(id) {
       Matchmaking.deleteMatch({ _id: id }).$promise.then(function(response) {
-        Matchmaking.findCurrentSearches({}, function(data) {
-          vm.match = data;
-        });
+        loadMatchmakingEntries();
       });
     }
   }
