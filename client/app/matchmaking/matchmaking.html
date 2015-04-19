@@ -1,17 +1,17 @@
 <div class="container">
-	<h2>Matchmaking</h2>
-	<p>Use our matchmaking service to find a group for your interest!</p>
+  <h2>Matchmaking</h2>
+  <p>Use our matchmaking service to find a group for your interest!</p>
 
-	<form class="form" method="post" ng-submit="vm.findMatchmakingGroup(interest)">
-		<div class="form-group">
-			<label>Interest</label>
-			<input type="text" name="name" ng-model="interest" class="form-control"/>
-		</div>
-		<div>
-			 <button class="btn btn-block btn-success" ng-disabled="!interest" type="submit">Start Matchmaking!</button>
-		</div>
-	</form>
+  <form class="form" method="post" ng-submit="vm.findMatchmakingGroup(interest)">
+    <div class="form-group">
+      <label>Interest</label>
+      <input type="text" name="name" ng-model="interest" class="form-control"/>
+    </div>
+    <div>
+       <button class="btn btn-block btn-success" ng-disabled="!interest" type="submit">Start Matchmaking!</button>
+    </div>
+  </form>
 
-	<h2>Results</h2>
-	<p>{{vm.message}}</p>
+  <h2>Results</h2>
+  <p>{{vm.message}}</p>
 </div>

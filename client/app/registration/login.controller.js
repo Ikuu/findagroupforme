@@ -1,11 +1,11 @@
 (function() {
-	'use strict';
+  'use strict';
 
-	angular
-		.module('app.registration')
-		.controller('LoginController', LoginController);
+  angular
+    .module('app.registration')
+    .controller('LoginController', LoginController);
 
-	function LoginController(Title) {
-		Title.set('Login');
-	}
+  function LoginController(Title) {
+    Title.set('Login');
+  }
 })();

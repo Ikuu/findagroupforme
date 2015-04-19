@@ -1,76 +1,76 @@
 <div class="container">
-	<h2>{{user.username}}</h2>
-	<form class="form" method="post" ng-submit="editUser()">
-		<div class="form-group">
-			<label>Name</label>
-			<input type="text" name="name" ng-model="user.name" class="form-control" />
-		</div>
-		<div class="form-group">
-			<label>Email</label>
-			<input type="text" name="email" ng-model="user.email" class="form-control" />
-		</div>
-		<div>
-			<label>Private</label>
-			<input type="checkbox" name="private" ng-model="user.private">
-		</div>
-		<div>
-			<button class="btn btn-primary" type="submit">Save</button>
-		</div>
-	</form>
+  <h2>{{vm.user.username}}</h2>
+  <form class="form" method="post" ng-submit="vm.editUser()">
+    <div class="form-group">
+      <label>Name</label>
+      <input type="text" name="name" ng-model="vm.user.name" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="text" name="email" ng-model="vm.user.email" class="form-control" />
+    </div>
+    <div>
+      <label>Private</label>
+      <input type="checkbox" name="private" ng-model="vm.user.private">
+    </div>
+    <div>
+      <button class="btn btn-primary" type="submit">Save</button>
+    </div>
+  </form>
 
-	<h2>Change Password</h2>
-	<form class="form" method="post" ng-submit="changePassword()">
-		<div class="form-group">
-			<label>Current Password</label>
-			<input type="password" name="password" ng-model="currentPassword" class="form-control" />
-		</div>
-		<div class="form-group">
-			<label>New Password</label>
-			<input type="password" name="password" ng-model="newPassword" class="form-control" />
-		</div>
-		<div>
-			<button class="btn btn-primary" type="submit">Save</button>
-		</div>
-	</form>
+  <h2>Change Password</h2>
+  <form class="form" method="post" ng-submit="vm.changePassword()">
+    <div class="form-group">
+      <label>Current Password</label>
+      <input type="password" name="password" ng-model="vm.currentPassword" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label>New Password</label>
+      <input type="password" name="password" ng-model="vm.newPassword" class="form-control" />
+    </div>
+    <div>
+      <button class="btn btn-primary" type="submit">Save</button>
+    </div>
+  </form>
 
-	<h3>Location!</h3>
-		<span>Drag the pin to select your current location!</span>
-		<ui-gmap-google-map center='map.center' zoom='map.zoom'>
-			<ui-gmap-marker
-				idKey='userMarker.id'
-				icon='userMarker.options.icon'
-				options='userMarker.options'
-				events='userMarker.events'
-				coords='userMarker.coords'>
-			</ui-gmap-marker>
-		</ui-gmap-google-map>
-		<div>
-			 <button class="btn btn-primary" type="submit">Save</button>
-		</div>
-	</form>
+  <h3>Location!</h3>
+    <span>Drag the pin to select your current location!</span>
+    <ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom'>
+      <ui-gmap-marker
+        idKey='vm.userMarker.id'
+        icon='vm.userMarker.options.icon'
+        options='vm.userMarker.options'
+        events='vm.userMarker.events'
+        coords='vm.userMarker.coords'>
+      </ui-gmap-marker>
+    </ui-gmap-google-map>
+    <div>
+       <button class="btn btn-primary" type="submit">Save</button>
+    </div>
+  </form>
 
-	<h2>Interests</h2>
-	<li ng-if="!user.interests.length">No interests.</li>
-	<li ng-repeat="interest in user.interests">
-		{{interest}} - <a href="" ng-click="removeInterest(interest)" class="glyphicon glyphicon-trash"></a>
-	</li>
-	<button class="btn btn-primary" ng-click="addInterest()">Add</button>
+  <h2>Interests</h2>
+  <li ng-if="!vm.user.interests.length">No interests.</li>
+  <li ng-repeat="interest in vm.user.interests">
+    {{interest}} - <a href="" ng-click="vm.removeInterest(interest)" class="glyphicon glyphicon-trash"></a>
+  </li>
+  <button class="btn btn-primary" ng-click="vm.addInterest()">Add</button>
 
-	<h2>Recommened Interest</h2>
-	<li ng-if="!recommenededInterests.length">No recommended interests.</li>
-	<li ng-repeat="interest in recommenededInterests">
-		<a href="" ng-click="addRecommendedInterest(interest._id)">{{interest._id}}</a>
-	</li>
+  <h2>Recommened Interest</h2>
+  <li ng-if="!vm.recommenededInterests.length">No recommended interests.</li>
+  <li ng-repeat="interest in vm.recommenededInterests">
+    <a href="" ng-click="vm.addRecommendedInterest(interest._id)">{{interest._id}}</a>
+  </li>
 
-	<h2>Groups</h2>
-	<li ng-if="!user.groups.length">No Groups at the moment.</li>
-	<div ng-repeat="group in user.groups">
-		<a href="./#/groups/{{group._id}}">{{group.name}}</a>
-	</div>
+  <h2>Groups</h2>
+  <li ng-if="!vm.user.groups.length">No Groups at the moment.</li>
+  <div ng-repeat="group in vm.user.groups">
+    <a href="./#/groups/{{group._id}}">{{group.name}}</a>
+  </div>
 
-	<h2>Matchmaking Groups</h2>
-	<li ng-if="!match.length">Not Matchmaking</li>
-	<div ng-repeat="m in match">
-		{{m.interest}} since {{m.date_added | date: 'short'}} - <a href="" ng-click="deleteMatch(m._id)">Stop Matchmaking</a>
-	</div>
+  <h2>Matchmaking Groups</h2>
+  <li ng-if="!vm.match.length">Not Matchmaking</li>
+  <div ng-repeat="m in vm.match">
+    {{m.interest}} since {{m.date_added | date: 'short'}} - <a href="" ng-click="vm.deleteMatch(m._id)">Stop Matchmaking</a>
+  </div>
 </div>

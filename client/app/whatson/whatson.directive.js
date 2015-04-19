@@ -1,14 +1,14 @@
 (function() {
-	'use strict';
+  'use strict';
 
-	angular
-		.module('app.whatson')
-		.directive('eventMap', eventMap);
+  angular
+    .module('app.whatson')
+    .directive('eventMap', eventMap);
 
-	function eventMap() {
-		return {
-			restrict: 'E',
-			templateUrl: '/app/whatson/event-map.html'
-		};
-	}
+  function eventMap() {
+    return {
+      restrict: 'E',
+      templateUrl: '/app/whatson/event-map.html'
+    };
+  }
 })();

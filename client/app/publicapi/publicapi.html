@@ -1,80 +1,80 @@
 <div class="container">
-	<h2>Public API</h2>
-	<p>Use our API to access your data and then develop something with it!</p>
+  <h2>Public API</h2>
+  <p>Use our API to access your data and then develop something with it!</p>
 
-	<div ng-if="!vm.hasKey">
-		<h3>Generate Key</h3>
-		<form class="form" method="post" ng-submit="vm.generateKey()">
-			<div class="form-group">
-				<label>Application Title</label>
-				<input type="text" name="email" ng-model="vm.projectTitle" class="form-control" />
-			</div>
+  <div ng-if="!vm.hasKey">
+    <h3>Generate Key</h3>
+    <form class="form" method="post" ng-submit="vm.generateKey()">
+      <div class="form-group">
+        <label>Application Title</label>
+        <input type="text" name="email" ng-model="vm.projectTitle" class="form-control" />
+      </div>
 
-			<button class="btn btn-success" type="submit" ng-disabled="vm.projectTitle === ''">Generate Key</button>
-		</form>
-	</div>
+      <button class="btn btn-success" type="submit" ng-disabled="vm.projectTitle === ''">Generate Key</button>
+    </form>
+  </div>
 
-	<div ng-if="vm.hasKey">
-		<h3>Modify Key</h3>
-		<p>Current Key: {{vm.apiDetails.key}}</p>
-		<p>Application Title: {{vm.apiDetails.project}}</p>
-		<p>Date Generated: {{vm.apiDetails.date_added | date: 'medium'}}</p>
-		<button ng-click="vm.regenerateKey()" class="btn btn-warning">Regenerate Key</button>
-		<button ng-click="vm.deleteKey()" class="btn btn-danger">Delete Key</button>
-	</div>
+  <div ng-if="vm.hasKey">
+    <h3>Modify Key</h3>
+    <p>Current Key: {{vm.apiDetails.key}}</p>
+    <p>Application Title: {{vm.apiDetails.project}}</p>
+    <p>Date Generated: {{vm.apiDetails.date_added | date: 'medium'}}</p>
+    <button ng-click="vm.regenerateKey()" class="btn btn-warning">Regenerate Key</button>
+    <button ng-click="vm.deleteKey()" class="btn btn-danger">Delete Key</button>
+  </div>
 
-	<h2>Details About API</h2>
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h3 class="panel-title">GET - findAllUsers</h3>
-		</div>
-		<div class="panel-body">
-			Returns an array of all the users in the database.
-		</div>
-	</div>
+  <h2>Details About API</h2>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">GET - findAllUsers</h3>
+    </div>
+    <div class="panel-body">
+      Returns an array of all the users in the database.
+    </div>
+  </div>
 
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h3 class="panel-title">GET - findUser</h3>
-		</div>
-		<div class="panel-body">
-			Returns a specific user.
-		</div>
-	</div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">GET - findUser</h3>
+    </div>
+    <div class="panel-body">
+      Returns a specific user.
+    </div>
+  </div>
 
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h3 class="panel-title">GET - findAllGroups</h3>
-		</div>
-		<div class="panel-body">
-			Returns an array of all the groups in the database.
-		</div>
-	</div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">GET - findAllGroups</h3>
+    </div>
+    <div class="panel-body">
+      Returns an array of all the groups in the database.
+    </div>
+  </div>
 
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h3 class="panel-title">GET - findGroup</h3>
-		</div>
-		<div class="panel-body">
-			Returns a specific group.
-		</div>
-	</div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">GET - findGroup</h3>
+    </div>
+    <div class="panel-body">
+      Returns a specific group.
+    </div>
+  </div>
 
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h3 class="panel-title">GET - apiUserProfile</h3>
-		</div>
-		<div class="panel-body">
-			Returns your current profile, more detailed than using findUser.
-		</div>
-	</div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">GET - apiUserProfile</h3>
+    </div>
+    <div class="panel-body">
+      Returns your current profile, more detailed than using findUser.
+    </div>
+  </div>
 
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h3 class="panel-title">GET - apiUserGroups</h3>
-		</div>
-		<div class="panel-body">
-			Returns your groups, more detailed than using findGroup.
-		</div>
-	</div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">GET - apiUserGroups</h3>
+    </div>
+    <div class="panel-body">
+      Returns your groups, more detailed than using findGroup.
+    </div>
+  </div>
 </div>

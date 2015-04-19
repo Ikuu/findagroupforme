@@ -1,115 +1,138 @@
 (function() {
-	// Rename to settings. Also need to have some feedback on the changes the user has made.
-angular.module('app.settings')
-.controller('SettingsController', function($scope, $routeParams, User, $location, Title, Matchmaking, $http) {
-	Title.set('Edit Settings');
-	$scope.addressNotVerified =  true;
-	getUserDetails();
+  'use strict';
 
-	function getUserDetails(){
-		User.getSignedInUser({}, function(user) {
-			$scope.user = user;
+  angular
+    .module('app.settings')
+    .controller('SettingsController', SettingsController);
 
-			$scope.map = {
-				center: $scope.user.home_location.coordinates,
-				zoom: 12
-			};
+  function SettingsController($routeParams, User, $location, Title, Matchmaking, $http) {
+    var vm = this;
+    vm.addressNotVerified = true;
+    vm.map = {};
+    vm.match = [];
+    vm.user = {};
+    vm.userMarker = {};
 
-			$scope.userMarker = {
-				id: 0,
-				options: {
-					title: "You!",
-					icon: {
-						url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
-					},
-					draggable: true
-				},
-				events: {
-					dragend: function(marker, eventName, args) {
-						$scope.user.home_location.coordinates = [marker.getPosition().lng(), marker.getPosition().lat()];
-					}
-				},
-				coords: $scope.user.home_location.coordinates
-			};
-		});	
-	}
+    vm.deleteMatch = deleteMatch;
 
-	Matchmaking.findCurrentSearches({}, function(data) {
-		$scope.match = data;
-	});
+    vm.addRecommendedInterest = addRecommendedInterest;
+    vm.addInterest = addInterest;
+    vm.removeInterest = removeInterest;
+    vm.recommenededInterests = [];
 
-	$http.get('/api/users/interest/find').success(function(response) {
-		$scope.recommenededInterests = response;
-	});
+    vm.changePassword = changePassword;
+    vm.currentPassword = '';
+    vm.newPassword = '';
 
-	$scope.addRecommendedInterest = function(interest) {
-		User.addInterest({ interest: interest }).$promise.then(function(response) {
-			getUserDetails();
-			$http.get('/api/users/interest/find').success(function(response) {
-				$scope.recommenededInterests = response;
-			});
-		});
-	};
+    Title.set('Settings');
+    getUserDetails();
 
-	$scope.changePassword = function() {
-		User.changePassword({
-			currentPassword: $scope.currentPassword,
-			newPassword: $scope.newPassword
-		}).$promise.then(function(response) {
-			if (response.error) {
-				alert(response.error);
-			}
-			else {
-				$scope.currentPassword = '';
-				$scope.newPassword = '';
-			}
-		});
-	};
+    // Move to a function
+    Matchmaking.findCurrentSearches({}, function(data) {
+      vm.match = data;
+    });
 
-	$scope.deleteMatch = function(id) {
-		Matchmaking.deleteMatch({ _id: id }).$promise.then(function(response) {
-			Matchmaking.findCurrentSearches({}, function(data) {
-				$scope.match = data;
-			});
-		});
-	};
+    $http.get('/api/users/interest/find').success(function(response) {
+      vm.recommenededInterests = response;
+    });
 
-	$scope.editUser = function() {
-		User.update({
-			_id: $scope.user._id,
-			name: $scope.user.name,
-			email: $scope.user.email,
-			private: $scope.user.private,
-			home_location: $scope.user.home_location
-		}).$promise.then(function(response) {
-			if (response.message === "User has been updated") {
-				alert("Profile Updated!");
-				getUserDetails();
-			}
-		});
-	};
+    function getUserDetails() {
+      User.getSignedInUser({}, function(user) {
+        vm.user = user;
 
-	$scope.addInterest = function() {
-		var interest = prompt("Please enter the interest:");
-		if (interest !== null) {
-			User.addInterest({ interest: interest }).$promise.then(function(response) {
-				getUserDetails();
+        vm.map = {
+          center: vm.user.home_location.coordinates,
+          zoom: 12
+        };
 
-				$http.get('/api/users/interest/find').success(function(response) {
-					$scope.recommenededInterests = response;
-				});
-			});
-		}
-	};
-	
-	$scope.removeInterest = function(interest) {
-		User.removeInterest({ interest: interest }).$promise.then(function(response) {
-			getUserDetails();
+        vm.userMarker = {
+          id: 0,
+          options: {
+            title: "You!",
+            icon: {
+              url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+            },
+            draggable: true
+          },
+          events: {
+            dragend: function(marker, eventName, args) {
+              vm.user.home_location.coordinates = [marker.getPosition().lng(), marker.getPosition().lat()];
+            }
+          },
+          coords: vm.user.home_location.coordinates
+        };
+      }); 
+    }
 
-			$http.get('/api/users/interest/find').success(function(response) {
-				$scope.recommenededInterests = response;
-			});
-		});
-	};
-});
+    function editUser() {
+      User.update({
+        _id: vm.user._id,
+        name: vm.user.name,
+        email: vm.user.email,
+        private: vm.user.private,
+        home_location: vm.user.home_location
+      }).$promise.then(function(response) {
+        if (response.message === "User has been updated") {
+          alert("Profile Updated!");
+          getUserDetails();
+        }
+      });
+    }
+
+    function addRecommendedInterest(interest) {
+      User.addInterest({ interest: interest }).$promise.then(function(response) {
+        getUserDetails();
+        $http.get('/api/users/interest/find').success(function(response) {
+          vm.recommenededInterests = response;
+        });
+      });
+    }
+
+    function addInterest() {
+      var interest = prompt("Please enter the interest:");
+      if (interest !== null) {
+        User.addInterest({ interest: interest }).$promise.then(function(response) {
+          getUserDetails();
+  
+          $http.get('/api/users/interest/find').success(function(response) {
+            vm.recommenededInterests = response;
+          });
+        });
+      }     
+    }
+
+    function removeInterest(interest) {
+      User.removeInterest({ interest: interest }).$promise.then(function(response) {
+        getUserDetails();
+
+        $http.get('/api/users/interest/find').success(function(response) {
+          vm.recommenededInterests = response;
+        });
+      });
+    }
+
+    function changePassword() {
+      User.changePassword({
+        currentPassword: vm.currentPassword,
+        newPassword: vm.newPassword
+      }).$promise.then(function(response) {
+        if (response.error) {
+          alert(response.error);
+        }
+        else {
+          alert('Password changed!');
+          vm.currentPassword = '';
+          vm.newPassword = '';
+        }
+      });      
+    }
+
+    function deleteMatch(id) {
+      Matchmaking.deleteMatch({ _id: id }).$promise.then(function(response) {
+        Matchmaking.findCurrentSearches({}, function(data) {
+          vm.match = data;
+        });
+      });
+    }
+  }
 })();
