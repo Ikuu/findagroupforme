@@ -1,6 +1,9 @@
 <div class="container">
 	<h2>Messages</h2>
-	<ul class="list-group">
+	<div ng-show="vm.user.messages.length === 0">
+		No Messages
+	</div>
+	<ul class="list-group" ng-show="vm.user.messages.length > 0">
 		<li class="list-group-item" ng-repeat="message in vm.user.messages | orderBy: 'date'">
 			<text ng-bind-html="message.text"></text> - Sent On: {{message.date  | date: 'medium'}} - Sent By: {{message.sender}} - Viewed: {{message.viewed}}
 			<p>

@@ -6,10 +6,10 @@
 	Owner: {{vm.group.owner.name}}
 </p>
 <p>
-	<button ng-click="vm.joinButton()" class="btn btn-primary">Join</button>
-	<button ng-click="vm.leaveButton()" class="btn btn-warning">Leave</button>
-	<button ng-click="vm.editButton()" class="btn btn-info">Edit</button>
-	<button ng-click="vm.deleteButton()" class="btn btn-danger">Delete</button>
+	<button ng-click="vm.joinButton()" ng-show="!vm.isMember" class="btn btn-primary">Join</button>
+	<button ng-click="vm.leaveButton()" ng-show="vm.isMember" class="btn btn-warning">Leave</button>
+	<button ng-click="vm.editButton()" ng-show="vm.canEdit" class="btn btn-info">Edit</button>
+	<button ng-click="vm.deleteButton()" ng-show="vm.canEdit" class="btn btn-danger">Delete</button>
 </p>
 		
 <h3>Users</h3>
@@ -41,4 +41,4 @@
 	<event-details></event-details>
 </li>
 
-<event-create></event-create>
+<event-create ng-show="vm.canEdit"></event-create>

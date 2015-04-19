@@ -10,6 +10,7 @@
     var vm = this;
 
     vm.groupMarkerList = [];
+    vm.hasEventsToday = false;
     vm.map = {};
     vm.todaysEvents = [];
     vm.user = {};
@@ -47,6 +48,7 @@
       };
 
       vm.user.groups.forEach(function(group) {
+        if (group.events.length > 0) vm.hasEventsToday = true;
         vm.groupMarkerList.push({
           id: group._id,
           options: {

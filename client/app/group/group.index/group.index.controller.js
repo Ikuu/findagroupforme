@@ -8,10 +8,12 @@
 	function GroupController($scope, $location, $routeParams, Group, Title) {
 		var vm = this;
 
+		vm.canEdit = false;
 		vm.deleteButton = deleteButton;
 		vm.editButton = editButton;
 		vm.group = {};
 		vm.groupMarker = {};
+		vm.isMember = false;
 		vm.joinButton = joinButton;
 		vm.leaveButton = leaveButton;
 		vm.map = {};
@@ -21,7 +23,11 @@
 		loadGroupDetails();
 
 		function loadGroupDetails() {
-			vm.group = Group.get({ _id: $routeParams.id }, function(group) {
+			Group.get({ _id: $routeParams.id }, function(response) {
+				var group = response.group;
+				vm.group = group;
+				vm.canEdit = response.owner;
+				vm.isMember = response.member;
 				Title.set(group.name);
 	
 				if (group.privateGroup) {

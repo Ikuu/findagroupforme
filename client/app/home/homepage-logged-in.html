@@ -19,6 +19,9 @@
 
 <h2>What's On Today!</h2>
 <p>See what's happening today in the groups you're part of.</p>
+<div ng-show="!vm.hasEventsToday">
+  <p>Sorry, nothing on today!</p>
+</div>
 <div ng-repeat="group in vm.user.groups">
   <h3 ng-show="group.events.length > 0">{{group.name}}</h3>
   <p ng-repeat="event in group.events | orderBy: 'date'">

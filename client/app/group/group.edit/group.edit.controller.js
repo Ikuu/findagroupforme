@@ -16,9 +16,9 @@
 		loadGroupDetails();
 
 		function loadGroupDetails() {
-			Group.get({ _id: $routeParams.id }, function(group) {
-				Title.set('Editing ' + group.name);
-				vm.group = group;
+			Group.get({ _id: $routeParams.id }, function(response) {
+				Title.set('Editing ' + response.group.name);
+				vm.group = response.group;
 	
 				vm.map = {
 					center: vm.group.location.coordinates,

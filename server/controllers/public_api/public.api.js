@@ -11,7 +11,7 @@ exports.findAllUsers = function(req, res) {
 	User
 		.find()
 		.where('private').equals(false)
-		.select("-password -home_location -api -facebook -google -twitter -messages")
+		.select("-password -home_location -api -facebook -google -twitter -messages -salt")
 		.populate('groups', 'name interest')
 		.exec(function(err, users) {
 			var noUsers = (err || users.length === 0 || users === null);
@@ -26,7 +26,7 @@ exports.findUser = function(req, res) {
 		.findOne({ _id: req.params.user_id })
 		.where('private').equals(false)
 		.populate('groups', 'name interest')
-		.select("-password -home_location -api -facebook -google -twitter -messages")
+		.select("-password -home_location -api -facebook -google -twitter -messages -salt")
 		.exec(function(err, user) {
 			var userNotFound = (err || user === null);
 			if (userNotFound) return res.send({ error: "user does not exist, or is private" });
