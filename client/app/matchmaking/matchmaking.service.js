@@ -1,4 +1,3 @@
-// Need ability to delete a search
 angular.module('app.core')
 .factory('Matchmaking', function($resource) {
 	return $resource('/api/match/:_id', {}, {

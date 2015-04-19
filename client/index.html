@@ -15,8 +15,8 @@
 </head>
 <body>
   <header class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation" ng-controller="MenuBarController as vm">
-    <menubar-logged-out ng-if="vm.loggedIn == false"></menubar-logged-out>
-    <menubar-logged-in ng-if="vm.loggedIn == true"></menubar-logged-in>
+    <menubar-logged-out ng-if="!vm.loggedIn"></menubar-logged-out>
+    <menubar-logged-in ng-if="vm.loggedIn"></menubar-logged-in>
   </header>
   
   <main ng-view></main>
