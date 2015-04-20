@@ -1,7 +1,7 @@
 var User = require('../../models/user');
 
 exports.addInterest = function(req, res) {
-  var interestQuery = { $push: { 'interests': req.params.interest } };
+  var interestQuery = { $addToSet: { 'interests': req.params.interest } };
 
   User.update({ _id: req.user._id }, interestQuery, function(err, user) {
     if (err) return res.send({ error: "item could not be added." });

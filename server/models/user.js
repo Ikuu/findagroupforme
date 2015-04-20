@@ -18,12 +18,6 @@ var UserSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  address: {
-    street: String, 
-    city: String,
-    post_code: String,
-    country: String
-  },
   email: {
     type: String,
     lowercase: true
@@ -31,7 +25,6 @@ var UserSchema = mongoose.Schema({
   password: {
     type: String
   },
-  date_of_birth: Date,
   date_registered: {
     type: Date,
     default: Date.now

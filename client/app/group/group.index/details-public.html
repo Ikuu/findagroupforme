@@ -8,8 +8,8 @@
 <p>
   <button ng-click="vm.joinButton()" ng-show="!vm.isMember" class="btn btn-primary">Join</button>
   <button ng-click="vm.leaveButton()" ng-show="vm.isMember" class="btn btn-warning">Leave</button>
-  <button ng-click="vm.editButton()" ng-show="vm.canEdit" class="btn btn-info">Edit</button>
-  <button ng-click="vm.deleteButton()" ng-show="vm.canEdit" class="btn btn-danger">Delete</button>
+  <button ng-click="vm.editButton()" ng-if="vm.canEdit" class="btn btn-info">Edit</button>
+  <button ng-click="vm.deleteButton()" ng-if="vm.canEdit" class="btn btn-danger">Delete</button>
 </p>
     
 <h3>Users</h3>

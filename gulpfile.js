@@ -8,28 +8,28 @@ var ngAnnotate = require('gulp-ng-annotate');
 var paths = require('./gulp.config.json');
 
 gulp.task('lint', function(){
-	return gulp.src(paths.js)
-		.pipe(jshint())
-		.pipe(jshint.reporter('default'));
+  return gulp.src(paths.js)
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'));
 });
 
 gulp.task('angular', function(){
-	return gulp.src(paths.js)
-		.pipe(plumber())
-		.pipe(concat('app.min.js'))
-		.pipe(ngAnnotate())
-		//.pipe(uglify())
-		.pipe(gulp.dest('client/dist'));
+  return gulp.src(paths.js)
+    .pipe(plumber())
+    .pipe(concat('app.min.js'))
+    .pipe(ngAnnotate())
+    .pipe(uglify())
+    .pipe(gulp.dest('client/dist'));
 });
 
 gulp.task('watch-angular', function(){
-	gulp.watch('client/app/**/*.js', ['lint', 'angular']);
+  gulp.watch('client/app/**/*.js', ['lint', 'angular']);
 });
 
 gulp.task('lint-back', function(){
-	return gulp.src('server/**/*.js')
-		.pipe(jshint())
-		.pipe(jshint.reporter('default'));
+  return gulp.src('server/**/*.js')
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'));
 });
 
 gulp.task('default', ['lint', 'angular', 'watch-angular']);
