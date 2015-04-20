@@ -9,8 +9,10 @@
   function SettingsController($routeParams, User, $location, Title, Matchmaking, $http) {
     var vm = this;
     vm.addressNotVerified = true;
+    vm.firstTime = ($routeParams.message === 'first-time');
     vm.map = {};
     vm.match = [];
+    vm.socialMediaLogin = false;
     vm.user = {};
     vm.userMarker = {};
 
@@ -45,6 +47,7 @@
     function getUserDetails() {
       User.getSignedInUser({}, function(user) {
         vm.user = user;
+        vm.socialMediaLogin = (user.strategy === 'local');
 
         vm.map = {
           center: vm.user.home_location.coordinates,

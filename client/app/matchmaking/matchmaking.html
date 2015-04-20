@@ -5,13 +5,18 @@
   <form class="form" method="post" ng-submit="vm.findMatchmakingGroup(interest)">
     <div class="form-group">
       <label>Interest</label>
-      <input type="text" name="name" ng-model="interest" class="form-control"/>
+      <input type="text" name="name" ng-model="vm.interest" class="form-control"/>
     </div>
     <div>
-       <button class="btn btn-block btn-success" ng-disabled="!interest" type="submit">Start Matchmaking!</button>
+       <button class="btn btn-block btn-success" ng-disabled="!vm.interest" type="submit">Start Matchmaking!</button>
     </div>
   </form>
 
   <h2>Results</h2>
-  <p>{{vm.message}}</p>
+  <div ng-show="!vm.groupFound">
+    <p>{{vm.message}}</p>   
+  </div>
+  <div ng-show="vm.groupFound">
+    <p><a href="#/match/{{vm.groupId}}">Match has been found!</a></p>
+  </div>
 </div>

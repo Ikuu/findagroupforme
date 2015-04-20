@@ -29,19 +29,20 @@
     }
   
     function declineButton() {
-      $http.post('/api/tempGroup/invite/decline/'+ $routeParams.id)
-      .success(function(response) {
-        if (response.error === "tempgroup not found") {
-          $location.path('/');
-        }       
-        retrieveMatchDetails();
-      });
+      $http
+        .post('/api/tempGroup/invite/decline/'+ $routeParams.id)
+        .success(function(response) {
+          if (response.error === "tempgroup not found") {
+            $location.path('/');
+          }       
+          retrieveMatchDetails();
+        });
     }
 
     function retrieveMatchDetails() {
       $http.get('/api/tempGroup/'+$routeParams.id)
       .success(function(response) {
-        if (response.message === "error") {
+        if (response.error) {
           $location.path('/');
         }
 

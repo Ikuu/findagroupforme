@@ -16,8 +16,7 @@ module.exports = function(app, passport) {
         return res.redirect('/');
       }
       else {
-        // maybe setttings/firsttime then on client read firsttime and diplay message
-        return res.redirect('/#/settings');
+        return res.redirect('/#/settings/first-time');
       }
     });
 
@@ -31,8 +30,7 @@ module.exports = function(app, passport) {
         return res.redirect('/');
       }
       else {
-        // maybe setttings/firsttime then on client read firsttime and diplay message
-        return res.redirect('/#/settings');
+        return res.redirect('/#/settings/first-time');
       }
     });
 
@@ -47,16 +45,10 @@ module.exports = function(app, passport) {
         return res.redirect('/');
       }
       else {
-        // maybe setttings/firsttime then on client read firsttime and diplay message
-        return res.redirect('/#/settings');
+        return res.redirect('/#/settings/first-time');
       }
     });
-
-  // Debug function, prints session
-  app.get('/log', function(req, res) {
-    res.send(req.session);
-  });
-
+  
   // This needs to be it's own route
   function filterEvents(results) {
     var currentTime = moment();

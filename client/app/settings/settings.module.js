@@ -14,6 +14,11 @@
       templateUrl: '/app/settings/settings.html',
       controller: 'SettingsController',
       controllerAs: 'vm'
+    })
+    .when('/settings/:message', {
+      templateUrl: '/app/settings/settings.html',
+      controller: 'SettingsController',
+      controllerAs: 'vm'
     });
   }
 })();
