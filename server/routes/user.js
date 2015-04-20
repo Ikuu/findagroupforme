@@ -6,10 +6,10 @@ var UserApiController = require('../controllers/user/user.public.api');
 var AuthUserController = require('../controllers/auth/auth.user');
 var InterestController = require('../controllers/user/user.interest');
 
-router.get('/', UserController.index);				
-router.get('/:user_id', AuthUserController.checkIfLoggedIn, UserController.findById);	
-router.post('/', AuthUserController.checkIfNotLoggedIn, UserController.add);				
-router.put('/:user_id', AuthUserController.checkIfCorrectUser, UserController.update);		
+router.get('/', UserController.index);        
+router.get('/:user_id', AuthUserController.checkIfLoggedIn, UserController.findById); 
+router.post('/', AuthUserController.checkIfNotLoggedIn, UserController.add);        
+router.put('/:user_id', AuthUserController.checkIfCorrectUser, UserController.update);    
 router.delete('/:user_id', UserController.delete);
 
 router.put('/password/update', AuthUserController.checkIfLoggedIn, UserController.changePassword);

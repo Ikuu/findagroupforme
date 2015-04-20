@@ -1,4 +1,10 @@
 <div class="container">
+  <div class="alert alert-danger" role="alert" ng-if="vm.failedLogin()">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error:</span>
+      Username or Password was incorrect!
+  </div>
+
   <h1>Login</h1>
   <form action="/auth/local" method="post">
     <div class="form-group">

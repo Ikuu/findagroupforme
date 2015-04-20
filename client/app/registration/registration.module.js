@@ -15,6 +15,11 @@
       controller: 'LoginController',
       controllerAs: 'vm'
     })
+    .when('/login/:error', {
+      templateUrl: '/app/registration/login.html',
+      controller: 'LoginController',
+      controllerAs: 'vm'
+    })
     .when('/signup', {
       templateUrl: '/app/registration/signup.html',
       controller: 'SignupController',

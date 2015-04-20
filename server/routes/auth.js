@@ -5,7 +5,7 @@ var _ = require('lodash');
 module.exports = function(app, passport) {
   app.post('/auth/local', passport.authenticate('local', { 
     successRedirect: '/',
-    failureRedirect: '/#/login'
+    failureRedirect: '/#/login/error'
   }));
 
   app.get('/auth/twitter', passport.authenticate('twitter'));
@@ -92,7 +92,6 @@ module.exports = function(app, passport) {
     }
   });
 
-  // Look at removing session from collection upon delete.
   app.get('/logout', function(req, res) {
     req.session.destroy();
     res.redirect('/');

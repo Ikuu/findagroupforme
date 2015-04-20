@@ -30,12 +30,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(session({
-	secret: '<mysecret>',
-	store: new MongoStore({
-		url: dbConfig.url
-	}),
-	resave: true,
-	saveUninitialized: true
+  secret: '<mysecret>',
+  store: new MongoStore({
+    url: dbConfig.url
+  }),
+  resave: true,
+  saveUninitialized: true
 }));
 require('./config/passport.js')(passport);
 app.use(passport.initialize());
@@ -52,5 +52,5 @@ require('./routes/auth.js')(app, passport);
 
 // Start App.
 app.listen(app.get('port'), function() {
-	console.log('Express server listening on port ' + app.get('port'));
+  console.log('Express server listening on port ' + app.get('port'));
 });
