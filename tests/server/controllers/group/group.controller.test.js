@@ -180,7 +180,7 @@ describe('Group Controller Unit Tests:', function() {
 			GroupController.findById(req, res);
 	
 			setTimeout(function () {
-				res._body.name.should.be.exactly('Test Group');
+				res._body.group.name.should.be.exactly('Test Group');
 				done();
 			}, 200);
 		});

@@ -63,7 +63,6 @@ exports.findMatch = function(req, res) {
 
   Matchmaking.create(newMatch, function(err, match) {
     Matchmaking.geoNear(coords, options, function(err, results, stats) {
-      console.log(results);
       var noMatch = (results === null || GROUP_SIZE > results.length);
       if (noMatch) {
         return res.send({ message: "not enough matches to make group" });
