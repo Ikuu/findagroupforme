@@ -7,6 +7,7 @@ var AuthGroupController = require('../controllers/auth/auth.group');
 
 router.get('/', GroupController.index);
 router.get('/:group_id', AuthGroupController.checkIfLoggedIn, GroupController.findById);
+router.get('/interest/:interest', AuthGroupController.checkIfLoggedIn, GroupController.findByInterest);
 router.post('/', AuthGroupController.checkIfLoggedIn, GroupController.add);
 router.put('/:group_id', AuthGroupController.hasGroupPermission, GroupController.update);
 router.delete('/:group_id', AuthGroupController.hasGroupPermission, GroupController.delete);

@@ -3,10 +3,12 @@
     .module('app.core')
     .controller('GroupsController', GroupsController);
 
-  function GroupsController(User, Group, Title, $location) {
+  function GroupsController(User, Group, Title, $location, $http) {
     var vm = this;
+    vm.findInterest = findInterest;
     vm.groups = [];
     vm.groupMarkerList = [];
+    vm.interest = '';
     vm.user = {};
 
     Title.set('Groups');
@@ -40,6 +42,11 @@
         coords: vm.user.home_location.coordinates
       };
 
+      createGroupMarkers();
+    }
+
+    function createGroupMarkers() {
+      vm.groupMarkerList = [];
       vm.groups.forEach(function(group) {
         vm.groupMarkerList.push({
           id: group._id,
@@ -55,6 +62,21 @@
           }
         });
       });
+    }
+
+    function findInterest() {
+      $http
+        .get('/api/groups/interest/'+vm.interest.toLowerCase())
+        .success(function(response) {
+          if (response.error) {
+            vm.groups = [];
+            vm.groupMarkerList = [];
+          }
+          else {
+            vm.groups = response;
+            createGroupMarkers();
+          }
+        })
     }
   }
 })();

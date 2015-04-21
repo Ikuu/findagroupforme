@@ -186,6 +186,44 @@ describe('Group Controller Unit Tests:', function() {
 		});
 	});
 
+	describe("findByInterest Unit Tests", function() {
+		it("should return no results", function(done) {
+			req = {
+				params: {
+					interest: "judo"
+				}
+			};
+			res = { _body: null, render: function() { 'noop'; }};
+			res.send = function (body) { res._body = body; };
+	
+			GroupController.findByInterest(req, res);
+	
+			setTimeout(function () {
+				res._body.error.should.be.exactly('no groups found');
+				done();
+			}, 200);
+		});
+
+
+		it("should return the group added", function(done) {
+			req = {
+				params: {
+					interest: "football"
+				}
+			};
+			res = { _body: null, render: function() { 'noop'; }};
+			res.send = function (body) { res._body = body; };
+	
+			GroupController.findByInterest(req, res);
+	
+			setTimeout(function () {
+				res._body[0].interest.should.be.exactly('football');
+				done();
+			}, 200);
+
+		});
+	});
+
 	describe("update Unit Tests", function() {
 		it("should fail to update group with no id", function(done) {
 			req = {

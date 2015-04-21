@@ -13,7 +13,7 @@
   function config($routeProvider) {
     $routeProvider
     .when('/groups', {
-      templateUrl: '/app/group/groups.html',
+      templateUrl: '/app/group/groups/groups.html',
       controller: 'GroupsController',
       controllerAs: 'vm'
     })

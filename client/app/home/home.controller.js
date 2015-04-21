@@ -22,7 +22,6 @@
     function loadUserDetails() {
       UserFactory.getUser().then(function success(response) {
         vm.user = response.data;
-        console.log(vm.user);
         renderMap();
       });
     }

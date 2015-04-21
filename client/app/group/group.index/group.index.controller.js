@@ -24,6 +24,7 @@
 
     function loadGroupDetails() {
       Group.get({ _id: $routeParams.id }, function(response) {
+        if (response.error) return $location.path('/404');
         var group = response.group;
         vm.group = group;
         vm.canEdit = response.owner;

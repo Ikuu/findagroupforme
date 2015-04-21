@@ -42,9 +42,7 @@
     function retrieveMatchDetails() {
       $http.get('/api/tempGroup/'+$routeParams.id)
       .success(function(response) {
-        if (response.error) {
-          $location.path('/');
-        }
+        if (response.error) return $location.path('/404');
 
         vm.tempGroup = response;
         vm.acceptedByDate = new Date(response.date_created);

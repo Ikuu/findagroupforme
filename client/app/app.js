@@ -4,8 +4,7 @@
   angular
     .module('app', [
       'ngRoute', 
-      'ngResource', 
-      'ngMessages',
+      'ngResource',
       'ngSanitize',
 
       // Modules

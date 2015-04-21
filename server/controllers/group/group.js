@@ -5,6 +5,7 @@ var _ = require('lodash');
 exports.index = function(req, res) {
   Group
     .find()
+    .limit(100)
     .populate('members', 'name home_location')
     .populate('owner', 'username name')
     .exec(function (err, group) {
@@ -43,6 +44,21 @@ exports.findById = function(req, res) {
       }
     });
 };
+
+exports.findByInterest = function(req, res) {
+  Group
+    .find({ interest: req.params.interest })
+    .limit(100)
+    .populate('members', 'name home_location')
+    .populate('owner', 'username name')
+    .exec(function (err, group) {
+      var groupNotFound = (err || group === null || group.length === 0);
+      if (groupNotFound) {
+        return res.send({ error: 'no groups found' });
+      }
+    return res.send(group);
+  }); 
+}
 
 exports.add = function(req, res) {
   var userObjectMissing = (req.user === undefined || req.user === null);
