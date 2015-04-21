@@ -36,23 +36,29 @@
 
     Title.set('Sign Up');
 
-    function createUser() {
-      User.save({
-        username: vm.user.username,
-        name: vm.user.name,
-        password: vm.user.password,
-        email: vm.user.email,
-        privacy: vm.user.privacy,
-        home_location: home_location
-      }).$promise.then(function(response) {
-        if (response.error) {
-          console.log(response.error);
-          alert("Error Signing Up!");
-        }
-        else {
-          $location.path('/login');
-        }
-      });
+    function createUser(isValid) {
+      if (isValid) {
+        User.save({
+          username: vm.user.username,
+          name: vm.user.name,
+          password: vm.user.password,
+          email: vm.user.email,
+          privacy: vm.user.privacy,
+          home_location: home_location
+        }).$promise.then(function(response) {
+          if (response.error) {
+            if (response.error.code === 11000) {
+              alert("Username is already in-use!");
+            }
+            else {
+              alert('Error signing up!');
+            }
+          }
+          else {
+            $location.path('/login');
+          }
+        });
+      }
     }
   }
 })();

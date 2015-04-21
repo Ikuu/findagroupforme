@@ -16,7 +16,8 @@ var UserSchema = mongoose.Schema({
   },
   username: {
     type: String,
-    required: true
+    required: true,
+    unique: 'Username must be unique'
   },
   email: {
     type: String,
