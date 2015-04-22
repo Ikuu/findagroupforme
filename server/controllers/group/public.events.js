@@ -54,10 +54,10 @@ exports.findPublicEvent = function(req, res) {
 
   Group.geoNear(coords, options, function(err, results, stats) {
     var noResults = (err || results === null || results.length === 0);
-    if (noResults) return res.send({user: coords, message: "no events found" });
+    if (noResults) return res.send({ user: coords, message: "no events found" });
 
     results = filterEvents(results);
 
-    return res.send({user: coords, results: results });
+    return res.send({ user: coords, results: results });
   });
 };

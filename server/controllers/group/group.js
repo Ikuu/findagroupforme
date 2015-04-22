@@ -22,7 +22,7 @@ exports.findById = function(req, res) {
 
   Group
     .findOne({ _id: req.params.group_id })
-    .populate('members', 'name home_location')
+    .populate('members', 'username name home_location')
     .populate('owner', 'username name')
     .exec(function(err, group) {
       if (err || group === null) return res.send({error: "group could not be found."});

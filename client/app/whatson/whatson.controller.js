@@ -21,7 +21,7 @@
     getMapDetails();
   
     function getMapDetails(location) {
-      $http.get('./api/groups/public/events',{ params: { user_location: location } }).success(function(response) {
+      $http.get('/api/groups/public/events',{ params: { user_location: location } }).success(function(response) {
         loadMapDetails(response);
         response.message ? vm.noEvents = true : vm.noEvents = false;
       });   

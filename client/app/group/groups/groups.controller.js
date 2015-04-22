@@ -76,7 +76,7 @@
             vm.groups = response;
             createGroupMarkers();
           }
-        })
+        });
     }
   }
 })();
