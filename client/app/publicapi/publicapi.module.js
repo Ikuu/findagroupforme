@@ -3,6 +3,7 @@
 
   angular
     .module('app.publicApi', [
+      'ngRoute'
     ])
     .config(config);
 

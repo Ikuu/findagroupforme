@@ -22,7 +22,7 @@
           $location.path('/groups/' + response.group._id);
         }
         if (response.error === "tempgroup not found") {
-          $location.path('/');
+          $location.path('/404');
         }
         retrieveMatchDetails(); 
       });
@@ -33,7 +33,7 @@
         .post('/api/tempGroup/invite/decline/'+ $routeParams.id)
         .success(function(response) {
           if (response.error === "tempgroup not found") {
-            $location.path('/');
+            return $location.path('/404');
           }       
           retrieveMatchDetails();
         });

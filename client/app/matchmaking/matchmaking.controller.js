@@ -8,7 +8,7 @@
   function MatchmakingController(Title, Matchmaking) {
     var vm = this;
 
-    vm.message = "Search for a group first!";
+    vm.message = "Search for a interest first!";
     vm.findMatchmakingGroup = findMatchmakingGroup;
     vm.groupFound = false;
     vm.groupId = '';

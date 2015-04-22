@@ -371,56 +371,56 @@ var Groups = (function () {
 
   function singleGroup() {
     return {
-owner: false,
-member: false,
-group: {
-_id: "54bf8b8666a4350000a8378c",
-description: "This is a soccer group!!!",
-interest: "soccer",
-name: "Soccer Group",
-owner: {
-_id: "54bd693719aee30000967768",
-username: "Ikuu",
-name: "Alexander Anderson"
-},
-__v: 37,
-events: [ ],
-posts: [ ],
-members: [
-{
-_id: "54bd693719aee30000967768",
-name: "Alexander Anderson",
-home_location: {
-type: "Point",
-coordinates: [
--4.448469161987305,
-55.9058849515648
-]
-}
-},
-{
-_id: "547b6252ee09fef8405d1834",
-name: "Alex",
-home_location: {
-type: "Point",
-coordinates: [
--4.439222500000028,
-55.8440731
-]
-}
-}
-],
-location: {
-type: "Point",
-coordinates: [
--4.467306570019559,
-55.86700381733336
-]
-},
-private: false,
-date_created: "2015-01-21T11:20:38.440Z"
-}
-}
+      owner: false,
+      member: false,
+      group: {
+        _id: "54bf8b8666a4350000a8378c",
+        description: "This is a soccer group!!!",
+        interest: "soccer",
+        name: "Soccer Group",
+        owner: {
+          _id: "54bd693719aee30000967768",
+          username: "Ikuu",
+          name: "Alexander Anderson"
+        },
+        __v: 37,
+        events: [],
+        posts: [],
+        members: [
+          {
+            _id: "54bd693719aee30000967768",
+            name: "Alexander Anderson",
+            home_location: {
+              type: "Point",
+              coordinates: [
+                -4.448469161987305,
+                55.9058849515648
+              ]
+            }
+          },
+          {
+            _id: "547b6252ee09fef8405d1834",
+            name: "Alex",
+            home_location: {
+              type: "Point",
+              coordinates: [
+                -4.439222500000028,
+                55.8440731
+              ]
+            }
+          }
+        ],
+        location: {
+          type: "Point",
+          coordinates: [
+            -4.467306570019559,
+            55.86700381733336
+          ]
+        },
+        private: false,
+        date_created: "2015-01-21T11:20:38.440Z"
+      }
+    }
   }
 
   function mockInterestData() {

@@ -9,6 +9,7 @@
   function SettingsController($routeParams, User, $location, Title, Matchmaking, $http) {
     var vm = this;
     vm.addressNotVerified = true;
+    vm.editUser = editUser;
     vm.firstTime = ($routeParams.message === 'first-time');
     vm.map = {};
     vm.match = [];
