@@ -47,7 +47,7 @@
     function editGroup() {
       Group.update(vm.group).$promise.then(function(response) {
         if (response.message == "group has been updated.") {
-          alert("updated");
+          alert("Group has been updated!");
           loadGroupDetails();
         }
       });

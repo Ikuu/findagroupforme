@@ -6,7 +6,6 @@
     .controller('HomeController', HomeController);
 
   function HomeController(Title, UserFactory, $location) {
-    // Use a resolve here, to get user info, would make the code cleaner
     var vm = this;
 
     vm.groupMarkerList = [];

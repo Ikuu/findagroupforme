@@ -85,7 +85,7 @@ exports.add = function(req, res) {
       });
   
     Group.create(newGroup, function(err, group) {
-      if (err || group === null) return res.send({error: "unable to create group."});
+      if (err || group === null) return res.send({ error: "unable to create group." });
       return res.send({
         _id: group._id,
         name: group.name,

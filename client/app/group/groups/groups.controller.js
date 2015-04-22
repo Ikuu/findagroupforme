@@ -10,7 +10,7 @@
     vm.groupMarkerList = [];
     vm.interest = '';
     vm.user = {};
-
+    
     Title.set('Groups');
     loadDetails();
 

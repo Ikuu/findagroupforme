@@ -3,9 +3,9 @@
 
   angular
     .module('app.core')
-    .controller('404Controller', Controller);
+    .controller('404Controller', Controller404);
 
-  function Controller(Title) {
+  function Controller404(Title) {
     Title.set('404 Error');
   }
 })();

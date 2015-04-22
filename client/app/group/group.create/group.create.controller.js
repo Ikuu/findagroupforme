@@ -42,6 +42,7 @@
         description: vm.description,
         location: vm.group_location
       }).$promise.then(function(response) {
+        if (response.error) return alert('Group could not be added');
         alert("Group has been added!");
         $location.path('/groups/' + response._id);
       });
