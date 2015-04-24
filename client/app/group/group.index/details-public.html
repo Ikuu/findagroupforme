@@ -3,7 +3,7 @@
   Interest: {{vm.group.interest}}</br>
   Date Created: {{vm.group.date_created | date:'dd/MM/yyyy'}}</br>
   Description: {{vm.group.description}}</br>
-  Owner: {{vm.group.owner.name}}
+  Owner: {{vm.group.owner.username}}
 </p>
 <p>
   <button ng-click="vm.joinButton()" ng-show="!vm.isMember" class="btn btn-primary">Join</button>
