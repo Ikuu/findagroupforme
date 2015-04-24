@@ -159,8 +159,8 @@ describe('Group Controller Unit Tests:', function() {
 	
 			setTimeout(function () {
 				res._body.should.be.an.Object;
-				res._body.name.should.be.exactly('Test Group');
-				res._body.privateGroup.should.be.exactly(true);
+				res._body.group.name.should.be.exactly('Test Group');
+				res._body.group.privateGroup.should.be.exactly(true);
 				done();
 			}, 200);
 		});

@@ -97,7 +97,6 @@ exports.findMatch = function(req, res) {
         var userUpdate = { $push : { 'messages': { sender: 'The Matchmaking Service', 'text': userMessage } } };
         User.update(userQuery, userUpdate, { multi: true }, function(err) {});
 
-        console.log(newTempGroup);
         return res.send({ 
           message: "temp group has been made, and messages sent.",
           group: newTempGroup
