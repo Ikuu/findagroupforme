@@ -41,7 +41,7 @@ exports.deleteMatch = function(req, res) {
 };
 
 exports.findMatch = function(req, res) {
-  var GROUP_SIZE = 2;
+  var GROUP_SIZE = 5;
   var MAX_DISTANCE = 10000;
   var coords = { 
     type: req.user.home_location.type,

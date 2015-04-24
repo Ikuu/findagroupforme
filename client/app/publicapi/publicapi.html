@@ -1,6 +1,6 @@
 <div class="container">
   <h2>Public API</h2>
-  <p>Use our API to access your data and then develop something with it!</p>
+  <p>Use our API to access your data and then develop something with it! You must include your API Key with the header for every request, it should be passed with a field named api_key.</p>
 
   <div ng-if="!vm.hasKey">
     <h3>Generate Key</h3>
@@ -26,7 +26,7 @@
   <h2>Details About API</h2>
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">GET - findAllUsers</h3>
+      <h3 class="panel-title">GET - /publicApi/users</h3>
     </div>
     <div class="panel-body">
       Returns an array of all the users in the database.
@@ -35,7 +35,7 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">GET - findUser</h3>
+      <h3 class="panel-title">GET - /publicApi/users/:user_id</h3>
     </div>
     <div class="panel-body">
       Returns a specific user.
@@ -44,7 +44,7 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">GET - findAllGroups</h3>
+      <h3 class="panel-title">GET - /publicApi/groups</h3>
     </div>
     <div class="panel-body">
       Returns an array of all the groups in the database.
@@ -53,7 +53,7 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">GET - findGroup</h3>
+      <h3 class="panel-title">GET - /publicApi/group/:group_id</h3>
     </div>
     <div class="panel-body">
       Returns a specific group.
@@ -62,7 +62,7 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">GET - apiUserProfile</h3>
+      <h3 class="panel-title">GET - /publicApi/apiuser</h3>
     </div>
     <div class="panel-body">
       Returns your current profile, more detailed than using findUser.
@@ -71,7 +71,7 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">GET - apiUserGroups</h3>
+      <h3 class="panel-title">GET - /publicApi/apiuser/groups</h3>
     </div>
     <div class="panel-body">
       Returns your groups, more detailed than using findGroup.
