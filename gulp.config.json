@@ -2,5 +2,17 @@
   "js": [
     "./client/app/**/*module*.js",
     "./client/app/**/*.js"
+  ],
+  "libs": [
+    "./client/assets/libs/jquery.min.js",
+    "./client/assets/libs/moment.js",
+    "./client/assets/libs/bootstrap.min.js",
+    "./client/assets/libs/angular.js",
+    "./client/assets/libs/angular-resource.js",
+    "./client/assets/libs/angular-route.js",
+    "./client/assets/libs/angular-sanitize.js",
+    "./client/assets/libs/lodash.js",
+    "./client/assets/libs/datetimepicker.js",
+    "./client/assets/libs/angular-google-maps.min.js"
   ]
 }

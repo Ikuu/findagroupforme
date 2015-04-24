@@ -25,20 +25,18 @@
     function loadGroupDetails() {
       Group.get({ _id: $routeParams.id }, function(response) {
         if (response.error) return $location.path('/404');
-        var group = response.group;
-        vm.group = group;
-        vm.canEdit = response.owner;
-        vm.isMember = response.member;
-        Title.set(group.name);
-  
-        if (group.privateGroup) {
-          vm.private = true; 
+        vm.group = response.group;
+
+        if (vm.group.privateGroup) {
+          vm.private = true;
         }
         else {
+          vm.canEdit = response.owner;
+          vm.isMember = response.member;
           vm.map = {
             center:{
-              latitude: group.location.coordinates[1],
-              longitude: group.location.coordinates[0]
+              latitude: vm.group.location.coordinates[1],
+              longitude: vm.group.location.coordinates[0]
             },
             zoom: 12
           };
@@ -46,18 +44,18 @@
           vm.groupMarker = {
             id: 0,
             options: {
-              title: group.name,
+              title: vm.group.name,
               icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
             },
             coords: {
-              latitude: group.location.coordinates[1],
-              longitude: group.location.coordinates[0]
+              latitude: vm.group.location.coordinates[1],
+              longitude: vm.group.location.coordinates[0]
             }
           };
     
           vm.markerList = [];
     
-          group.members.forEach(function(member) {
+          vm.group.members.forEach(function(member) {
             vm.memberMarkerList.push({
               id: member._id,
               options: {

@@ -37,9 +37,11 @@ exports.findById = function(req, res) {
       }
       else {
         return res.send({
-          id: group._id,
-          name: group.name,
-          privateGroup: true
+          group: {
+            _id: group._id,
+            name: group.name,
+            privateGroup: true
+          }
         });
       }
     });

@@ -7,7 +7,7 @@ var MatchmakingController = require('../../../../server/controllers/group/matchm
 var Matchmaking = require('../../../../server/models/matchmaking');
 var User = require('../../../../server/models/user');
 
-var match, match2, req, res;
+var match, match2, match3, match4, req, res;
 
 describe("Matchmaking Controller Unit Tests:", function() {
 	before(function(done) {
@@ -29,8 +29,28 @@ describe("Matchmaking Controller Unit Tests:", function() {
 			}
 		});
 
+		match3 = new Matchmaking({
+			user_id: "54bd69371e3000099ae67768",
+			interest: "soccer",
+			location: {
+				type: "Point",
+				coordinates: [-4.571489, 55.879622]
+			}
+		});
+
+		match4 = new Matchmaking({
+			user_id: "54b719aee300d69300967768",
+			interest: "soccer",
+			location: {
+				type: "Point",
+				coordinates: [-4.571489, 55.879622]
+			}
+		});
+
 		match.save();
 		match2.save();
+		match3.save();
+		match4.save();
 		done();
 	});
 
@@ -119,7 +139,7 @@ describe("Matchmaking Controller Unit Tests:", function() {
 			MatchmakingController.findMatch(req, res);
 	
 			setTimeout(function() {
-				res._body.group.users.length.should.be.exactly(3);
+				res._body.group.users.length.should.be.exactly(5);
 				done();
 			}, 200);
 		});

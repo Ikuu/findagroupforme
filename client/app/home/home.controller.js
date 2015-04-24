@@ -10,6 +10,7 @@
 
     vm.groupMarkerList = [];
     vm.hasEventsToday = false;
+    vm.loggedIn = false;
     vm.map = {};
     vm.todaysEvents = [];
     vm.user = {};
@@ -20,7 +21,9 @@
 
     function loadUserDetails() {
       UserFactory.getUser().then(function success(response) {
+        if (response.status === 204) return;
         vm.user = response.data;
+        vm.loggedIn = true;
         renderMap();
       });
     }
